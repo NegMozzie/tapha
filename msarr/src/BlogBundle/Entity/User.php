@@ -28,7 +28,7 @@ class User extends BaseUser implements BlogUserInterface, ArticleCommenterInterf
      *
      * @ORM\Column(name="blog_display_name", type="string")
      */
-    protected $blogDisplayName;
+    protected $blogDisplayName = "";
 
     public function getBlogDisplayName()
     {
