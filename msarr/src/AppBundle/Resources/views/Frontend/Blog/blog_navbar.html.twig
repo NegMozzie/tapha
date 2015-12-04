@@ -1,0 +1,20 @@
+{% if (categories|length) %}
+    {% for children in categories %}
+        <li class="dropdown">
+            <a href="{{ path('frontend_blog_by_category', {'categorySlug': children.term.slug}) }}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10" data-close-others="false">
+                        {{children.term.title}} 
+                        <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                {% for child in children.getChildren() %}
+                    <li>
+                        <a tabindex="-1" href="{{ path('frontend_blog_by_category', {'categorySlug': child.term.slug}) }}">{{child.term.title}}
+                        </a>
+                    </li>
+                {%endfor%}
+                <li><a tabindex="-1" href="#">Evenements</a></li>  
+            </ul>
+        </li>
+    {%endfor%}
+{%endif%}
+
