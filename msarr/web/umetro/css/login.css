@@ -1,0 +1,150 @@
+/* 
+    Document   : login
+    Created on : Aug 22, 2013, 11:14:37 PM
+    Author     : shaan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.page-heading {
+    background: url("../img/heading-back.jpg") repeat scroll 0 0 transparent !important;
+    border-bottom: 3px solid #DDDDDD !important;
+    border-top: 5px solid #DDDDDD !important;
+    padding: 25px 0;
+}
+.blightblue {
+    background: none repeat scroll 0 0 #747071 !important;
+    border: 0 none !important;
+    color: #FFFFFF !important;
+}
+* {
+    box-shadow: none !important;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    text-shadow: none !important;
+}
+.page-heading h2 i {
+    border: 3px solid #52B9E9;
+    top: -7px;
+}
+i.title-icon {
+    border-radius: 100px 100px 100px 100px !important;
+    display: inline-block;
+    font-size: 17px;
+    height: 35px;
+    line-height: 35px;
+    margin-right: 7px;
+    position: relative;
+    text-align: center;
+    width: 35px;
+    margin-top: 20px;
+}
+.radio, .checkbox {
+    padding-left: 205px;
+}
+
+
+h2{
+    font-family: 'Headland One', serif;
+}
+
+.page-heading .heading-meta {
+    font-size: 22px;
+    line-height: 65px;
+}
+.lightblue {
+    color: #52B9E9 !important;
+}
+* {
+    box-shadow: none !important;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    text-shadow: none !important;
+}
+.content {
+    margin: 20px 0;
+}
+* {
+    box-shadow: none !important;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    text-shadow: none !important;
+}
+.form-actions{
+    border-top: 0px;
+}
+.formy {
+    color: #FFFFFF;
+    display: block;
+    padding: 15px 20px;
+}
+.bred {
+      background-color: hsl(197, 97%, 26%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4ac9fc", endColorstr="#015e82");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#359BED), to(#359BED));
+  background-image: -moz-linear-gradient(top, #359BED, #359BED);
+  background-image: -ms-linear-gradient(top, #359BED, #359BED);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4ac9fc), color-stop(100%, #359BED));
+  background-image: -webkit-linear-gradient(top, #359BED, #359BED);
+  background-image: -o-linear-gradient(top, #359BED, #359BED);
+  background-image: linear-gradient(#4ac9fc, #359BED);
+  border-color: #359BED #359BED hsl(197, 97%, 16.5%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.62);
+  -webkit-font-smoothing: antialiased;
+}
+
+
+* {
+
+    box-shadow: none !important;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    text-shadow: none !important;
+}
+#blue-btn{
+    border: 1px;
+     background-color: hsl(142, 20%, 18%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#90b59e", endColorstr="#24372b");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#90b59e), to(#24372b));
+  background-image: -moz-linear-gradient(top, #90b59e, #24372b);
+  background-image: -ms-linear-gradient(top, #90b59e, #24372b);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #90b59e), color-stop(100%, #24372b));
+  background-image: -webkit-linear-gradient(top, #90b59e, #24372b);
+  background-image: -o-linear-gradient(top, #90b59e, #24372b);
+  background-image: linear-gradient(#90b59e, #24372b);
+  border-color: #24372b #24372b hsl(142, 20%, 6.5%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+  -webkit-font-smoothing: antialiased;
+}
+.foot {
+    font-size: 17px;
+    line-height: 25px;
+    margin-top: 25px !important;
+    padding: 25px 10px;
+    text-align: center;
+}
+.blightblue {
+    background: none repeat scroll 0 0 #359BED !important;
+    border: 0 none !important;
+    color: #FFFFFF !important;
+    padding: 12px;
+}
+* {
+ 
+    box-shadow: none !important;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    text-shadow: none !important;
+}
+
+.form-horizontal input[type="text"], .form-horizontal input[type="password"], .form-horizontal textarea {
+    width: 90%;
+}
+.text-center i {
+    font-size: 25px;
+}
+

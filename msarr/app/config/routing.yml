@@ -1,0 +1,47 @@
+HTML5_verti_template:
+    resource: "@HTML5VertiTemplateBundle/Resources/config/routing.yml"
+blog:
+    resource: "@BlogBundle/Resources/config/routing.yml"
+
+
+app:
+    resource: "@AppBundle/Controller/Frontend/"
+    type:     annotation
+    prefix:   /
+ed_blog_admin_feed:
+    path:      /feed/{type}
+    defaults:  { _controller: EDBlogBundle:Backend/Feed:feed }
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: admin
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"
+
+gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
+
+media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media
+
+liip_theme:
+    resource: "@LiipThemeBundle/Resources/config/routing.xml"
+    prefix: /theme
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

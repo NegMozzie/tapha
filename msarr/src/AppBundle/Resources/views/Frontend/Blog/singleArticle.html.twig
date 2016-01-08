@@ -1,0 +1,42 @@
+{% extends '::base1.html.twig' %}  
+
+{% block content %}
+  <div class="col-md-8" style="padding-top:45px;">
+    <div class="container" style="width:100% !important;">
+      <div class="row" style="width:100% !important;">
+          <div class="col-xs-12 col-sm-6 col-md-12">
+           <h4 class="text-center">{{ article.title }}</h4>
+              <div class="thumbnail">
+                  <img src="{% path article.excerptPhoto, 'big' %}" alt="">
+                  <div class="caption">
+                     
+                      <p>
+                          {{ article.content|raw }}
+                      </p>
+                      <p class="text-center">
+                        
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div id="mz_sidebar2" class="col-md-4 semi-transparent-round" style="float:right !important;">
+    <button class="semi-transparent-round">
+      ARTICLES DU MEME AUTEUR
+    </button> 
+    <button class="semi-transparent-round" style="min-height: 165px; min-width:98%;">  
+      {{ render(controller('AppBundle:Frontend/Blog:byAuthorBar', {'user': article.author})) }}
+    </button>  
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      wrapTable();
+    });
+   </script>
+{% endblock %}

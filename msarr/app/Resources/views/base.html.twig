@@ -1,0 +1,216 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>TAPHA SITE BASE</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/carousel.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/style_reponsive.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/app/css/simple-sidebar.css') }}" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!--[if gte IE]>
+        <style type="text/css">
+        #exe_nav_main {display: none;}
+        </style>
+        <![endif]-->
+
+        <!-- Custom styles for this template -->
+    </head>
+
+    <body>
+        <div id="iefix">
+            <div id="exe_nav_main">
+                <ul id="exe_nav">
+                    <li class="exe_nav_main_li"><a href="{{ path('ed_blog_homepage')}}">ACCUEIL</a></li>
+                    {%block navbar%}
+                        {{ render(controller('AppBundle:Frontend/Navbar:index')) }}
+                    {%endblock%}
+                    <li class="exe_nav_main_li"><a href="#">About Us</a></li>
+                    <li class="exe_nav_main_li"><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- NAVBAR
+        ================================================== -->
+                
+        <!-- ENDNAVBAR
+        ================================================== -->
+
+        <!-- Container
+        ================================================== -->
+        <div id="mz_column">
+            <!-- SIDEBAR
+            ================================================== -->
+            <div id="mz_sidebar" class="semi-transparent-round">
+                <button class="semi-transparent-round"  style="min-height: 45px !important;">
+                    EVENEMENTS A VENIR
+                </button> 
+                <button class="semi-transparent-round" style="min-height: 165px; margin-top:200px;"> 
+                    EVENEMENTS A VENIR
+                </button>  
+            </div>
+            <!-- ENDSIDEBAR
+            ================================================== -->
+                        
+            <!-- Contenainer
+            ================================================== -->
+            <div id="mz_container">
+            <!-- Carousel
+            ================================================== -->
+                <div id="mz_carousel" class="carousel slide" data-ride="carousel">
+                    {% block carousel %}
+                        {{ render(controller('AppBundle:Frontend/Carousel:index')) }}
+                    {% endblock %}
+                </div>
+                <!-- EndCarousel
+                ================================================== -->
+                <!-- Content
+                ================================================== -->
+                <div id="mz_content" class="semi-transparent-round">
+                    {% block content %}
+                                
+                    {% endblock %} 
+                </div>
+            </div>
+            <!-- EndContent
+            ================================================== -->
+        </div>
+        <!-- EndContenainer
+        ================================================== -->
+
+        <div id="footer" class="footer">
+        <div id="footer-wrap">
+            <div id="footer-map">
+                <div class="map-column">
+                    <h4 id="footer-apply"><a href="/applynow/">Apply Now</a></h4>
+                    <ul>
+                        <li><a href="/applynow/">Download Now</a></li>
+                        <li><a href="/applynow/request/">Request by Mail</a></li>
+                    </ul>
+                </div>
+                <div class="map-column">
+                    <h4 id="footer-courses"><a href="/courses/">Courses</a></h4>
+                    <ul>
+                        <li><a href="/courses/">Course List</a></li>
+                        <li><a href="/courses/intro/">Introductory</a></li>
+                        <li><a href="/courses/upper/">Upper Level</a></li>
+                        <li><a href="/courses/educator/">For Educators</a></li>
+                        <li><a href="/courses/noncredit/">Non-Credit</a></li>
+                    </ul>
+                </div>
+                <div class="map-column">
+                    <h4 id="footer-financial"><a href="/costs/">Tuition</a></h4>
+                    <ul>
+                        <li><a href="/costs/">Tuition Costs</a></li>
+                        <li><a href="/costs/aid/">Scholarships</a></li>
+                        <li><a href="/costs/jobs/">Jobs</a></li>
+                    </ul>
+                </div>
+                <div class="map-column">
+                    <h4 id="footer-research"><a href="/reu/">Research</a></h4>
+                    <ul>
+                        <li><a href="/reu/">Apply Now</a></li>
+                        <li><a href="/reu/areas/">Focus Areas</a></li>
+                        <li><a href="/reu/spotlight/">Student Spotlight</a></li>
+                    </ul>
+                </div>
+                <div class="map-column">
+                    <h4 id="footer-explore"><a href="/explore/">Explore</a></h4>
+                    <ul>
+                        <li><a href="/explore/">Virtual Tour</a></li>
+                        <li><a href="/explore/culture/">Campus Culture</a></li>
+                        <li><a href="/explore/attractions/">Visitor Attractions</a></li>
+                    </ul>
+                </div>
+                <div class="map-column">
+                    <h4 id="footer-fieldtrips"><a href="/tripsandtours/">Field Trips</a></h4>
+                    <ul>
+                        <li><a href="/tripsandtours/fieldtrips/">Field Trips</a></li>
+                        <li><a href="/tripsandtours/estimator/">Register Group</a></li>
+                        <li><a href="/tripsandtours/island-tours/">Island Tours</a></li>
+                    </ul>
+                </div>
+                <div class="map-column">
+                    <h4 id="footer-friends"><a href="/fosl/">Friends</a></h4>
+                    <ul>
+                        <li><a href="/fosl/">About FOSL</a></li>
+                        <li><a href="/fosl/events/">Sponsored Events</a></li>
+                        <li><a href="/fosl/give/">Donate Now</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div id="footer-contact">
+                    <h4 id="footer-contact-info" class="noprint"><a href="/contact/">Contact Information</a></h4>
+                    <address>
+                    <span class="street-address"><strong>Columbus Office</strong>: 1314 Kinnear Rd, Area 100</span><br />
+                    <span class="city">Columbus</span>, <span class="state">OH</span> <span class="zipcode">43212-1156</span><br />
+                    <span class="voice"><strong>Tel:</strong> 614.292.8949, <strong>Fax:</strong> 614.292.4364</span>
+                    </address>
+                    <address>
+                    <span class="street-address"><strong>Island Office</strong>: 878 Bayview Drive, P.O. Box 119</span><br />
+                    <span class="city">Put-in-Bay</span>, <span class="state">OH</span> <span class="zipcode">43456</span><br />
+                    <span class="voice"><strong>Tel:</strong> 419.285.1800, <strong>Fax:</strong> 419.285.1878</span>
+                    </address>
+                    <div class="printonly noshow">
+                        <img src="/_images/style/logo-partners-footer-hq.jpg" alt="Partners" height="30" />
+                    </div>
+            </div>
+            <div id="footer-logos">
+                <a href="http://osu.edu/"><img src="/_images/style/logo-osu.gif" border="0" alt="The Ohio State University" /></a>
+                <a href="http://ohioseagrant.osu.edu/"><img src="/_images/style/logo-osg-footer.gif" border="0" alt="Ohio Sea Grant" /></a>
+                <a href="http://noaa.gov/"><img src="/_images/style/logo-noaa-footer.gif" border="0" alt="NOAA" /></a>
+            </div>
+            <div id="footer-additional">
+                <ul>
+                        <li><a href="/maps/">Map and Directions</a></li>
+                        <li><a href="/about/staff/">Staff Directory</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                    </ul>
+            </div>
+            <div id="footer-copy">
+            <p>2009&copy; Ohio Sea Grant College Program, The Ohio State University, All Rights Reserved. 
+            <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fstonelab.osu.edu%2F" target="_blank">W3C</a>. 
+            <a href="http://www.contentquality.com/mynewtester/cynthia.exe?url1=http://stonelab.osu.edu" target="_blank">508</a>.</p>
+            </div>
+            <div id="footer-sediments">
+                <a href="http://twitter.com/stonelab/"><img src="/_images/style/logo-stonelab-footer.gif" border="0" alt="Stone Laboratory" /></a>
+            </div>
+        </div>
+    </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="{{ asset('bundles/app/js/jquery.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/bootstrap_hover.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="{{ asset('bundles/app/js/holder.min.js') }}"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{{ asset('bundles/app/js/ie10-viewport-bug-workaround.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/ie-emulation-modes-warning.js') }}"></script>
+        <!-- Menu Toggle Script -->
+        <script>
+            $(document).ready(function() {
+                $('[data-toggle=offcanvas]').click(function() {
+                    $('.row-offcanvas').toggleClass('active');
+                });
+            });
+        </script>
+    </body>
+</html>
