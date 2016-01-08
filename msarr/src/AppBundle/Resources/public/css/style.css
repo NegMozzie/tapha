@@ -9,7 +9,7 @@ body{background:#010103 url(img/page_accueil.jpg) 50% 0 no-repeat fixed;color:#f
 #mz_right{min-width:30%;max-width:30%;float:right;margin-top:5px;}
 #mz_container{display:block;min-width:80%;max-width:80%;margin:0;padding:0;float:right;}
 #mz_carousel{min-width:100%;max-width:100%;height:400px;float:right;margin-top:5px;}
-#mz_content{display:block; min-width:100%;max-width:100%;float:left;margin-top:5px;}
+#mz_content{display:block; min-width:100%;max-width:100%;min-height:100%;float:left;margin-top:5px;}
 /*  {------- Footer Burnt Lab Image -------}  */ 
 
 #footer-lab {
@@ -136,7 +136,7 @@ max-height: 5.5rem;
 }
 .mz-article{display:inline;max-width:30%;min-width:30%;max-height:100px;margin-left:2%;}
 .mz-article-img{width:100%;height:210px;float:left;padding-left:0;padding-right:0;}
-.mz-article-text{width:100%;height:210px;color:#fff;}
+.mz-article-text{width:100%;height:auto;color:#fff;}
 .navbar-collapse {
   padding-right: 0px;
   padding-left: 15px;

@@ -1,14 +1,15 @@
-{% extends '::base.html.twig' %}  
+{% extends '::base1.html.twig' %}  
 
 {% block content %}
-  <div class="col-md-8">
+  <div class="col-md-8" style="padding-top:45px;">
     <div class="container" style="width:100% !important;">
       <div class="row" style="width:100% !important;">
           <div class="col-xs-12 col-sm-6 col-md-12">
+           <h4 class="text-center">{{ article.title }}</h4>
               <div class="thumbnail">
                   <img src="{% path article.excerptPhoto, 'big' %}" alt="">
                   <div class="caption">
-                      <h4 class="text-center">{{ article.title }}</h4>
+                     
                       <p>
                           {{ article.content|raw }}
                       </p>
