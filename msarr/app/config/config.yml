@@ -189,8 +189,11 @@ sonata_media:
                 - sonata.media.provider.vimeo
 
             formats:
+                crop:  { width: 600 , quality: 80}
                 small: { width: 100 , quality: 70}
-                big:   { width: 250 , height: 300 , quality: 140}
+                big:   { width: 500 , height: 500, quality: 100}
+                lib:   { width: 350 , height: 250 , quality: 70}
+                excerpt:   { width: 780 , height: 500 , quality: 70}
     cdn:
         server:
             path: /web/uploads/media # http://media.sonata-project.org/

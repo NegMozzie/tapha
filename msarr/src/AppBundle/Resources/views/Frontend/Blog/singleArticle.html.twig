@@ -1,51 +1,33 @@
 {% extends '::base.html.twig' %}  
 
 {% block content %}
-  {% block title %}{{ article.title }}{% endblock %}
-
-  <div class="c-article__full" style="width: 100%;">
-    {% media article.excerptPhoto, 'big' with {'height': '400px', 'width': '100%'} %}
-  </div>
-  
-
-  {% block metaTags %}
-      {% for meta in article.metaData  %}
-          {% if meta.key!='writing_locked' %}
-          <meta name="{{ meta.key|lower }}" content="{{ meta.value }}">
-          {% endif %}
-      {% endfor %}
-  {% endblock %}
-
-  <div class="container">
-
-    <div class="row">
-      <p>{{ article.content|raw }}</p>
-
-      <div class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 table-rework">
-        <div class="text--30 text--bold black margin--tx4 margin--halfb lh32">{{ article.title }}</div>
-
-        <p class="text--mini app-grey">By <a href="">{{ article.author.blogDisplayName }}</a> on {{ article.publishedAt|blogDate}}
-          {% if (article.categories|length) %}
-          in {%  for category in article.categories %}
-               {{ loop.index0 ? ', ' }}<a href="" >{{ category.term.title }}</a>
-             {% endfor %}
-          {% endif %}
-            | <a href="#comments">{{  commentsCnt }}</a> comment{{  (commentsCnt > 1) ? 's' }}
-        </p>
-
-        {% if (article.tags|length) %}
-          <p class="text--mini app-grey"><i class="fa fa-tags"></i>
-          {% for tag in article.tags %}
-            <a href="{{ path('frontend_blog_by_tag', {'tagSlug': tag.term.slug}) }}">{{ tag.term.title }}</a>{% if not loop.last %}, {% endif %}
-          {% endfor %}
-          </p>
-        {% endif  %}
-
-        
+  <div class="col-md-8">
+    <div class="container" style="width:100% !important;">
+      <div class="row" style="width:100% !important;">
+          <div class="col-xs-12 col-sm-6 col-md-12">
+              <div class="thumbnail">
+                  <img src="{% path article.excerptPhoto, 'big' %}" alt="">
+                  <div class="caption">
+                      <h4 class="text-center">{{ article.title }}</h4>
+                      <p>
+                          {{ article.content|raw }}
+                      </p>
+                      <p class="text-center">
+                        
+                      </p>
+                  </div>
+              </div>
+          </div>
       </div>
     </div>
-
-
+  </div>
+  <div id="mz_sidebar2" class="col-md-4 semi-transparent-round" style="float:right !important;">
+    <button class="semi-transparent-round">
+      ARTICLES DU MEME AUTEUR
+    </button> 
+    <button class="semi-transparent-round" style="min-height: 165px; min-width:98%;">  
+      {{ render(controller('AppBundle:Frontend/Blog:byAuthorBar', {'user': article.author})) }}
+    </button>  
   </div>
 {% endblock content %}
 

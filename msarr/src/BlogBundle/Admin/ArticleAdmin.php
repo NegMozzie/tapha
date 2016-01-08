@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Doctrine\ORM\EntityRepository;
 use BlogBundle\Entity\Article;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ArticleAdmin extends Admin
 {
@@ -45,7 +46,7 @@ class ArticleAdmin extends Admin
             ->add('categories')
             ->add('tags')
             ->add('metaData')
-            ->add('status', 'choice', array(
+            ->add('status', ChoiceType::class, array(
                     'label' => 'Status:',
                     'choices' => array(
                         Article::STATUS_PUBLISHED => "Published",
@@ -55,6 +56,7 @@ class ArticleAdmin extends Admin
                     'attr' => array(
                         "class" => "form-control form-control--lg margin--halfb",
                     ),
+                    'choices_as_values' => true,
             ))
         
        ;

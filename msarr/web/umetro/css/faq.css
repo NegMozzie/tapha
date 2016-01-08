@@ -1,0 +1,23 @@
+
+/* 
+    Document   : header
+    Created on : Aug 22, 2013, 11:31:21 PM
+    Author     : Shaan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+/* FAQ Page */
+/*-----------------------------------------------------------------------------------*/
+.who li i {
+    color: #359BED;
+    font-size: 18px;
+    margin-right: 7px;
+    position: relative;
+    top: 2px;
+}
+a:hover{
+    color: #359BED;
+}
+.breadcrumb li.active, .breadcrumb li a:hover {
+    color: #359BED;
+}

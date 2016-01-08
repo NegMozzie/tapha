@@ -1,12 +1,27 @@
 {% extends '::base.html.twig' %}
 {% block content %}
-<div class="container margin--t">
-		<div class="row">
-			<div class="col-sm-push-9 col-sm-3 col-lg-push-8 col-lg-4">
-			</div>
-			<div class="col-sm-pull-3 col-sm-9 col-md-pull-1 col-md-7 col-lg-pull-2 col-lg-6">
-				{% include "AppBundle:Frontend/Blog:indexAjax.html.twig" %}
-			</div>
-		</div>
-	</div>
+{% for item in pagination %}
+    <div class="col-md-4">
+    <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
+    	<div class="col-md-6">
+            <div class="mz-article-img">
+            	<img class="mz-article-img" src="{% path item.excerptPhoto, 'big' %}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mz-article-text">
+                <div class="text--30 text--bold black margin--halfb lh32">
+                    <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}" "font-size:x-small;">
+                        {{ item.title }}
+                    </a>
+                </div>
+                <p class="margin--t" style ="font-size:xx-small;">
+                    {{ item.getText() | raw }}
+                </p>
+                <p class="margin--t" style ="font-size:xx-small;">{{ item.createdAt | format_datetime}}</p>                            
+            </div>
+        </div>
+    </a>
+    </div>
+{% endfor %}
 {% endblock content %}
