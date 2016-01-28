@@ -1,10 +1,15 @@
 <?php
-
+/**
+ * Created by Eton Digital.
+ * User: Vladimir Mladenovic (vladimir.mladenovic@etondigital.com)
+ * Date: 16.6.15.
+ * Time: 12.19
+ */
 
 namespace BlogBundle\Handler;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use BlogBundle\Entiy\BlogSettings;
+use BlogBundle\Entity\BlogSettings;
 
 class SettingsHandler
 {

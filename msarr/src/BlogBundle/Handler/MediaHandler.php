@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Created by Eton Digital.
+ * User: Vladimir Mladenovic (vladimir.mladenovic@etondigital.com)
+ * Date: 23.6.15.
+ * Time: 09.52
+ */
 
 namespace BlogBundle\Handler;
 

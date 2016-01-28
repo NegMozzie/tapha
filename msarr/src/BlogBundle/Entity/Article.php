@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Eko\FeedBundle\Item\Writer\RoutedItem;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use BlogBundle\Entity\User as User;
+
 /**
  * Article
  *
@@ -149,9 +149,6 @@ class Article
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->metaData = new ArrayCollection();
-        $this->createdAt = new \DateTime(date('Y-m-d H:i:s'));
-        $this->modifiedAt = new \DateTime(date('Y-m-d H:i:s'));
-        $this->setSlug('drafted-'.$this->getId());
     }
     /**
      * @param mixed $id
@@ -206,6 +203,7 @@ class Article
     {
         $this->createdAt = $createdAt;
 
+        return $this;
     }
 
     /**
@@ -315,8 +313,7 @@ class Article
     public function setStatus($status)
     {
         $this->status = $status;
-        if (!$this->publishedAt && $status == self::STATUS_PUBLISHED)
-            $this->setPublishedAt(new \DateTime());
+
         return $this;
     }
 

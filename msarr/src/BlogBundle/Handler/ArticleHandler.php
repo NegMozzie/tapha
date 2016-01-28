@@ -1,13 +1,18 @@
 <?php
-
+/**
+ * Created by Eton Digital.
+ * User: Vladimir Mladenovic (vladimir.mladenovic@etondigital.com)
+ * Date: 7.7.15.
+ * Time: 15.52
+ */
 
 namespace BlogBundle\Handler;
 
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use BlogBundle\Entiy\Article;
-use BlogBundle\Entiy\ArticleMeta;
-use BlogBundle\Entiy\User;
+use BlogBundle\Entity\Article;
+use BlogBundle\Entity\ArticleMeta;
+use BlogBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ArticleHandler
@@ -26,11 +31,11 @@ class ArticleHandler
      * If NOT - it generate/update lock and return false
      * If YES - returns userId of the lock holder
      *
-     * @param BlogUser $user
-     * @param Article $article
+     * @param BlogUserEntity\ $user
+     * @param ArticleEntity\ $article
      * @return mixed
      */
-    public function isLocked(BlogUser $user, Article $article)
+    public function isLocked(User $user, Article $article)
     {
         $metaLock = $this->findWritingLockMeta($article);
 
@@ -79,7 +84,7 @@ class ArticleHandler
     /**
      * Finds last writing lock
      *
-     * @param Article $article
+     * @param ArticleEntity\ $article
      * @return mixed
      */
     private function findWritingLockMeta(Article $article)
@@ -116,7 +121,7 @@ class ArticleHandler
         $this->doctrine->getManager()->flush();
     }
 
-    public function takeoverLock(BlogUser $user, Article $article)
+    public function takeoverLock(User $user, Article $article)
     {
         $metaLock = $this->findWritingLockMeta($article);
         $this->applyLock($metaLock, $user);

@@ -23,6 +23,28 @@ class Configuration implements ConfigurationInterface
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('entities')
+                    ->children()
+                        ->scalarNode('user_model_class')->isRequired()->end()
+                        ->scalarNode('article_class')->isRequired()->end()
+                        ->scalarNode('article_meta_class')->isRequired()->end()
+                        ->scalarNode('blog_term_class')->isRequired()->end()
+                        ->scalarNode('blog_taxonomy_class')->isRequired()->end()
+                        ->scalarNode('blog_taxonomy_relation_class')->isRequired()->end()
+                        ->scalarNode('blog_comment_class')->isRequired()->end()
+                        ->scalarNode('blog_settings_class')->isRequired()->end()
+                    ->end()
+                ->end() // entities
+                ->arrayNode('hydrators')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('settings_hydrator')->defaultValue('\BlogBundle\Hydrators\SettingsHydrator')->end()
+                    ->end()
+                 ->end() //hydrators
+            ->end()
+        ;
 
         return $treeBuilder;
     }

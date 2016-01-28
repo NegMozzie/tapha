@@ -3,7 +3,6 @@
 namespace BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use BlogBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 

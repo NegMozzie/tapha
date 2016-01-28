@@ -4,6 +4,13 @@ namespace BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * BlogSettings
+ *
+ * @ORM\Table(name="settings")
+ * @ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\BlogSettingsRepository")
+ */
 class BlogSettings
 {
     const COMMENTS_APPROVE_MANUAL = 1;

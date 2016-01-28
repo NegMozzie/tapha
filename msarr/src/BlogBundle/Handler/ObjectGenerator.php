@@ -1,9 +1,14 @@
 <?php
-
+/**
+ * Created by Eton Digital.
+ * User: Vladimir Mladenovic (vladimir.mladenovic@etondigital.com)
+ * Date: 25.5.15.
+ * Time: 15.39
+ */
 
 namespace BlogBundle\Handler;
 
-use BlogBundle\Entiy\Article;
+use BlogBundle\Entity\Article;
 
 class ObjectGenerator
 {
@@ -59,9 +64,9 @@ class ObjectGenerator
     /**
      * Will synchronize changes made on Draft to the master article and set it 'As Published'
      *
-     * @param Article $article
-     * @param Article $draft
-     * @return Article
+     * @param ArticleEntity\ $article
+     * @param ArticleEntity\ $draft
+     * @return ArticleEntity\
      */
     public function generateArticleFromDraft(Article &$article, Article $draft)
     {

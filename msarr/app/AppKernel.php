@@ -13,55 +13,25 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new AppBundle\AppBundle(),
-            new BlogBundle\BlogBundle(),
+
             new FOS\UserBundle\FOSUserBundle(),
-
-            // new Sonata\NewsBundle\SonataNewsBundle(),
-            // new Application\Sonata\NewsBundle\ApplicationSonataNewsBundle(),
-            //new Sonata\FormatterBundle\SonataFormatterBundle(),
-            //new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
-        
-            new Sonata\CoreBundle\SonataCoreBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),
-            new FM\ElfinderBundle\FMElfinderBundle(),
-
-            new ED\BlogBundle\EDBlogBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Eko\FeedBundle\EkoFeedBundle(),
-
-            new Sonata\MediaBundle\SonataMediaBundle(),
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
-            new Sonata\IntlBundle\SonataIntlBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
-
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            // new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            // new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
-
-            // new Sonata\ClassificationBundle\SonataClassificationBundle(),
-            // new Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle(),
-
-            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            
-
-            new Liip\ThemeBundle\LiipThemeBundle(),
-            new Liip\ImagineBundle\LiipImagineBundle(),
-
-            new Evheniy\JqueryBundle\JqueryBundle(),
-            new Evheniy\HTML5CacheBundle\HTML5CacheBundle(),
-            new Evheniy\HTML5VertiTemplateBundle\HTML5VertiTemplateBundle(),
+            new BlogBundle\BlogBundle(),
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();

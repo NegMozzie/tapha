@@ -1,34 +1,30 @@
 <?php
-//src/AppBundle/Entity/User
 
-namespace BlogBundle\Entity; 
+namespace BlogBundle\Entity;
 
-use ED\BlogBundle\Interfaces\Model\BlogUserInterface;
-use ED\BlogBundle\Interfaces\Model\ArticleCommenterInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\UserRepository")
+ * @ORM\Table(name="`user`")
+ *@ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\UserRepository")
  */
-class User extends BaseUser implements BlogUserInterface, ArticleCommenterInterface
+class User extends BaseUser
 {
-    //...
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
     /**
-     * Required by BlogUserInterface
+     * Required by User
      *
      * @ORM\Column(name="blog_display_name", type="string")
      */
-    protected $blogDisplayName;
+    protected $blogDisplayName = "";
 
     public function getBlogDisplayName()
     {
@@ -46,4 +42,5 @@ class User extends BaseUser implements BlogUserInterface, ArticleCommenterInterf
     {
         return $this->blogDisplayName;
     }
+
 }
