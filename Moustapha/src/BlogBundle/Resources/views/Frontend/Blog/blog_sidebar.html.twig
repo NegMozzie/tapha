@@ -1,0 +1,26 @@
+{% if (events|length) %}
+  {% for event in events %}
+   <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': event.getName() }) }}">
+    <button id="mz_sidebar_event" class="col-md-12">
+      <div id="mz_sidebar_event_date" class="col-md-4">
+        {% set foo = event.getStartsAt() | format_datetime|split(' ') %}
+        <time datetime="2014-09-20" class="icon">
+          <strong>{{ foo[0] }}</strong>
+          <span>{{ foo[1] }}</span>
+          <em>{{ foo[2] }} </em>
+      </div>
+      <div id="mz_sidebar_event_main" class="col-md-8">
+        <div style="text-align:center;min-height:33% !important; max-height:33% !important;background-color:Black;">
+        {{ event.getName()}}
+        </div>
+        <div style="min-height:33% !important; max-height:33% !important;background-color:Black;">
+          Debut: {{ event.getStartsAt() | format_time }} 
+        </div>
+        <div style="min-height:33% !important; max-height:33% !important;background-color:Black;">
+          Fin: {{ event.getEndsAt() | format_datetime }}
+        </div>
+      </div>
+    </button>
+  </a>
+  {% endfor %}
+{% endif %}

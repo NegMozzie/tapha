@@ -1,0 +1,21 @@
+{% extends 'BlogBundle:Frontend/Layout:main.html.twig' %}
+
+{% block content %}
+  <div class=" margin--t">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="mz_sidebar" class="semi-transparent-round">
+                  <div id="mz_sidebar_title" class="semi-transparent-round">
+                      Evenements de la semaine
+                  </div> 
+                  <div class="semi-transparent-round" margin-top:5px;">
+                    {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
+
+                  </div>  
+              </div>
+      </div>
+      <div class="col-md-9">
+            {{ event.getName() }}
+    </div>
+  </div>
+{% endblock content %}

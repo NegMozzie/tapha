@@ -1,0 +1,24 @@
+{% if (categories|length) %}
+    {% for children in categories %}
+        <li class="full-width">
+            <span class="top-heading"><a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': children.term.slug}) }}">{{children.term.title}} </a></span>
+            <i class="caret"></i>           
+            <div  class="dropdown">
+                <div class="dd-inner">
+                <div class="col-md-12">
+                    <div class="term-list col-md-3">
+                            {% for child in children.getChildren() %}
+                                <a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': child.term.slug}) }}">{{child.term.title}}</a>
+                                <a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': child.term.slug}) }}">{{child.term.title}}</a>
+                            {%endfor%}
+                    </div>
+                    <div class="col-md-9">
+                        {{ render(controller('BlogBundle:Frontend/Blog:byCategorytag', {'categorySlug': children.term.slug})) }}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </li> 
+        
+    {%endfor%}
+{%endif%}
