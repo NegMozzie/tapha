@@ -34,9 +34,8 @@ class Team
      * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Pilot", mappedBy="team")
      */
     protected $pilots;
-
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Event", inversedBy="teams")
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Event",mappedBy="teams")
      * @ORM\JoinTable(name="team_event_relation",
      *      joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")})
@@ -72,17 +71,14 @@ class Team
     {
         return $this->excerptPhoto;
     }
-
     /**
      * @param mixed $excerptPhoto
      */
     public function setExcerptPhoto($excerptPhoto)
     {
         $this->excerptPhoto = $excerptPhoto;
-
         return $this;
     }
-
     /**
      * @return mixed
      */
@@ -90,17 +86,14 @@ class Team
     {
         return $this->pilots;
     }
-
     /**
      * @param mixed $pilots
      */
     public function setPilots($pilots)
     {
         $this->pilots = $pilots;
-
         return $this;
     }
-
     public function addPilot(Pilot $pilot)
     {
         if(!$this->pilots->contains($pilot))
@@ -109,7 +102,6 @@ class Team
             $this->pilots->add($pilot);
         }
     }
-
     public function removePilot(Pilot $pilot)
     {
         if($this->pilots->contains($pilot))
@@ -118,7 +110,6 @@ class Team
             $this->pilots->removeElement($pilot);
         }
     }
-
     public function addEvent(Event $event) {
         $event->addTeam($this);
  
@@ -127,7 +118,6 @@ class Team
             $this->events->add($classement);
         }
     }
-
     public function removeEvent(Event $event)
     {
         if($this->events->contains($event))
@@ -135,7 +125,6 @@ class Team
             $this->events->removeElement($event);
         }
     }
-
     /**
      * @return mixed
      */
@@ -143,7 +132,6 @@ class Team
     {
         return $this->event;
     }
-
     /**
      * @param mixed $event
      */
@@ -164,7 +152,6 @@ class Team
     {
         return $this->description;
     }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -177,12 +164,10 @@ class Team
     {
         $this->description = $description;
     }
-
     public function __toString()
     {
         return $this->getName() ?: 'n/a';
     }
-
     /**
      * @param BClassement $classements
      */
@@ -201,17 +186,14 @@ class Team
     public function getClassements() {
         return $this->classements;
     }
-
     /**
      * @param mixed $categories
      */
     public function setClassement($classements)
     {
         $this->classements = $classements;
-
         return $this;
     }
-
     public function removeClassement(Classement $classement)
     {
         if($this->classements->contains($classement))

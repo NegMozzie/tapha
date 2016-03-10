@@ -22,14 +22,6 @@ class TermAdmin extends Admin
                     'placeholder' => 'Enter title'
                 )
             ))
-            ->add('slug', 'text', array(
-                'required' => false,
-                'label' => 'Slug:',
-                'attr' => array(
-                    'class' => 'form-control form-control--lg margin--b',
-                    'placeholder' => 'Slug will be generated automatically from title or you can add it manually'
-                )
-            ))
         
        ;
     }

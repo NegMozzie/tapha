@@ -1,8 +1,28 @@
 services:
+    app.admin.season:
+        class: BlogBundle\Admin\SeasonAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Saisons" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Season
+            - ~
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.seasonevent:
+        class: BlogBundle\Admin\SeasonEventAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Championnats de la Saison" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\SeasonEvent
+            - ~
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
     app.admin.event:
         class: BlogBundle\Admin\EventAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Evenements" }
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Grand Prix, Courses, Essais Libres" }
         arguments:
             - ~
             - BlogBundle\Entity\Event

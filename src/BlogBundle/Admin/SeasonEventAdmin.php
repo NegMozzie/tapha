@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class EventAdmin extends Admin
+class SeasonEventAdmin extends Admin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
@@ -22,27 +22,16 @@ class EventAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('excerptPhoto', 'sonata_type_model', array(
-                'class' => 'Application\Sonata\MediaBundle\Entity\Media',
-                'property' => 'name'
+            'class' => 'Application\Sonata\MediaBundle\Entity\Media',
+            'property' => 'name'
             ))
-            ->add('startsAt', 'sonata_type_datetime_picker')
-            ->add('endsAt', 'sonata_type_datetime_picker')
+            ->add('startsAt')
+            ->add('endsAt')
             ->add('parent')
+            ->add('teams')
+            ->add('category')
+            ->add('season')
        ;
-    }
-
-    public function prePersist($event)
-    {
-        $event->setTeams($event->getParent()->getTeam());
-        $event->setCategory($event->getParent()->getCategory());
-        $event->setSeason($event->getParent()->getSeason());
-    }
-
-    public function preUpdate($event)
-    {
-        $event->setTeams($event->getParent()->getTeam());
-        $event->setCategory($event->getParent()->getCategory());
-        $event->setSeason($event->getParent()->getSeason());
     }
 
     // Fields to be shown on filter forms

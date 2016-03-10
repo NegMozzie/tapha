@@ -32,24 +32,6 @@ class Classement
     
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Event")
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
-     */
-    protected $event;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot")
-     * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     */
-    protected $pilot;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     */
-    protected $team;
-
-    /**
      * Articles in the taxonomy
      *
      * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
@@ -68,8 +50,25 @@ class Classement
      */
     protected $time;
 
-    function __construct(){
-    }
+     /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot", inversedBy="classements"))
+     * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     */
+    protected $pilot;
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team", inversedBy="classements"))
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     */
+    protected $team;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Event", inversedBy="classements")
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     */
+    protected $event;
+
+
+
     /**
      * @param mixed $id
      */
@@ -88,60 +87,6 @@ class Classement
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    /**
-     * @param mixed $parent
-     */
-    public function setEvent(Event $event)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTeam()
-    {
-        return $this->team;
-    }
-
-    /**
-     * @param mixed $parent
-     */
-    public function setTeam(Team $team=null)
-    {
-        $this->team = $team;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPilot()
-    {
-        return $this->pilot;
-    }
-
-    /**
-     * @param mixed $parent
-     */
-    public function setPilot(Pilot $pilot=null)
-    {
-        $this->pilot = $pilot;
-
-        return $this;
     }
 
     /**
@@ -193,16 +138,65 @@ class Classement
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getName() ? $this->getName():'choosenama';
-    }
     public function getName()
     {
         return $this->name;
     }
+
     public function setName($name)
     {
         $this->name = $name;
     }
+
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    public function setEvent($event)
+    {
+        $this->event = $event;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getTeam()
+    {
+        return $this->team;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setTeam(Team $team=null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPilot()
+    {
+        return $this->pilot;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setPilot(Pilot $pilot=null)
+    {
+        $this->pilot = $pilot;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }

@@ -14,8 +14,9 @@ class EventRepository extends EntityRepository
 {
   public function findByName($slug)
     {
-        $taxonomyClass = $this->_entityName;
-        $query = "SELECT tax FROM $taxonomyClass tax
+        
+        $eventClass = $this->_entityName;
+        $query = "SELECT tax FROM $eventClass tax
                   WHERE tax.name = :slug
                   ";
 
@@ -26,4 +27,25 @@ class EventRepository extends EntityRepository
         return $results->getOneOrNullResult();
     }
 
+    public function getWeekEvents()
+    {
+        $eventClass = $this->_entityName;
+        $date = date('Y-m-d'); // you can put any date you want
+        $nbDay = date('N', strtotime($date));
+        $monday = new \DateTime($date);
+        $sunday = new \DateTime($date);
+        $monday->modify('-'.($nbDay-1).' days');
+        $sunday->modify('+'.(8-$nbDay).' days');
+        $query = "SELECT a FROM $eventClass a
+                  WHERE (a.startsAt >= :monday OR a.endsAt >= :monday)
+                  AND a.startsAt <= :sunday
+                  ";
+
+        $query = $this->getEntityManager()
+            ->createQuery($query)
+            ->setParameter('monday', $monday)
+            ->setParameter('sunday', $sunday);
+
+        return $query->useQueryCache(true)->setQueryCacheLifetime(60)->getResult();
+    }
 }

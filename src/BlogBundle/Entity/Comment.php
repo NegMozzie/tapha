@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-
 /**
  * Comment
  *
@@ -15,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Comment
 {
+
     const STATUS_ACTIVE = 1;
     const STATUS_PENDING = 0;
     /**
@@ -35,29 +35,6 @@ class Comment
      */
     protected $name;
 
-    /**
-     * @ORM\Column(type="string", length=3000, nullable=false)
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 3000,
-     *      minMessage = "Comment should be at least {{ limit }} characters long",
-     *      maxMessage = "Comment should not be longer than {{ limit }} characters"
-     * )
-     */
-    protected $comment;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Comment")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     */
-    protected $parent;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
-     */
-    protected $article;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -85,6 +62,74 @@ class Comment
      * @var ArticleCommenter
      */
     protected $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Comment")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    protected $parent;
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Article", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     */
+    protected $article;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Event", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     */
+    protected $event;
+
+    function __construct(){
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+    /**
+     * @param mixed $parent
+     */
+    public function setParent(Comment $parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+    /**
+     * @return mixed
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+    /**
+     * @param mixed $article
+     */
+    public function setArticle(Article $article)
+    {
+        $this->article = $article;
+        return $this;
+    }
+
+    
+    /**
+     * @return mixed
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+    /**
+     * @param mixed $article
+     */
+    public function setEvent(Event $event)
+    {
+        $this->article = $event;
+        return $this;
+    }
 
     /**
      * @ORM\PrePersist
@@ -177,40 +222,6 @@ class Comment
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param mixed $parent
-     */
-    public function setParent(Comment $parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
-
-    /**
-     * @param mixed $article
-     */
-    public function setArticle(Article $article)
-    {
-        $this->article = $article;
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -276,11 +287,7 @@ class Comment
     /**
      * @param mixed $author
      */
-    public function setAuthor(User $author=null)
-    {
-        $this->author = $author;
-        return $this;
-    }
+
 
     public function __toString()
     {

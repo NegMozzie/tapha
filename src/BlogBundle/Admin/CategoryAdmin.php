@@ -45,6 +45,7 @@ class CategoryAdmin extends Admin
     {
        $datagridMapper
             ->add('term')
+            ->add('parent')
             ->add('type')
        ;
     }
@@ -54,6 +55,7 @@ class CategoryAdmin extends Admin
     {
         $listMapper
             ->add('term')
+            ->add('parent')
             ->add('type')
        ;
     }
@@ -63,6 +65,7 @@ class CategoryAdmin extends Admin
     {
         $showMapper
            ->add('term')
+            ->add('parent')
             ->add('type')
        ;
     }

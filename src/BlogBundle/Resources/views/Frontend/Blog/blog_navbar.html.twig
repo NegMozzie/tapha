@@ -5,15 +5,23 @@
                 <div class="exe_nav_sub_links">
                     <span class="exe_nav_sub_links_title">Recommended...!!!</span><br />
                     <ul>
+                        {% set 
+                        br = 0 %}
                         {% for child in children.getChildren() %}
                             <li><a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': child.term.slug}) }}">{{child.term.title}}</a></li>
-                        {%endfor%}
+                            {% set br = br + 1 %}
+                        {% endfor %}
+                         <li><a href="">Ecuries</a></li>
+                         <li><a href="">Calendrier</a></li>
+                         <li><a href="">Classement</a></li>
                     </ul>
                 </div>
                 <div class="exe_nav_sub_hot">
                     <span class="exe_nav_sub_links_title">Trending Now...!!!</span><br />
-                    <ul>
+                    <ul >
                         {{ render(controller('BlogBundle:Frontend/Blog:byCategorytag', {'categorySlug': children.term.slug})) }}
+                    </ul>
+                    <ul style="min-height:1px; height: auto !important;background: Black;">
                     </ul>
                 </div>
             </div>

@@ -206,7 +206,7 @@ class Taxonomy
 
     public function __toString()
     {
-        return $this->getTerm() ? $this->getTerm()->__toString() : null;
+        return ($this->getTerm() ? $this->getTerm() : '').'('.($this->getParent() ? $this->getParent() : '').')';
     }
 
     /**

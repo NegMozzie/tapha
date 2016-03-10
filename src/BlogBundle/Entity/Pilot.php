@@ -55,17 +55,16 @@ class Pilot extends BaseUser
      */
     protected $excerptPhoto;
      /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team", inversedBy="pilots")
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      */
     protected $team;
 
-     /**
-     * @var ArrayCollection $classements
-     *
-     * @ORM\OneToMany(targetEntity="Classement", mappedBy="pilot", cascade={"persist", "remove", "merge"})
+    /**
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Classement", mappedBy="pilot")
      */
     private $classements;
+
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="excerpt_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
