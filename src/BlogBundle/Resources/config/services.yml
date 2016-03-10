@@ -9,16 +9,6 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [BlogBundle]]
-    app.admin.seasonevent:
-        class: BlogBundle\Admin\SeasonEventAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Championnats de la Saison" }
-        arguments:
-            - ~
-            - BlogBundle\Entity\SeasonEvent
-            - ~
-        calls:
-            - [ setTranslationDomain, [BlogBundle]]
     app.admin.event:
         class: BlogBundle\Admin\EventAdmin
         tags:
