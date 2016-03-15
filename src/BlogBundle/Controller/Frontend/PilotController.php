@@ -55,8 +55,8 @@ class PilotController extends Controller
 
 
     /**
-     * @Route("/blog/pilot/{pilotName}", name="ed_frontend_blog_by_pilotname")
-     * @Route("/blog/pilot/{pilotName}", name="frontend_blog_by_pilotname")
+     * @Route("/blog/pilots/{pilotName}", name="ed_frontend_blog_by_pilotname")
+     * @Route("/blog/pilots/{pilotName}", name="frontend_blog_by_pilotname")
      */
     public function singlePilotAction($pilotName)
     {

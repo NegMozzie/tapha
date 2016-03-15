@@ -67,6 +67,11 @@ class Taxonomy
      *
      */
     protected $articles;
+    /**
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Team", mappedBy="categories")
+     *
+     */
+    protected $teams;
 
     /**
      * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Article", mappedBy="tags")
@@ -74,14 +79,53 @@ class Taxonomy
      */
     protected $tagged;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Championship", mappedBy="category")
+     */
+    protected $events;
+    
+
 
     function __construct()
     {
         $this->children = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->teams = new ArrayCollection();
         $this->tagged = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
+    public function addEvent(Championship $event) {
+        $event->addTeam($this);
+ 
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->events->contains($classement)) {
+            $this->events->add($classement);
+        }
+    }
+    public function removeEvent(Championship $event)
+    {
+        if($this->events->contains($event))
+        {
+            $this->events->removeElement($event);
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+    /**
+     * @param mixed $event
+     */
+    public function setEvents($event=null)
+    {
+        $this->event = $event;
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -230,6 +274,23 @@ class Taxonomy
     /**
      * @return mixed
      */
+    public function getTeams()
+    {
+        return $this->teams;
+    }
+
+    /**
+     * @param mixed $articles
+     */
+    public function setTeams($articles)
+    {
+        $this->teams = $articles;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getTagged()
     {
         return $this->tagged;
@@ -243,6 +304,8 @@ class Taxonomy
         $this->tagged = $tagged;
         return $this;
     }
+
+
 
     /**
      * @Assert\Callback

@@ -9,7 +9,7 @@
 namespace BlogBundle\Controller\Frontend;
 
 use BlogBundle\Handler\Pagination;
-use BlogBundle\Entity\Event;
+use BlogBundle\Entity\Taxonomy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -18,57 +18,63 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class EventController extends Controller
 {
     /**
-     * @Route("/blog/events", name="ed_blog_event")
-     * @Route("/blog/events/", name="ed_blog_frontend_events")
+     * @Route("/sport/events", name="ed_blog_event")
+     * @Route("/sport/events/", name="ed_blog_frontend_events")
      */
     public function indexAction()
     {
-        $date = date('Y-m-d'); // you can put any date you want
-          $nbDay = date('N', strtotime($date));
-          $monday = new \DateTime($date);
-          $sunday = new \DateTime($date);
-          $monday->modify('-'.($nbDay-1).' days');
-          $sunday->modify('+'.(8-$nbDay).' days');
-          $events = $this->get('app_repository_event')
-              ->createQueryBuilder('c')
-              ->where('c.startsAt >= :monday')
-              ->andwhere('c.parent IS NULL')
-              ->setParameter('monday', $monday)
-              ->getQuery()
-              ->getResult();
-
+        
+        $events = $this->get('app_repository_season')->findActiveSeason();
         $paginator = $this->get('blog.paginator');
-        $response = $paginator->paginate(
-            $events,
-            'BlogBundle:Frontend/Blog:events',
-            'BlogBundle:Frontend/Global:pagination',
-            array(),
-            Pagination::SMALL,
-            null,
-            $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
-            array(),
-            null
-        );
-
-        return $response;
+        return $this->render('BlogBundle:Frontend/Blog:events.html.twig', array(
+              'season' => $events
+          ));
     }
+    
 
 
     /**
-     * @Route("/blog/event/{eventName}", name="ed_frontend_blog_by_eventname")
-     * @Route("/blog/event/{eventName}", name="frontend_blog_by_eventname")
+     * @Route("/sport/events/{eventName}/{type}", name="ed_frontend_blog_by_eventname")
+     * @Route("/sport/events/{eventName}/{type}", name="frontend_blog_by_eventname")
      */
-    public function singleEventAction($eventName)
+    public function singleEventAction($eventName, $type)
     {
-        $event = $this->get('app_repository_event')->findByName($eventName);
+        if ($type == "championnat")
+          $event = $this->get('app_repository_championship')->findByName($eventName);
+        if ($type == "grandprix")
+          $event = $this->get('app_repository_grandprix')->findByName($eventName);
+        if ($type == "course")
+          $event = $this->get('app_repository_course')->findByName($eventName);
 
         if(!($event))
         {
-            throw new NotFoundHttpException("Category not found.");
+            throw new NotFoundHttpException("Event not found.");
         }
+
         return $this->render("BlogBundle:Frontend/Blog:singleEvent.html.twig",
             array(
-                'event' => $event
+                'event' => $event,
+                'type' => $type
+                ));
+    }
+
+    /**
+     * @Route("/sport/{categorySlug}/{type}", name="ed_frontend_blog_event_by_category")
+     */
+    public function byCategoryAction($categorySlug, $type)
+    {
+        $taxonomyType = Taxonomy::TYPE_CATEGORY;
+        $taxonomy = $this->get('app_repository_taxonomy')->findBySlug($categorySlug);
+
+        if(!($taxonomy && $taxonomy->getType()==$taxonomyType))
+        {
+            throw new NotFoundHttpException("Category not found.");
+        }
+
+        return $this->render("BlogBundle:Frontend/Blog:singleEvent.html.twig",
+            array(
+                'category' => $taxonomy,
+                'type' => $type
                 ));
     }
 

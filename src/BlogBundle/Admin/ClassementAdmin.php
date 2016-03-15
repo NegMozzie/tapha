@@ -16,7 +16,6 @@ class ClassementAdmin extends Admin
         $formMapper
             ->add('team')
             ->add('pilot')
-            ->add('event')
             ->add('points')
             ->add('rank')
             ->add('time', 'time', array(
@@ -28,9 +27,11 @@ class ClassementAdmin extends Admin
        ;
     }
 
+    
+
     public function prePersist($classement)
     {
-        $nam = "Classement".'_'.$classement->getEvent()->getName();
+        $nam = "Classement".'_';
         if ($classement->getTeam())
             $nam = $nam.'_'.$classement->getTeam()->getName();
         else if ($classement->getPilot())
@@ -58,7 +59,6 @@ class ClassementAdmin extends Admin
             ->add('name')
             ->add('team')
             ->add('pilot')
-            ->add('event')
        ;
     }
 
@@ -69,7 +69,6 @@ class ClassementAdmin extends Admin
             ->addIdentifier('name')
             ->add('team')
             ->add('pilot')
-            ->add('event')
        ;
     }
 

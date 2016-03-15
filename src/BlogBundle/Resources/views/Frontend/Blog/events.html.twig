@@ -15,9 +15,10 @@
               </div>
       </div>
       <div class="container">
-		{% for item in pagination %}
+		{% for item in season.getEvents() %}
     		<div class="col-md-3" style="margin-top:5px;">
-    			<a class="black" href="">
+          <h1>h1 Bootstrap heading (36px)</h1>
+    			<a class="black" href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': item.getName(), 'type': "championnat"  }) }}">
 		            <div>
 		            	<img class="" src="{% path item.excerptPhoto, 'big' %}">
 		            </div>

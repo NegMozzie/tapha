@@ -3,91 +3,27 @@
 {% block content %}
   <div class=" margin--t">
     <div class="row">
-      <div class="col-md-3 col-lg-3">
-        <div id="mz_sidebar" class="semi-transparent-round">
-                  <div id="mz_sidebar_title" class="semi-transparent-round">
-                      Evenements de la semaine
-                  </div> 
-                  <div class="semi-transparent-round" margin-top:"5px;">
-                    {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
+      <div class="col-md-3" style="padding: 0 0 0 0;">
+        <div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
+          <div id="mz_sidebar_title" class="semi-transparent-round">
+            <a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
+          </div> 
+          <div style="margin-top:5px;">
+            {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
 
-                  </div>  
-              </div>
+          </div>  
+        </div>
       </div>
-      <div class="col-md-9 col-lg-9">
-        <div style="margin: auto;margin-top:5px;width: 60%; height: 150px; display:block;">
-          <div class="col-md-6">
-            <h4> {{ event.getName() }} </h4>
-          </div>
-          <img class="" src="{% path event.excerptPhoto, 'big' %}">
-        </div>
-        <br>
-        <div class="container" style="margin-top: 15px;">
-          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home"><h3>Sous Evenements</h3></a></li>
-            <li><a data-toggle="tab" href="#menu1"><h3> Classement Ecuries</h3></a></li>
-            <li><a data-toggle="tab" href="#menu2"><h3>Classement Pilotes</h3></a></li>
-          </ul>
-
-          <div class="tab-content">
-            <div id="home" class="tab-pane fade in active col-md-12" style="display: inline !important; ">
-              
-              {% for child in event.getChildren() %}
-                <div class="event col-md-5">
-                    <h4> {{ child.getName() }} </h4>
-                    <img class="" src="{% path event.excerptPhoto, 'big' %}">
-                </div>
-                <div class="event col-md-5">
-                    <h4> {{ child.getName() }} </h4>
-                    <img class="" src="{% path event.excerptPhoto, 'big' %}">
-                </div>
-                <div  class="event col-md-5">
-                    <h4> {{ child.getName() }} </h4>
-                    <img class="" src="{% path event.excerptPhoto, 'big' %}">
-                </div>
-
-              {% endfor %}
-            </div>
-            <div id="menu1" class="tab-pane fade">
-
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Nom</th>
-                    <th>Pilot1</th>
-                    <th>Pilot2</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                  </tr>
-                </tbody>
-              </table>
-            
-            </div>
-            <div id="menu2" class="tab-pane fade">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Rang</th>
-                    <th>Prenom</th>
-                    <th>Nom</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      <div class="col-md-6">
+        {% if type == "grandprix" or type == "course" %}
+          {% include 'BlogBundle:Frontend/Blog:grandprix.html.twig' %}
+        {% elseif type == "championnat" and category.getChildren()|length <= 1 %}
+          {% set event = category.getEvents() %}
+          {% include 'BlogBundle:Frontend/Blog:calendrier.html.twig' %}
+        {% elseif type == "team" and category.getChildren()|length <= 1 %}
+          {% set event = category.getEvents() %}
+          {% include 'BlogBundle:Frontend/Blog:teams.html.twig' %}  
+        {% endif %}
       </div>
     </div>
   </div>

@@ -47,7 +47,7 @@ class Season
     protected $status;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Event", mappedBy="season")
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Championship", mappedBy="parent")
      */
     protected $events;
 
@@ -137,16 +137,17 @@ class Season
         return $this;
     }
 
-    public function addEvent(Event $event) {
+    public function addEvent(GrandPrix $event) {
         $event->addTeam($this);
  
         // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
         if (!$this->events->contains($classement)) {
             $this->events->add($classement);
+            $event->setParent($this);
         }
     }
 
-    public function removeEvent(Event $event)
+    public function removeEvent(GrandPrix $event)
     {
         if($this->events->contains($event))
         {
@@ -155,19 +156,19 @@ class Season
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getEvents()
     {
-        return $this->event;
+        return $this->events;
     }
 
     /**
-     * @param mixed $event
+     * {@inheritdoc}
      */
-    public function setEvents(Event $event=null)
+    public function setEvents($event=null)
     {
-        $this->event = $event;
+        $this->events = $event;
         return $this;
     }
 

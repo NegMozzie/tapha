@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class HomepageController extends DefaultController
 {
     /**
-     * @Route("/", name="ed_blog_homepage_index")
+     * @Route("/", name="ed_admin_index")
      */
     public function indexAction()
     {

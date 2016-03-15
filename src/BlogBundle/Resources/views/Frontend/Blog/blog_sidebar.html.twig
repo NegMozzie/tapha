@@ -1,23 +1,28 @@
 {% if (events|length) %}
-  {% for event in events %}
-   <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': event.getName() }) }}">
-    <button id="mz_sidebar_event" class="col-md-12">
-      <div id="mz_sidebar_event_date" class="col-md-4">
-        {% set foo = event.getStartsAt() | format_datetime|split(' ') %}
-        <time datetime="2014-09-20" class="icon">
-          <strong>{{ foo[0] }}</strong>
-          <span>{{ foo[1] }}</span>
-          <em>{{ foo[2] }} </em>
+{% for event in events %}
+   <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': event.getName(), 'type': 'grandprix' }) }}" style="min-width: 100%; min-height: 100%;">
+    <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;">
+      <div  class="col-md-4" style="text-align:center;">
+        {{ event.getStartsAt|date("d/m") }}
       </div>
       <div id="mz_sidebar_event_main" class="col-md-8">
         <div style="text-align:center;min-height:50% !important; max-height:50% !important;background-color:Black;">
         {{ event.getName()}}
         </div>
-        <div style="text-align:center;min-height:50% !important; max-height:50% !important;background-color:Black;">
-          Debut: {{ event.getStartsAt() | format_time }} 
-        </div>
       </div>
-    </button>
+    </div>
   </a>
+  {% for child in event.getChildren() %}
+      <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': child.getName(), 'type': 'course' }) }}" style="min-width: 100%; min-height: 100%;">
+        <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
+          <div  class="col-md-4" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
+            {{ child.getStartsAt|date("d/m") }}
+          </div>
+          <div class="col-md-8" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
+            {{ child.getName()}}
+          </div>
+        </div>
+      </a>
   {% endfor %}
+{% endfor %}
 {% endif %}

@@ -11,8 +11,9 @@
                             <li><a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': child.term.slug}) }}">{{child.term.title}}</a></li>
                             {% set br = br + 1 %}
                         {% endfor %}
-                         <li><a href="">Ecuries</a></li>
-                         <li><a href="">Calendrier</a></li>
+                         <li><a href="{{ path('ed_frontend_blog_event_by_category', {'categorySlug': children.term.slug, 'type': 'team'}) }}">Equipes</a></li>
+                         <li><a href="">Pilotess</a></li>
+                         <li><a href="{{ path('ed_frontend_blog_event_by_category', {'categorySlug': children.term.slug, 'type': 'championnat'}) }}">Calendrier</a></li>
                          <li><a href="">Classement</a></li>
                     </ul>
                 </div>

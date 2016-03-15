@@ -12,9 +12,17 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class UserAdmin extends Admin
 {
+  protected $dataClass;
+    protected $userClass;
+    protected $entityManager;
+    protected $authorizationChecker;
+    protected $categoryClass = 'BlogBundle\Entity\Taxonomy';
 
     protected function configureFormFields(FormMapper $formMapper)
     {
+
+      if($this->isGranted('ROLE__AUTHOR'))
+      {
         $formMapper
             ->add('blogDisplayName')  
             ->add('email')
@@ -28,6 +36,7 @@ class UserAdmin extends Admin
                ))
 
         ;
+      }
     }
     
     public function prePersist($user)

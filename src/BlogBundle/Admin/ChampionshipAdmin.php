@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class EventAdmin extends Admin
+class ChampionshipAdmin extends Admin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
@@ -25,24 +25,16 @@ class EventAdmin extends Admin
                 'class' => 'Application\Sonata\MediaBundle\Entity\Media',
                 'property' => 'name'
             ))
-            ->add('startsAt', 'sonata_type_datetime_picker')
-            ->add('endsAt', 'sonata_type_datetime_picker')
+            ->add('startsAt')
+            ->add('endsAt')
             ->add('parent')
+            ->add('category')
+            ->add('classement', 'sonata_type_model', array(
+                'multiple' => true,
+                'required' => false
+                ))
+
        ;
-    }
-
-    public function prePersist($event)
-    {
-        $event->setTeams($event->getParent()->getTeam());
-        $event->setCategory($event->getParent()->getCategory());
-        $event->setSeason($event->getParent()->getSeason());
-    }
-
-    public function preUpdate($event)
-    {
-        $event->setTeams($event->getParent()->getTeam());
-        $event->setCategory($event->getParent()->getCategory());
-        $event->setSeason($event->getParent()->getSeason());
     }
 
     // Fields to be shown on filter forms
@@ -50,6 +42,8 @@ class EventAdmin extends Admin
     {
        $datagridMapper
             ->add('name')
+            ->add('parent')
+            ->add('category')
             ->add('startsAt')
             ->add('endsAt')
        ;
@@ -60,6 +54,7 @@ class EventAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('parent')
        ;
     }
 
@@ -67,7 +62,8 @@ class EventAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-           ->add('name')
+            ->add('parent')
+            ->add('name')
        ;
     }
 }

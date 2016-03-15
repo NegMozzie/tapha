@@ -12,24 +12,21 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-
-    <div class="col-md-3">
-        <div id="mz_sidebar" class="semi-transparent-round">
-                  <div id="mz_sidebar_title" class="semi-transparent-round">
-                    <a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
-                  </div> 
-                  <div class="semi-transparent-round" margin-top:"5px;">
-                    {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
-
-                  </div>  
-              </div>
+  <div class=" margin--t">
+    <div class="row">
+      <div class="col-md-3" style="padding: 0 0 0 0;">
+        <div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
+          <div id="mz_sidebar_title" class="semi-transparent-round">
+            <a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
+          </div> 
+          <div style="margin-top:5px;">
+            {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
+          </div>  
+        </div>
       </div>
-
-    <div class="row col-md-6" style="margin-top:45px;">
-
+      <div class="col-md-6" style="margin-top:45px;">
       <div class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8  table-rework">
-       <img class="img-div" src="{% path article.excerptPhoto, 'excerpt' %}" alt="">
+        <img class="img-div" src="{% path article.excerptPhoto, 'excerpt' %}" alt="">
 
         <div class="text--30 text--bold black margin--tx4 margin--halfb lh32">{{ article.title }}</div>
 
@@ -53,20 +50,19 @@
         {% endif  %}
 
         <p>{{ article.content|raw }}</p>
+        {% include 'BlogBundle:Comment:list.html.twig' %}
+
+      </div>
+      </div>
+      <div class="col-md-3">
+        <div class="semi-transparent-round; black text--10 text--bold; color: White;">
+          ARTICLES DU MEME AUTEUR
+        </div> 
+        <div class="semi-transparent-round" style="height: auto; min-width:98%;">  
+          {{ render(controller('BlogBundle:Frontend/Blog:byAuthorBar', {'user': article.author})) }}
+        </div>  
       </div>
     </div>
-
-    <div class="col-md-3">
-      <div class="semi-transparent-round; black text--10 text--bold; color: White;">
-        ARTICLES DU MEME AUTEUR
-      </div> 
-      <div class="semi-transparent-round" style="height: auto; min-width:98%;">  
-        {{ render(controller('BlogBundle:Frontend/Blog:byAuthorBar', {'user': article.author})) }}
-      </div>  
-    </div>
-
-    {% include 'BlogBundle:Comment:list.html.twig' %}
-
   </div>
 {% endblock content %}
 

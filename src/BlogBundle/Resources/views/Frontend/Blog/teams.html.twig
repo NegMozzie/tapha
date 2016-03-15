@@ -1,0 +1,35 @@
+<div id="col1" class="col c1 c-first">
+	{% set event = event[0]%}
+	<article id="main-content">
+		<div class="nwTable nwClub">
+			<img alt="" class="nwLogo" src="{% path event.excerptPhoto, 'crop' %}">
+			<h1>Ecuries de {{category.term}}<span>{{event.getParent()}}</span></h1>
+			<br class="clear">
+			<ul>
+				{% for team in category.getTeams() %}
+					<li> 
+						<div> 
+							<h2>
+								<a href="">{{team}}</a>
+							</h2> 
+
+	               			<span class="a" data-link="">
+
+	                			<img class="nwImage" src="{% path team.excerptPhoto, 'big' %}" alt="">
+	                        
+	                    	</span>
+							<ul>
+								{% for pilot in team.getPilots() %}	
+									<li>
+										<a href="/">{{pilot}}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						
+						</div> 
+					</li>
+				{% endfor %}	
+			</ul>
+		</div>
+	</article><!-- main-content -->
+</div>

@@ -90,8 +90,8 @@ sonata_media:
                 - sonata.media.provider.file
 
             formats:
-                crop:  { width: 600 , quality: 80}
-                small: { width: 100 , quality: 70}
+                crop:  { width: 100 , quality: 80}
+                small: { width: 15 , quality: 9}
                 big:   { width: 500 , quality: 70}
                 lib:   { width: 350 , height: 250 , quality: 70}
                 excerpt:   { width: 780 , height: 500 , quality: 70}
@@ -128,8 +128,10 @@ knp_paginator:
 blog:
     entities:
         user_model_class: BlogBundle\Entity\User
+        grandprix_model_class: BlogBundle\Entity\GrandPrix
+        course_model_class: BlogBundle\Entity\Course
+        championship_model_class: BlogBundle\Entity\Championship
         pilot_model_class: BlogBundle\Entity\Pilot
-        event_model_class: BlogBundle\Entity\Event
         team_model_class: BlogBundle\Entity\Team
         article_class: BlogBundle\Entity\Article
         article_meta_class: BlogBundle\Entity\ArticleMeta

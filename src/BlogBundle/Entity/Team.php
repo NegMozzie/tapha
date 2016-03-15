@@ -3,7 +3,7 @@
 
 namespace BlogBundle\Entity;
 
-
+use BlogBundle\Entity\Championship;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -34,8 +34,15 @@ class Team
      * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Pilot", mappedBy="team")
      */
     protected $pilots;
+    
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Event",mappedBy="teams")
+     *
+     * @ORM\OneToMany(targetEntity="Classement", mappedBy="team", cascade={"persist", "remove", "merge"})
+     */
+    protected $classements;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Championship",mappedBy="teams")
      * @ORM\JoinTable(name="team_event_relation",
      *      joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")})
@@ -44,25 +51,25 @@ class Team
     protected $events;
     
     /**
-     * Class constructor
-     */
-    /**
-     * @var ArrayCollection $classements
-     *
-     * @ORM\OneToMany(targetEntity="Classement", mappedBy="team", cascade={"persist", "remove", "merge"})
-     */
-    protected $classements;
-    /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="excerpt_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $excerptPhoto;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Taxonomy", inversedBy="teams")
+     * @ORM\JoinTable(name="team_category_relation",
+     *      joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")})
+     *
+     */
+    protected $categories;
+
     public function __construct()
     {
         $this->pilots = new ArrayCollection();
-        $this->events = new ArrayCollection();
         $this->classements = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
     /**
      * @return mixed
@@ -110,7 +117,7 @@ class Team
             $this->pilots->removeElement($pilot);
         }
     }
-    public function addEvent(Event $event) {
+    public function addEvent(Championship $event) {
         $event->addTeam($this);
  
         // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
@@ -118,28 +125,47 @@ class Team
             $this->events->add($classement);
         }
     }
-    public function removeEvent(Event $event)
+    public function removeEvent(Championship $event)
     {
         if($this->events->contains($event))
         {
             $this->events->removeElement($event);
         }
     }
+
+     /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+    /**
+     * @param mixed $event
+     */
+    public function setCategories($event=null)
+    {
+        $this->categories = $event;
+        return $this;
+    }
+    
+
     /**
      * @return mixed
      */
     public function getEvents()
     {
-        return $this->event;
+        return $this->events;
     }
     /**
      * @param mixed $event
      */
-    public function setEvents(Event $event=null)
+    public function setEvents($event=null)
     {
         $this->event = $event;
         return $this;
     }
+    
     public function getId()
     {
         return $this->id;
@@ -175,23 +201,23 @@ class Team
         $classement->setTeam($this);
  
         // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->classements->contains($classement)) {
-            $this->classements->add($classement);
+        if (!$this->classement->contains($classement)) {
+            $this->classement->add($classement);
         }
     }
  
     /**
      * @return ArrayCollection $classements
      */
-    public function getClassements() {
-        return $this->classements;
+    public function getClassement() {
+        return $this->classement;
     }
     /**
      * @param mixed $categories
      */
     public function setClassement($classements)
     {
-        $this->classements = $classements;
+        $this->classement = $classement;
         return $this;
     }
     public function removeClassement(Classement $classement)

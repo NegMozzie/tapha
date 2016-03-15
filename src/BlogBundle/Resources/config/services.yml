@@ -1,4 +1,42 @@
+parameters:
+    kernel.listener.atd.access_denied.class: BlogBundle\Listener\AccessDeniedListener
 services:
+    kernel.listener.accessDenied:
+        class: %kernel.listener.atd.access_denied.class%
+        scope: request
+        arguments: ["@session", "@router", "@request"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onAccessDeniedException }
+    app.admin.classement:
+        class: BlogBundle\Admin\ClassementAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Classement" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Classement
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+    app.admin.user:
+        class: BlogBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ADMINISTRATION", label: "Gestionnaires" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\User
+            - 
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.category:
+        class: BlogBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "ADMINISTRATION", label: "Categorie" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Taxonomy
+            - ~
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
     app.admin.season:
         class: BlogBundle\Admin\SeasonAdmin
         tags:
@@ -9,13 +47,33 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [BlogBundle]]
-    app.admin.event:
-        class: BlogBundle\Admin\EventAdmin
+    app.admin.grandprix:
+        class: BlogBundle\Admin\GrandPrixAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Grand Prix, Courses, Essais Libres" }
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Grand Prix" }
         arguments:
             - ~
-            - BlogBundle\Entity\Event
+            - BlogBundle\Entity\GrandPrix
+            - ~
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.championship:
+        class: BlogBundle\Admin\ChampionshipAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Championnat" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Championship
+            - ~
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.course:
+        class: BlogBundle\Admin\CourseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Courses, Essais Libres" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Course
             - ~
         calls:
             - [ setTranslationDomain, [BlogBundle]]
@@ -29,6 +87,46 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [BlogBundle]]
+    app.admin.pilot:
+        class: BlogBundle\Admin\PilotAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Pilotes" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Pilot
+            - 
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.championship:
+        class: BlogBundle\Admin\ChampionshipAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Course Championnats" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Championship
+            - 
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.grandprix:
+        class: BlogBundle\Admin\GrandprixAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Course Grandprix" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\GrandPrix
+            - 
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
+    app.admin.course:
+        class: BlogBundle\Admin\CourseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Courses" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Course
+            - 
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
     app.admin.article:
         class: BlogBundle\Admin\ArticleAdmin
         tags:
@@ -39,17 +137,6 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [BlogBundle]]
-    app.admin.category:
-        class: BlogBundle\Admin\CategoryAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DU SITE", label: "Categorie" }
-        arguments:
-            - ~
-            - BlogBundle\Entity\Taxonomy
-            - ~
-        calls:
-            - [ setTranslationDomain, [BlogBundle]]
-
     app.admin.term:
         class: BlogBundle\Admin\TermAdmin
         tags:
@@ -68,36 +155,6 @@ services:
             - ~
             - BlogBundle\Entity\ArticleMeta
             - ~
-        calls:
-            - [ setTranslationDomain, [BlogBundle]]
-    app.admin.user:
-        class: BlogBundle\Admin\UserAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DU SITE", label: "Gestionnaires" }
-        arguments:
-            - ~
-            - BlogBundle\Entity\User
-            - 
-        calls:
-            - [ setTranslationDomain, [BlogBundle]]
-    app.admin.pilot:
-        class: BlogBundle\Admin\PilotAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Pilotes" }
-        arguments:
-            - ~
-            - BlogBundle\Entity\Pilot
-            - 
-        calls:
-            - [ setTranslationDomain, [BlogBundle]]
-    app.admin.classement:
-        class: BlogBundle\Admin\ClassementAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DES COMPETITIONS", label: "Classements" }
-        arguments:
-            - ~
-            - BlogBundle\Entity\Classement
-            - 
         calls:
             - [ setTranslationDomain, [BlogBundle]]
 

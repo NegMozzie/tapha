@@ -10,10 +10,17 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Doctrine\ORM\EntityRepository;
 use BlogBundle\Entity\Article;
+use BlogBundle\Entity\Taxonomy;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ArticleAdmin extends Admin
 {
+    protected $dataClass;
+    protected $userClass;
+    protected $entityManager;
+    protected $authorizationChecker;
+    protected $categoryClass = 'BlogBundle\Entity\Taxonomy';
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -42,8 +49,40 @@ class ArticleAdmin extends Admin
             ))
             ->add('content')
             ->add('author', 'sonata_type_model')
-            ->add('categories')
-            ->add('tags')
+            ->add('categories', 'entity', array(
+                    'label' => 'Categories:',
+                    'multiple' => true,
+                    'required' => true,
+                    'class' => $this->categoryClass,
+                    'placeholder' => 'Selectionnez les categories',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->innerJoin('a.term', 'p')
+                            ->where('a.type like :type')
+                            ->orderBy('p.title', 'ASC')
+                            ->setParameter('type', Taxonomy::TYPE_CATEGORY);
+                    },
+                    'attr' => array(
+                        'class' => 'form-control form-control--lg color-placeholder',
+                    )
+                ))
+            ->add('tags', 'entity', array(
+                    'label' => 'Tags:',
+                    'required' => true,
+                    'multiple' => true,
+                    'class' => $this->categoryClass,
+                    'placeholder' => 'Selectionnez les tags',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->innerJoin('a.term', 'p')
+                            ->where('a.type like :type')
+                            ->orderBy('p.title', 'ASC')
+                            ->setParameter('type', Taxonomy::TYPE_TAG);
+                    },
+                    'attr' => array(
+                        'class' => 'form-control form-control--lg color-placeholder',
+                    )
+                ))
             ->add('metaData')
             ->add('status', ChoiceType::class, array(
                     'label' => 'Status:',

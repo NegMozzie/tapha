@@ -1,0 +1,85 @@
+<div id="col1" class="col c1 c-first">
+  
+  <article id="main-content">
+    <div class="nwTable nwClub">
+      <img alt="" class="nwLogo" src="{% path event.excerptPhoto, 'crop' %}">
+      <h1><span>{{event}}</span></h1>
+      <br class="clear">
+        <div class="container col-md-12" style="margin-top: 15px;">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home"><h3>Sous Evenements</h3></a></li>
+            <li><a data-toggle="tab" href="#menu1"><h3> Classement Ecuries</h3></a></li>
+            <li><a data-toggle="tab" href="#menu2"><h3>Classement Pilotes</h3></a></li>
+          </ul>
+
+          <div class="tab-content col-md-12">
+            <div id="home" class="tab-pane fade in active ">
+              
+              {% if type == 'grandprix' %}
+              {% for child in event.getChildren() %}
+                <div class="event col-md-5" href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': child.getName(), 'type': 'course' }) }}">
+                  <h4> {{ child.getName() }} </h4>
+                  <img class="" src="{% path event.excerptPhoto, 'big' %}">
+                </div>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <div id="menu1" class="tab-pane fade">
+
+              <table class="table table-bordered" >
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Pilot1</th>
+                    <th>Pilot2</th>
+                    <th>Rang</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for rank in event.getClassement() %}
+                      {% set team = rank.getTeam() %}
+                      {% if  team  %}
+                        <td>{{ team }}</td>
+                        {% set test = 0 %}
+                        {% for pilot in  team.getPilots()  %}
+                          <td>{{ pilot }}</td>
+                          {% set test = loop.index0%}
+                        {% endfor %}
+                        {% if not test%}
+                          <td></td>
+                        {% endif %}
+                        <td>{{ rank.getRank() }}</td>
+                      {% endif %}
+                    {% endfor %}
+                  </tr>
+                </tbody>
+              </table>
+            
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Temps</th>
+                    <th>Rang</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for rank in event.getClassement()%}
+                      <td>John</td>
+                      <td>Doe</td>
+                      <td>john@example.com</td>
+                    {% endfor %}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  </div>
+</article>
+</div>

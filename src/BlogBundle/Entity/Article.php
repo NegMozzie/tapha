@@ -122,7 +122,11 @@ class Article
     protected $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article")
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment")
+     * @ORM\JoinTable(name="article_comment_relation",
+     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")})
+     *
      */
     protected $comments;
 

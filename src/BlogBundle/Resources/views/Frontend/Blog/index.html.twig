@@ -3,12 +3,12 @@
 {% block content %}
 	<div class=" margin--t">
 		<div class="row">
-			<div class="col-md-3">
-				<div id="mz_sidebar" class="semi-transparent-round">
+			<div class="col-md-3" style="padding: 0 0 0 0;">
+				<div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
 	                <div id="mz_sidebar_title" class="semi-transparent-round">
 	                	<a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
 	                </div> 
-	                <div class="semi-transparent-round" margin-top:"5px;">
+	                <div style="margin-top:5px;">
                 		{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
 
 	                </div>  

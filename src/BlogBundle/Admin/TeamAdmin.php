@@ -21,6 +21,7 @@ class TeamAdmin extends Admin
             ))
             ->add('description')
             ->add('pilots')
+            ->add('categories')
        ;
     }
     

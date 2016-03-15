@@ -1,6 +1,5 @@
-{% if is_granted('ACCESS_COMMENTS') %}
-    <div class="js-comments-content" id="comments">
-        {% include 'BlogBundle:Comment:comments.html.twig' %}
-        {% include 'BlogBundle:Comment:form.html.twig' %}
-    </div>
-{% endif %}
+<div class="js-comments-content" id="comments">
+    {% include 'BlogBundle:Comment:comments.html.twig' %}
+    {% include 'BlogBundle:Comment:form.html.twig' %}
+</div>
+

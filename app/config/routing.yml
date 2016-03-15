@@ -18,7 +18,7 @@ blog_frontend:
 blog:
     resource: "@BlogBundle/Controller/Backend/"
     type:     annotation
-    prefix:   /blog/admin/
+
 
 # app/config/routing.yml
 fos_user:
@@ -28,9 +28,7 @@ fos_user:
 
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
-
+    prefix:   /admin
 _sonata_admin:
     resource: .
     type: sonata_admin
-    prefix: /admin

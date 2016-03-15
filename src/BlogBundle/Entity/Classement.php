@@ -51,21 +51,15 @@ class Classement
     protected $time;
 
      /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot", inversedBy="classements"))
-     * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot"))
+     * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $pilot;
     /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team", inversedBy="classements"))
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team"))
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $team;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Event", inversedBy="classements")
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
-     */
-    protected $event;
 
 
 
@@ -148,16 +142,7 @@ class Classement
         $this->name = $name;
     }
 
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
-    public function setEvent($event)
-    {
-        $this->event = $event;
-    }
-
+    
      /**
      * @return mixed
      */

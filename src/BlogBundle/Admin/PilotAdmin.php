@@ -28,7 +28,6 @@ class PilotAdmin extends Admin
             ))
             ->add('biography')
             ->add('team')
-
         ;
     }
 

@@ -68,17 +68,7 @@ class Comment
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $parent;
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
-     */
-    protected $article;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Event", inversedBy="comments")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
-     */
-    protected $event;
+    
 
     function __construct(){
     }

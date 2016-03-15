@@ -42,6 +42,9 @@ class BlogExtension extends Extension implements PrependExtensionInterface
 
             $edTargetEntities = array(
                 'BlogBundle\Entity\User' => $config['entities']['user_model_class'],
+                'BlogBundle\Entity\Course' => $config['entities']['course_model_class'],
+                'BlogBundle\Entity\GrandPrix' => $config['entities']['grandprix_model_class'],
+                'BlogBundle\Entity\Championship' => $config['entities']['championship_model_class'],
                 'BlogBundle\Entity\Term' => $config['entities']['blog_term_class'],
                 'BlogBundle\Entity\Taxonomy' => $config['entities']['blog_taxonomy_class'],
                 'BlogBundle\Entity\TaxonomyRelation' => $config['entities']['blog_taxonomy_relation_class'],
@@ -50,7 +53,6 @@ class BlogExtension extends Extension implements PrependExtensionInterface
                 'BlogBundle\Entity\ArticleCommenter' => $config['entities']['user_model_class'],
                 'BlogBundle\Entity\Pilot' => $config['entities']['pilot_model_class'],
                 'BlogBundle\Entity\Team' => $config['entities']['team_model_class'],
-                'BlogBundle\Entity\Event' => $config['entities']['event_model_class'],
                 'BlogBundle\Entity\ArticleMeta' => $config['entities']['article_meta_class']
             );
 
@@ -74,8 +76,10 @@ class BlogExtension extends Extension implements PrependExtensionInterface
             );
 
             $container->setParameter('user_model_class', $config['entities']['user_model_class']);
+            $container->setParameter('course_model_class', $config['entities']['course_model_class']);
+            $container->setParameter('grandprix_model_class', $config['entities']['grandprix_model_class']);
+            $container->setParameter('championship_model_class', $config['entities']['championship_model_class']);
             $container->setParameter('team_model_class', $config['entities']['team_model_class']);
-            $container->setParameter('event_model_class', $config['entities']['event_model_class']);
             $container->setParameter('pilot_model_class', $config['entities']['pilot_model_class']);
             $container->setParameter('article_class', $config['entities']['article_class']);
             $container->setParameter('blog_comment_class', $config['entities']['blog_comment_class']);

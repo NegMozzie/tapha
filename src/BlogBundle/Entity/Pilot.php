@@ -60,16 +60,18 @@ class Pilot extends BaseUser
      */
     protected $team;
 
-    /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Classement", mappedBy="pilot")
-     */
-    private $classements;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="excerpt_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $countryPhoto;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Classement", mappedBy="team", cascade={"persist", "remove", "merge"})
+     */
+    protected $classements;
    
 
     public function __construct()
@@ -177,31 +179,28 @@ class Pilot extends BaseUser
      * @param BClassement $classements
      */
     public function addClassement(Classement $classement) {
-        $classement->setPilot($this);
+        $classement->setTeam($this);
  
         // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->classements->contains($classement)) {
-            $this->classements->add($classement);
+        if (!$this->classement->contains($classement)) {
+            $this->classement->add($classement);
         }
     }
  
     /**
      * @return ArrayCollection $classements
      */
-    public function getClassements() {
-        return $this->classements;
+    public function getClassement() {
+        return $this->classement;
     }
-
     /**
      * @param mixed $categories
      */
     public function setClassement($classements)
     {
-        $this->classements = $classements;
-
+        $this->classement = $classement;
         return $this;
     }
-
     public function removeClassement(Classement $classement)
     {
         if($this->classements->contains($classement))
@@ -209,5 +208,4 @@ class Pilot extends BaseUser
             $this->classements->removeElement($classement);
         }
     }
-
 }
