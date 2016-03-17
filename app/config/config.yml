@@ -138,7 +138,7 @@ blog:
         blog_term_class: BlogBundle\Entity\Term
         blog_taxonomy_class: BlogBundle\Entity\Taxonomy
         blog_taxonomy_relation_class: BlogBundle\Entity\TaxonomyRelation
-        blog_comment_class: BlogBundle\Entity\Comment\ArticleComment
+        blog_comment_class: BlogBundle\Entity\Comment
         blog_settings_class: BlogBundle\Entity\BlogSettings
 
 fos_user:
