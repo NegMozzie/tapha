@@ -12,40 +12,36 @@ use Doctrine\ORM\EntityRepository;
 
 class EventRepository extends EntityRepository
 {
-  public function findByName($slug)
+    public function findByTaxonomy($taxonomySlug, $type, $limit = null)
     {
-        
-        $eventClass = $this->_entityName;
-        $query = "SELECT tax FROM $eventClass tax
-                  WHERE tax.name = :slug
-                  ";
+        $teamClass = $this->_entityName;
+        $query = "SELECT a FROM $teamClass a";
 
-        $results = $this->getEntityManager()
-            ->createQuery($query)
-            ->setParameter("slug", $slug);
+        if ($type == Taxonomy::TYPE_TAG)
+        {
+            $query.=" INNER JOIN a.tags tr";
+        }else
+        {
+            $query.=" INNER JOIN a.categories tr";
+        }
 
-        return $results->getOneOrNullResult();
-    }
-
-    public function getWeekEvents()
-    {
-        $eventClass = $this->_entityName;
-        $date = date('Y-m-d'); // you can put any date you want
-        $nbDay = date('N', strtotime($date));
-        $monday = new \DateTime($date);
-        $sunday = new \DateTime($date);
-        $monday->modify('-'.($nbDay-1).' days');
-        $sunday->modify('+'.(8-$nbDay).' days');
-        $query = "SELECT a FROM $eventClass a
-                  WHERE (a.startsAt >= :monday OR a.endsAt >= :monday)
-                  AND a.startsAt <= :sunday
-                  ";
+        $query.=" INNER JOIN tr.term t
+                  WHERE tr.type=:type AND t.slug=:taxonomySlug
+                  ORDER BY a.name DESC"
+        ;
 
         $query = $this->getEntityManager()
             ->createQuery($query)
-            ->setParameter('monday', $monday)
-            ->setParameter('sunday', $sunday);
+            ->setParameter("type",$type)
+            ->setParameter('taxonomySlug',$taxonomySlug);
 
-        return $query->useQueryCache(true)->setQueryCacheLifetime(60)->getResult();
+        if($limit)
+        {
+            $query->setMaxResults($limit);
+        }
+
+        $teams = $query->useQueryCache(true)->setQueryCacheLifetime(60)->getResult();
+
+        return $teams;
     }
 }

@@ -18,50 +18,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class EventController extends Controller
 {
     /**
-     * @Route("/sport/events", name="ed_blog_event")
-     * @Route("/sport/events/", name="ed_blog_frontend_events")
+     * @Route("/category/{categorySlug}/events", name="ed_blog_events")
+     * @Route("/category/{categorySlug}/events/", name="ed_blog_frontend_events")
      */
-    public function indexAction()
-    {
-        
-        $events = $this->get('app_repository_season')->findActiveSeason();
-        $paginator = $this->get('blog.paginator');
-        return $this->render('BlogBundle:Frontend/Blog:events.html.twig', array(
-              'season' => $events
-          ));
-    }
-    
-
-
-    /**
-     * @Route("/sport/events/{eventName}/{type}", name="ed_frontend_blog_by_eventname")
-     * @Route("/sport/events/{eventName}/{type}", name="frontend_blog_by_eventname")
-     */
-    public function singleEventAction($eventName, $type)
-    {
-        if ($type == "championnat")
-          $event = $this->get('app_repository_championship')->findByName($eventName);
-        if ($type == "grandprix")
-          $event = $this->get('app_repository_grandprix')->findByName($eventName);
-        if ($type == "course")
-          $event = $this->get('app_repository_course')->findByName($eventName);
-
-        if(!($event))
-        {
-            throw new NotFoundHttpException("Event not found.");
-        }
-
-        return $this->render("BlogBundle:Frontend/Blog:singleEvent.html.twig",
-            array(
-                'event' => $event,
-                'type' => $type
-                ));
-    }
-
-    /**
-     * @Route("/sport/{categorySlug}/{type}", name="ed_frontend_blog_event_by_category")
-     */
-    public function byCategoryAction($categorySlug, $type)
+    public function indexAction($categorySlug)
     {
         $taxonomyType = Taxonomy::TYPE_CATEGORY;
         $taxonomy = $this->get('app_repository_taxonomy')->findBySlug($categorySlug);
@@ -71,10 +31,74 @@ class EventController extends Controller
             throw new NotFoundHttpException("Category not found.");
         }
 
-        return $this->render("BlogBundle:Frontend/Blog:singleEvent.html.twig",
+        $criteria['type'] = $taxonomyType;
+        $criteria['value'] = $taxonomy;
+
+        $paginator = $this->get('_blog.paginator');
+        $response = $paginator->paginate(
+            $this->get('app_repository_championship')->findByTaxonomy($categorySlug,$taxonomyType),
+            'BlogBundle:Frontend/Blog:calendrier',
+            'BlogBundle:Frontend/Global:pagination',
+            array("criteria" => $criteria),
+            1,
+            null,
+            $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
+            array(),
+            null
+        );
+
+        return $response;
+    }
+
+    /**
+     * @Route("/category/{categorySlug}/classement", name="ed_blog_classements")
+     * @Route("/category/{categorySlug}/classement/", name="ed_blog_frontend_classements")
+     */
+    public function classementAction($categorySlug)
+    {
+        $taxonomyType = Taxonomy::TYPE_CATEGORY;
+        $taxonomy = $this->get('app_repository_taxonomy')->findBySlug($categorySlug);
+
+        if(!($taxonomy && $taxonomy->getType()==$taxonomyType))
+        {
+            throw new NotFoundHttpException("Category not found.");
+        }
+
+        $criteria['type'] = $taxonomyType;
+        $criteria['value'] = $taxonomy;
+
+        $paginator = $this->get('_blog.paginator');
+        $response = $paginator->paginate(
+            $this->get('app_repository_championship')->findByTaxonomy($categorySlug,$taxonomyType),
+            'BlogBundle:Frontend/Blog:pclassement',
+            'BlogBundle:Frontend/Global:pagination',
+            array("criteria" => $criteria),
+            30,
+            null,
+            $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
+            array(),
+            null
+        );
+
+        return $response;
+    }
+
+
+    /**
+     * @Route("/category/events/{eventName}", name="ed_frontend_blog_by_eventname")
+     * @Route("/category/events/{eventName}", name="frontend_blog_by_eventname")
+     */
+    public function singleeventAction($eventName)
+    {
+        $event = $this->get('app_repository_event')->findByName($eventName);
+
+        if(!($event))
+        {
+            throw new NotFoundHttpException("event not found.");
+        }
+        return $this->render("BlogBundle:Frontend/Blog:singleevent.html.twig",
             array(
-                'category' => $taxonomy,
-                'type' => $type
+                'event' => $event
                 ));
     }
 

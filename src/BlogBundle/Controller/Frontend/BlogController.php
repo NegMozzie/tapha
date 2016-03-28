@@ -33,7 +33,7 @@ class BlogController extends Controller
             'BlogBundle:Frontend/Blog:index',
             'BlogBundle:Frontend/Global:pagination',
             array(),
-            Pagination::SMALL,
+            20,
             null,
             $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
             array(),
@@ -57,7 +57,6 @@ class BlogController extends Controller
         $commentClass = $this->container->getParameter('blog_comment_class');
         $newComment = new $commentClass();
         $newComment
-            ->setAuthor($this->getUser())
             ->setArticle($article);
 
         $form = $this->createForm('edcomment', $newComment);

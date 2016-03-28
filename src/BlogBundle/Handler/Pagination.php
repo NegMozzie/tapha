@@ -59,7 +59,7 @@ class Pagination
         $templateCut,
         $templateCutPagination,
         $parametarsForTwig,
-        $limit = 30,
+        $limit = 1,
         $params = array(),
         $paginationTemplate = 'AppBundle:Account:pagination.html.twig',
         $ajaxParams = array(),

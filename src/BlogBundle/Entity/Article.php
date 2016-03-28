@@ -41,10 +41,7 @@ class Article
     protected $title;
 
     /**
-     * @ORM\Column(type="string", length=140, nullable=true)
-     * @Assert\Length(
-     *      max = 140,
-     *      maxMessage = "Article excerpt should not be longer than {{ limit }} characters"
+     * @ORM\Column(type="text", nullable=true)
      * )
      */
     protected $excerpt;
@@ -122,7 +119,7 @@ class Article
     protected $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment")
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\JoinTable(name="article_comment_relation",
      *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")})
@@ -257,22 +254,7 @@ class Article
      */
     public function getExcerptText()
     {
-        if($this->excerpt)
-        {
-            return $this->excerpt;
-        }
-        else
-        {
-            $rowExcerpt = strip_tags($this->content);
-
-            if( strlen($rowExcerpt) > self::EXCERPT_LENGTH)
-            {
-                $break = strpos($rowExcerpt, ' ', self::EXCERPT_LENGTH - 10);
-                $rowExcerpt = substr($rowExcerpt, 0, $break) . '...';
-            }
-
-            return $rowExcerpt;
-        }
+        return $this->excerpt.'...';
     }
 
     /**
@@ -280,7 +262,7 @@ class Article
      */
     public function setExcerpt($excerpt)
     {
-        $this->excerpt = $excerpt;
+        $this->excerpt = $excerpt.'...';
 
         return $this;
     }

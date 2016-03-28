@@ -20,9 +20,6 @@ class UserAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-
-      if($this->isGranted('ROLE__AUTHOR'))
-      {
         $formMapper
             ->add('blogDisplayName')  
             ->add('email')
@@ -36,12 +33,32 @@ class UserAdmin extends Admin
                ))
 
         ;
-      }
     }
     
     public function prePersist($user)
     {
-        $user->setUsername($user->getBlogDisplayName());
+      $user->addRole('ROLE_BLOG_USER');
+
+      $user->setUserName($user->getBlogDisplayName());
+      if ($user->hasRole('ROLE_BLOG_ADMIN'))
+      {
+        $user->addRole('ROLE_BLOG_AUTHOR');
+        $user->addRole('ROLE_BLOG_EDITOR');
+        $user->addRole('ROLE_BLOG_CONTRIBUTOR');
+        $user->addRole('ROLE_SUPER_ADMIN');
+      }
+    }
+
+
+    public function preUpdate($user)
+    {
+      if ($user->hasRole('ROLE_BLOG_ADMIN'))
+      {
+        $user->addRole('ROLE_BLOG_AUTHOR');
+        $user->addRole('ROLE_BLOG_EDITOR');
+        $user->addRole('ROLE_BLOG_CONTRIBUTOR');
+        $user->addRole('ROLE_SUPER_ADMIN');
+      }
     }
 
     public function getBlogRolesArray()
@@ -67,6 +84,7 @@ class UserAdmin extends Admin
     {
         $listMapper
             ->add('blogDisplayName')
+            ->addIdentifier('userName')
             ->add('roles')
        ;
     }

@@ -1,7 +1,8 @@
-{% extends 'BlogBundle:Layout:blog_admin_main.html.twig' %}
+{% extends 'BlogBundle:Default:index.html.twig' %}
 {%  form_theme form '@Blog/Global/forms.html.twig' %}
 
-{% block content %}
+{% block sonata_page_content %}
+<aside class="right-side">
     <div class="dashboard-content">
         <h1 class="text--bold margin--halft margin--b">Edit Settings</h1>
 
@@ -51,4 +52,5 @@
             {{ form_rest(form) }}
         </form>
     </div>
-{% endblock content %}
+</aside>
+{% endblock sonata_page_content %}

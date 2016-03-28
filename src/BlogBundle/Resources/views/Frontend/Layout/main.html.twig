@@ -26,7 +26,9 @@
 
   {% block footer %}
     {{ parent() }}
-    {% include('BlogBundle:Frontend/Layout:_footer.html.twig') %}
+    {% block foot %}
+      {% include('BlogBundle:Frontend/Layout:_footer.html.twig') %}
+    {% endblock foot %}
   {% endblock footer %}
 
 {% endblock %} {# endblock body #}

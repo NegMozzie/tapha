@@ -1,7 +1,7 @@
 {% if (events|length) %}
 {% for event in events %}
-   <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': event.getName(), 'type': 'grandprix' }) }}" style="min-width: 100%; min-height: 100%;">
-    <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;">
+  <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;">
+    <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': event.getName(), 'type': 'grandprix' }) }}" style="min-width: 100%; min-height: 100%;">
       <div  class="col-md-4" style="text-align:center;">
         {{ event.getStartsAt|date("d/m") }}
       </div>
@@ -10,8 +10,8 @@
         {{ event.getName()}}
         </div>
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
   {% for child in event.getChildren() %}
       <a href="{{ path('ed_frontend_blog_by_eventname', { 'eventName': child.getName(), 'type': 'course' }) }}" style="min-width: 100%; min-height: 100%;">
         <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">

@@ -35,7 +35,18 @@ class Comment
      */
     protected $name;
 
-
+    /**
+     * @ORM\Column(type="string", length=3000, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 3000,
+     *      minMessage = "Comment should be at least {{ limit }} characters long",
+     *      maxMessage = "Comment should not be longer than {{ limit }} characters"
+     * )
+     */
+    protected $comment;
+    
     /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -68,6 +79,12 @@ class Comment
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $parent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Article", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    protected $article;
     
 
     function __construct(){

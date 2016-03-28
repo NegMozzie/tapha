@@ -1,35 +1,43 @@
-<div id="col1" class="col c1 c-first">
-	{% set event = event[0]%}
-	<article id="main-content">
-		<div class="nwTable nwClub">
-			<img alt="" class="nwLogo" src="{% path event.excerptPhoto, 'crop' %}">
-			<h1>Ecuries de {{category.term}}<span>{{event.getParent()}}</span></h1>
-			<br class="clear">
-			<ul>
-				{% for team in category.getTeams() %}
-					<li> 
-						<div> 
-							<h2>
-								<a href="">{{team}}</a>
-							</h2> 
-
-	               			<span class="a" data-link="">
-
-	                			<img class="nwImage" src="{% path team.excerptPhoto, 'big' %}" alt="">
-	                        
-	                    	</span>
-							<ul>
-								{% for pilot in team.getPilots() %}	
-									<li>
-										<a href="/">{{pilot}}</a>
-									</li>
-								{% endfor %}
-							</ul>
-						
-						</div> 
-					</li>
-				{% endfor %}	
-			</ul>
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+{% block sidebar %}
+	{{ parent()}}
+{% endblock sidebar %}
+{% block main %}
+    {% block carousel %}
+    {% endblock carousel %}
+    {% block container %}
+		{% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
+		<div class="col-md-12" style="padding-top : 5px;">
+			{% for item in pagination %}
+				<div class="item">
+					<a class="black" href="">
+						<div class="thumb">
+							{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
+						</div>
+						<h1 style=" text-align:center;color:black;"> {{item|capitalize }}</h1>
+						<ul>
+							{% for pilot in item.getPilots() %}	
+								<li>
+									<a href="/">{{pilot}}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</a>
+				</div>
+			{% endfor %}
+			{{ knp_pagination_render(pagination) }}
 		</div>
-	</article><!-- main-content -->
-</div>
+    {% endblock container %}
+{% endblock main %}
+
+{% block foot %}
+	
+	<footer class="footer">
+      <div class="container col-md-12" style="padding:0 0 0 0;">
+      	<div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
+		<div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
+      </div>
+    </footer>
+{% endblock foot %}
+
+

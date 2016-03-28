@@ -1,65 +1,87 @@
-<div id="col1" class="col c1 c-first" style="position:relative">
-	<article id="main-content" style="position: relative">
-		<!--ZONES-->
-		
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+{% block sidebar %}
+	{{ parent()}}
+{% endblock sidebar %}
+{% block main %}
+    {% block carousel %}
+    {% endblock carousel %}
+    {% block container %}
+		{% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
+		<div class="col-md-12" style="padding-top : 5px;">
+			{% for item in pagination %}
+				<div id="col1" class="col c1 c-first" style="position:relative">
+					<article id="main-content" style="position: relative">
+							<!--ZONES-->
+						<div class="nwTable">
+							<img src="{% path item.excerptPhoto, 'crop' %}" class="nwLogo" alt="">
+							<h1>Calendrier {{ item.category.term }}
+								<span> 
+									{{ item }}
+								</span>
+							</h1> 
+							
+							<table border="0" cellpadding="1" cellspacing="0" width="100%"> 
+								<colgroup> 
+									<col width="18%"> 
+									<col width="28%"> 
+									<col width="19%"> 
+									<col width="20%"> 
+									<col width="15%"> 
+								</colgroup> 
+								<thead> 
+									<tr> 
+										<th colspan="5" class="tl">Calendrier {{item}}</th> 
+									</tr> 
+								</thead> 
+								<tbody> 
+									<tr>
 
-<div class="nwTable">
-	{% set event = event[0]%}
-	<img src="{% path event.excerptPhoto, 'crop' %}" class="nwLogo" alt="">
-	<h1>Calendrier {{category.term}}
-		<span> 
-			{{event.getParent()}}
-		</span>
-	</h1> 
-	
-	<table border="0" cellpadding="1" cellspacing="0" width="100%"> 
-		<colgroup> 
-			<col width="18%"> 
-			<col width="28%"> 
-			<col width="19%"> 
-			<col width="20%"> 
-			<col width="15%"> 
-		</colgroup> 
-		<thead> 
-			<tr> 
-				<th colspan="5" class="tl">Calendrier des grands prix</th> 
-			</tr> 
-		</thead> 
-		<tbody> 
-			<tr>
-
-				<th>Date</th>
-				<th>Grand prix</th>
-				<th>Pays</th>
-				<th>Ville</th>
-				<th></th>
-			</tr>
-			{% for gp in event.getChildren() %}
-				<tr class="">
-					<td>Du <span data-time="1458264600" class="utc">{{ event.getStartsAt|date("d/m") }}
-						</span> au <span data-time="1458450000" class="utc">{{ event.getEndsAt|date("d/m") }}</span>
-					</td>
-					<td>
-						<strong>
-							<a class="texteGras" href="/f1/2016/directs/gp-d-australie/course.html"> {{ gp.getName }} </a>
-						</strong>
-					</td>
-					<td>
-						<img class="vm" alt="AUSTRALIE" src="{% path gp.countryPhoto, 'small' %}">
-					</td>
-					<td>
-						<a href="">{{ gp.getTown }}</a>
-					</td>
-					<td>
-						<a href="">résultats</a>
-					</td>
-				</tr>
+										<th>Date</th>
+										<th>Grand prix</th>
+										<th>Pays</th>
+										<th>Ville</th>
+										<th></th>
+									</tr>
+									{% for gp in item.getChildren() %}
+										<tr class="">
+											<td>Du <span data-time="1458264600" class="utc">{{ gp.getStartsAt|date("d/m") }}
+												</span> au <span data-time="1458450000" class="utc">{{ gp.getEndsAt|date("d/m") }}</span>
+											</td>
+											<td>
+												<strong>
+													<a class="texteGras" href=""> {{ gp.getName }} </a>
+												</strong>
+											</td>
+											<td>
+												<img class="vm" alt="AUSTRALIE" src="{% path gp.countryPhoto, 'small' %}">
+											</td>
+											<td>
+												<a href="">{{ gp.getTown }}</a>
+											</td>
+											<td>
+												<a href="">résultats</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table> 
+						</div>
+					</article><!-- main-content -->
+				</div>
 			{% endfor %}
-		</tbody>
-	</table> 
+			{{ knp_pagination_render(pagination) }}
+		</div>
+    {% endblock container %}
+{% endblock main %}
 
-</div>
-		
+{% block foot %}
+	
+	<footer class="footer">
+      <div class="container col-md-12" style="padding:0 0 0 0;">
+      	<div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
+		<div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
+      </div>
+    </footer>
+{% endblock foot %}
 
-	</article><!-- main-content -->
-</div>
+

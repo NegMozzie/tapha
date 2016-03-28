@@ -1,0 +1,14 @@
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+
+{% block main %}
+  {% for item in season.getEvents() %}
+        <div class="col-md-3" style="margin-top:5px;">
+          <a class="black" href="{{ path('ed_frontend_blog_event_by_category', {'categorySlug': item.category.term.slug, 'type': 'championnat'}) }}">
+                <div>
+                  <img class="" src="{% path item.excerptPhoto, 'big' %}">
+                </div>
+                {{item.name}}
+            </a>
+        </div>
+  {% endfor %}
+{% endblock main %}

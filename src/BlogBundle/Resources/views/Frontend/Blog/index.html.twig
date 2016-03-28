@@ -3,26 +3,39 @@
 {% block content %}
 	<div class=" margin--t">
 		<div class="row">
-			<div class="col-md-3" style="padding: 0 0 0 0;">
-				<div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
-	                <div id="mz_sidebar_title" class="semi-transparent-round">
-	                	<a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
-	                </div> 
-	                <div style="margin-top:5px;">
-                		{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
-
-	                </div>  
-            	</div>
+		{% block sidebar %}
+			<div class="col-md-3" style="margin-top:5px;">
+	            <div  class="semi-transparent-round">
+	                <h1 style=" text-align:center;color:black;"> AGENDA </h1>
+	            </div> 
+	            <div class="semi-transparent-round" style="margin-top:5px;">
+                	{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
+	            </div>
 			</div>
+		{% endblock sidebar %}
 			<div class="col-md-9">
-				<div id="mz_carousel" class="carousel slide" data-ride="carousel">
+				{% block main %}
                     {% block carousel %}
-                        {{ render(controller('BlogBundle:Frontend/Carousel:index')) }}
-                    {% endblock %}
-                </div>
-				{% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
-				{% include "BlogBundle:Frontend/Blog:indexAjax.html.twig" %}
+						<div class="carousel slide col-md-12" style="padding: 0 0 0 0 !important; margin: 5px auto 15px auto !important;" data-ride="carousel">
+        	                {{ render(controller('BlogBundle:Frontend/Carousel:index')) }}
+		                </div>
+                    {% endblock carousel %}
+                    {% block container %}
+						{% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
+						{% include "BlogBundle:Frontend/Blog:indexAjax.html.twig" %}
+                    {% endblock container %}
+				{% endblock main %}
 			</div>
 		</div>
 	</div>
 {% endblock content %}
+
+{% block foot %}
+	
+	<footer class="footer">
+      <div class="container col-md-12" style="padding:0 0 0 0;">
+      	<div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
+		<div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
+      </div>
+    </footer>
+{% endblock foot %}

@@ -54,7 +54,7 @@ class CategoryAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('term')
+            ->addIdentifier('term.title')
             ->add('parent')
             ->add('type')
        ;
@@ -64,7 +64,7 @@ class CategoryAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-           ->add('term')
+            ->add('term')
             ->add('parent')
             ->add('type')
        ;

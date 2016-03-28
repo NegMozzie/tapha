@@ -1,21 +1,14 @@
-{% for item in pagination %}
+<div class="col-md-12" style="padding-top : 5px;">
+    {% for item in pagination %}
     {% set commentsCnt = commentsCount(item) %}
-    {% if loop.index0 is divisible by(4)%}
-        <div class="col-md-12" style="padding-left: 0 !important;">
-    {% endif %}
-    <div class="item" {% if loop.index0 == 0%}
-         style="margin-left: 0 !important; float:left !important;"
-        {% endif %}>
+    <div class="item">
         <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
-            <div class="thumb">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b'} %}</div>
+            <div class="thumb">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}</div>
         
 
-            <div class="text--10 text--bold black margin--halfb lh32">{{ item.title }}
-            </div>
+           <h1 style=" text-align:center;color:black;"> {{item.title|capitalize }}</h1>
         </a>
 
     </div>
-    {% if loop.index is divisible by(4) %}
-        </div>
-    {% endif %}
-{% endfor %}
+    {% endfor %}
+</div>

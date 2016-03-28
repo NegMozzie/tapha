@@ -68,7 +68,7 @@ class ArticleAdmin extends Admin
                 ))
             ->add('tags', 'entity', array(
                     'label' => 'Tags:',
-                    'required' => true,
+                    'required' => false,
                     'multiple' => true,
                     'class' => $this->categoryClass,
                     'placeholder' => 'Selectionnez les tags',

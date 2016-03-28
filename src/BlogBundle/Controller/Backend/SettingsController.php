@@ -8,10 +8,24 @@
 
 namespace BlogBundle\Controller\Backend;
 
+
+use Psr\Log\NullLogger;
+use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\BaseFieldDescription;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Sonata\AdminBundle\Exception\ModelManagerException;
+use Sonata\AdminBundle\Util\AdminObjectAclData;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use BlogBundle\Forms\SettingsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SettingsController extends DefaultController
@@ -49,7 +63,8 @@ class SettingsController extends DefaultController
         }
 
         return $this->render('@Blog/Settings/edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'admin_pool' => $this->get('sonata.admin.pool')
         ));
 
     }

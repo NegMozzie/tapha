@@ -2,7 +2,7 @@
     <div class="trunk">
       <div id="social-count" class="fr">
         <ul>
-          {% if app.user and app.user.hasRole('ROLE_BLOG_USER') %}
+          {% if app.user and app.user.hasRole('ROLE_USER') %}
             <li class="a" data-link='{{  url('sonata_admin_dashboard') }}'>
               <a class="white" href="{{  url('sonata_admin_dashboard') }}">
               Panel Admin</a>

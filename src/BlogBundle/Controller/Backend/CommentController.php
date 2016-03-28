@@ -31,12 +31,8 @@ class CommentController extends DefaultController
         $user = $this->getUser();
         $blogSettings = $this->get('blog_settings');
 
-        if($this->container->get('security.authorization_checker')->isGranted('ACCESS_COMMENTS', $user) === false || $this->container->get('security.authorization_checker')->isGranted('CREATE_COMMENT', $user) === false)
-            throw new AccessDeniedHttpException("Sorry, commenting is currently disabled by blog administrator.");
-
         $object = $this->get('comment_generator')->getObject();
         $object
-            ->setAuthor($user)
             ->setArticle($article);
         $class = get_class($object);
 
@@ -49,14 +45,16 @@ class CommentController extends DefaultController
             if($form->isValid())
             {
                 $em = $this->getDoctrine()->getManager();
-
+                $object->setCreatedAt(new \DateTime())
+                    ->setModifiedAt(new \DateTime())
+                ;
                 if($user && $user->hasRole('ROLE_BLOG_ADMIN'))
                 {
                     $object->setStatus( Comment::STATUS_ACTIVE );
                 }
                 else
                 {
-                    $object->setStatus( $blogSettings->manualCommentsApprove() ? Comment::STATUS_PENDING : Comment::STATUS_ACTIVE );
+                    $object->setStatus( Comment::STATUS_PENDING );
                 }
 
                 $em->persist($object);
@@ -67,7 +65,6 @@ class CommentController extends DefaultController
 
                 $resetObject = new $class;
                 $resetObject
-                    ->setAuthor($user)
                     ->setArticle($article);
 
                 $form = $this->createForm('edcomment', $resetObject);

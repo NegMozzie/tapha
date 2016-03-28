@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * 
  * @ORM\Table(name="championnat")
- * @ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\EventRepository")
+ * @ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\ChampionshipRepository")
  */
 class Championship extends Event
 {

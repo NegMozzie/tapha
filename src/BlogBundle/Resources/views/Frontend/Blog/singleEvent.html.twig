@@ -23,6 +23,10 @@
         {% elseif type == "team" and category.getChildren()|length <= 1 %}
           {% set event = category.getEvents() %}
           {% include 'BlogBundle:Frontend/Blog:teams.html.twig' %}  
+        {% elseif type == "pilot" %}
+          {% set event = category.getEvents() %}
+          {% include 'BlogBundle:Frontend/Blog:pilots.html.twig' %}  
+        {% elseif type == "classement" %}
         {% endif %}
       </div>
     </div>
