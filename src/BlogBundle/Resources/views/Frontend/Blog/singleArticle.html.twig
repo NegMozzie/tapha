@@ -1,76 +1,60 @@
-{% extends "BlogBundle:Frontend/Layout:main.html.twig" %}
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+{% block sidebar %}
+  {{ parent()}}
+{% endblock sidebar %}
+{% block main %}
+    {% block carousel %}
+    {% endblock carousel %}
+    {% block container %}
+      {% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
+      <div class="col-md-9" style="margin-top:5px;">
+          <div class="col-md-12" style="width:100%; height: 400px; padding: 0 0 0 0;  margin : 0 0 0 0;">
+            
+            <img class="img-div" src="{% path article.excerptPhoto, 'excerpt' %}" alt="">
+          </div>
 
+          <div class="text--30 text--bold black margin--tx4 margin--halfb lh32">{{ article.title|capitalize }}</div>
 
-{% block title %}{{ article.title }}{% endblock %}
-
-{% block metaTags %}
-    {% for meta in article.metaData  %}
-        {% if meta.key!='writing_locked' %}
-        <meta name="{{ meta.key|lower }}" content="{{ meta.value }}">
-        {% endif %}
-    {% endfor %}
-{% endblock %}
-
-{% block content %}
-  <div class=" margin--t">
-    <div class="row">
-      <div class="col-md-3" style="padding: 0 0 0 0;">
-        <div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
-          <div id="mz_sidebar_title" class="semi-transparent-round">
-            <a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
-          </div> 
-          <div style="margin-top:5px;">
-            {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
-          </div>  
-        </div>
-      </div>
-      <div class="col-md-6" style="margin-top:45px;">
-      <div class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8  table-rework">
-        <img class="img-div" src="{% path article.excerptPhoto, 'excerpt' %}" alt="">
-
-        <div class="text--30 text--bold black margin--tx4 margin--halfb lh32">{{ article.title }}</div>
-
-        <p class="text--mini app-grey">By <a href="{{ path('ed_frontend_blog_by_author', {'username': article.author.username}) }}">{{ article.author.blogDisplayName }}</a> on {{ article.publishedAt|blogDate}}
-          {% if (article.categories|length) %}
-          in {%  for category in article.categories %}
-               {{ loop.index0 ? ', ' }}<a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': category.term.slug}) }}" >{{ category.term.title }}</a>
-             {% endfor %}
-          {% endif %}
-          {% if ( is_granted('ACCESS_COMMENTS') and commentsCnt) %}
-            | <a href="#comments">{{  commentsCnt }}</a> comment{{  (commentsCnt > 1) ? 's' }}
-          {% endif  %}
-        </p>
-
-        {% if (article.tags|length) %}
-          <p class="text--mini app-grey"><i class="fa fa-tags"></i>
-          {% for tag in article.tags %}
-            <a href="{{ path('ed_frontend_blog_by_tag', {'tagSlug': tag.term.slug}) }}">{{ tag.term.title }}</a>{% if not loop.last %}, {% endif %}
-          {% endfor %}
+          <p class="text--mini app-grey">By <a href="{{ path('ed_frontend_blog_by_author', {'username': article.author.username}) }}">{{ article.author.blogDisplayName }}</a> on {{ article.publishedAt|blogDate}}
+            {% if (article.categories|length) %}
+            in {%  for category in article.categories %}
+                 {{ loop.index0 ? ', ' }}<a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': category.term.slug}) }}" >{{ category.term.title }}</a>
+               {% endfor %}
+            {% endif %}
+            {% if ( is_granted('ACCESS_COMMENTS') and commentsCnt) %}
+              | <a href="#comments">{{  commentsCnt }}</a> comment{{  (commentsCnt > 1) ? 's' }}
+            {% endif  %}
           </p>
-        {% endif  %}
 
-        <p>{{ article.content|raw }}</p>
-        {% include 'BlogBundle:Comment:list.html.twig' %}
+          {% if (article.tags|length) %}
+            <p class="text--mini app-grey"><i class="fa fa-tags"></i>
+            {% for tag in article.tags %}
+              <a href="{{ path('ed_frontend_blog_by_tag', {'tagSlug': tag.term.slug}) }}">{{ tag.term.title }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            </p>
+          {% endif  %}
 
-      </div>
-      </div>
-      <div class="col-md-3" style="padding: 0 0 0 0; margin: 0 0 0 0;">
+          <p>{{ article.content|raw }}</p>
+          {% include 'BlogBundle:Comment:list.html.twig' %}
+
+        </div>
+    {% endblock container %}
+    <div class="col-md-3" style="padding: 0 0 0 0; margin-top: 5px;" >
         <div class="col-md-12" style="padding: 0 0 0 0; margin: 0 0 0 0;">
-          ARTICLES DU MEME AUTEUR
+          <h1 style=" text-align:center;color:black;"> ARTICLES DU MEME AUTEUR </h1>
         </div> 
         <div class="col-md-12 semi-transparent-round" style="padding: 0 0 0 0; margin: 0 0 0 0; height: auto; width:100%;">  
           {{ render(controller('BlogBundle:Frontend/Blog:byAuthorBar', {'user': article.author})) }}
         </div>  
       </div>
-    </div>
-  </div>
-{% endblock content %}
+{% endblock main %}
 
-{% block javascripts %}
-  {{ parent() }}
-  <script type="text/javascript">
-    $(document).ready(function() {
-      wrapTable();
-    });
-   </script>
-{% endblock %}
+{% block foot %}
+  
+  <footer class="footer">
+      <div class="container col-md-12" style="padding:0 0 0 0;">
+        <div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
+    <div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
+      </div>
+    </footer>
+{% endblock foot %}

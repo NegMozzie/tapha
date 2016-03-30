@@ -33,8 +33,8 @@ class PilotAdmin extends Admin
 
     public function prePersist($pilot)
     {
-        $pilot->setUserName("");
-        $pilot->setEmail("");
+        $pilot->setUserName($pilot->getFirstName(). ' ' .$pilot->getLastName());
+        $pilot->setEmail($pilot->getFirstName(). ' ' .$pilot->getLastName()."pilot.com");
         $pilot->setPassword("");
     }
     

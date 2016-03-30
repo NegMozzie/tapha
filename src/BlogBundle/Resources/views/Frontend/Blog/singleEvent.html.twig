@@ -1,20 +1,13 @@
-{% extends 'BlogBundle:Frontend/Layout:main.html.twig' %}
-
-{% block content %}
-  <div class=" margin--t">
-    <div class="row">
-      <div class="col-md-3" style="padding: 0 0 0 0;">
-        <div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
-          <div id="mz_sidebar_title" class="semi-transparent-round">
-            <a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
-          </div> 
-          <div style="margin-top:5px;">
-            {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
-
-          </div>  
-        </div>
-      </div>
-      <div class="col-md-6">
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+{% block sidebar %}
+  {{ parent()}}
+{% endblock sidebar %}
+{% block main %}
+    {% block carousel %}
+    {% endblock carousel %}
+    {% block container %}
+      {% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
+      <div class="col-md-9">
         {% if type == "grandprix" or type == "course" %}
           {% include 'BlogBundle:Frontend/Blog:grandprix.html.twig' %}
         {% elseif type == "championnat" and category.getChildren()|length <= 1 %}
@@ -29,6 +22,28 @@
         {% elseif type == "classement" %}
         {% endif %}
       </div>
-    </div>
-  </div>
-{% endblock content %}
+      
+    {% endblock container %}
+    <div class="col-md-3" style="padding: 0 0 0 0; margin-top: 5px;" >
+        <div class="col-md-12" style="padding: 0 0 0 0; margin: 0 0 0 0;">
+          <h1 style=" text-align:center;color:black;"> </h1>
+        </div> 
+        <div class="col-md-12 semi-transparent-round" style="padding: 0 0 0 0; margin: 0 0 0 0; height: auto; width:100%;">  
+        </div>  
+      </div>
+{% endblock main %}
+
+{% block foot %}
+  
+  <footer class="footer">
+      <div class="container col-md-12" style="padding:0 0 0 0;">
+        <div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
+    <div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
+      </div>
+    </footer>
+{% endblock foot %}
+
+
+
+
+

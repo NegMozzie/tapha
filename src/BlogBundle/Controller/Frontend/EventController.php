@@ -90,15 +90,16 @@ class EventController extends Controller
      */
     public function singleeventAction($eventName)
     {
-        $event = $this->get('app_repository_event')->findByName($eventName);
+        $event = $this->get('app_repository_grandprix')->findByName($eventName);
 
         if(!($event))
         {
             throw new NotFoundHttpException("event not found.");
         }
-        return $this->render("BlogBundle:Frontend/Blog:singleevent.html.twig",
+        return $this->render("BlogBundle:Frontend/Blog:singleEvent.html.twig",
             array(
-                'event' => $event
+                'event' => $event,
+                'type' => 'grandprix'
                 ));
     }
 

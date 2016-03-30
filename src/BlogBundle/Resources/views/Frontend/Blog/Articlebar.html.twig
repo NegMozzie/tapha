@@ -1,11 +1,11 @@
 {% set break = false%}
 {% for item in pagination if not break %}
-    <div class="col-md-12" style="width:100%; height: 150px; padding-left:0px; padding-bottom:px; margin-top: 10px; margin-bottom: 10px;">
+    <div style="width:100%; height: 180px; border:solid; margin: padding: 0 0 0 0;">
         <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
-            <div class="col-md-12" style="width:100%;  margin : 0;">
-                            {{ item.title }}
+            <div class="col-md-12" style="width:100%; height: 20px; padding: 0 0 0 0;  margin : 5px 0 0 0;">
+                <h1 style=" text-align:center;color:black;">{{ item.title|capitalize }}</h1>
             </div>
-            <div class="col-md-12" style="width:100%; height: 150px !important; margin : 0;">
+            <div class="col-md-12"; style="width:100%;height: 150px !important; padding: 0 0 0 0;  margin : 0 0 0 0;">
                 <img style="width:100%; height:100%;" class="" src="{% path item.excerptPhoto, 'big' %}">
             </div>    
         </a>

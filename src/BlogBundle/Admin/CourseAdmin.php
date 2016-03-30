@@ -29,7 +29,8 @@ class CourseAdmin extends Admin
             ->add('endsAt')
             ->add('parent')
             ->add('classement', 'sonata_type_model', array(
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
                 ))
        ;
     }
