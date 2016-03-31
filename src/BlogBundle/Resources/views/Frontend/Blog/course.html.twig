@@ -79,13 +79,19 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            {% for rank in event.getClassement()%}
-                              <td>John</td>
-                              <td>Doe</td>
-                              <td>john@example.com</td>
-                            {% endfor %}
+                            {% for rank in event.getClassement() %}
+                              <tr>
+                              {% set team = rank.getPilot() %}
+                              {% if  team  %}
+                                <td>{{ team.firstName }}</td>
+                                <td>{{ team.lastName }}</td>
+                                <td>{{ rank.time |date("d/m")}}</td>
+                                <td>{{ rank.getRank() }}</td>
+                        
+                              {% endif %}
                           </tr>
+                              
+                            {% endfor %}
                         </tbody>
                       </table>
                     </div>
