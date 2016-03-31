@@ -94,7 +94,7 @@ class BlogController extends Controller
             'BlogBundle:Frontend/Blog:index',
             'BlogBundle:Frontend/Global:pagination',
             array("criteria" => $criteria),
-            Pagination::SMALL,
+            20,
             null,
             $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
             array(),
