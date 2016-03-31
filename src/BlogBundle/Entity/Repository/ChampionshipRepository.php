@@ -3,6 +3,7 @@ namespace BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use BlogBundle\Entity\Taxonomy;
+use BlogBundle\Entity\Season;
 
 /**
  * ChampionshiptRepository
