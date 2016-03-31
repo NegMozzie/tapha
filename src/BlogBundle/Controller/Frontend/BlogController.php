@@ -88,7 +88,7 @@ class BlogController extends Controller
         $criteria['type'] = $taxonomyType;
         $criteria['value'] = $taxonomy;
 
-        $paginator = $this->get('_blog.paginator');
+        $paginator = $this->get('blog.paginator');
         $response = $paginator->paginate(
             $this->get('app_repository_article')->getActiveArticlesByTaxonomy($categorySlug,$taxonomyType),
             'BlogBundle:Frontend/Blog:index',
@@ -144,7 +144,7 @@ class BlogController extends Controller
         $criteria['type'] = $taxonomyType;
         $criteria['value'] = $taxonomy;
 
-        $paginator = $this->get('_blog.paginator');
+        $paginator = $this->get('blog.paginator');
         $response = $paginator->paginate(
             $this->get('app_repository_article')->getActiveArticlesByTaxonomy($tagSlug,$taxonomyType),
             'BlogBundle:Frontend/Blog:index',
