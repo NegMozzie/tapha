@@ -44,6 +44,7 @@ class Event
      */
     public function __construct()
     {
+        $this->classement = new ArrayCollection();
     }
     
     /**
@@ -181,7 +182,6 @@ class Event
      * @param BClassement $classements
      */
     public function addClassement(Classement $classement) {
-        $classement->setPilot($this);
  
         // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
         if (!$this->classement->contains($classement)) {
