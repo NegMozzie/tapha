@@ -119,11 +119,7 @@ class Article
     protected $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\JoinTable(name="article_comment_relation",
-     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")})
-     *
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="article")
      */
     protected $comments;
 

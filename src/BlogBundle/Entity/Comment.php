@@ -36,6 +36,13 @@ class Comment
     protected $name;
 
     /**
+     * Articles in the taxonomy
+     *
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 1000})
+     */
+    protected $tour;
+
+    /**
      * @ORM\Column(type="string", length=3000, nullable=false)
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -48,7 +55,7 @@ class Comment
     protected $comment;
     
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $status;
 
@@ -70,7 +77,7 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     * @var ArticleCommenter
+     * 
      */
     protected $author;
 
@@ -291,14 +298,35 @@ class Comment
         return $this->author;
     }
 
-    /**
+     /**
      * @param mixed $author
      */
+    public function setAuthor(User $author=null)
+    {
+        $this->author = $author;
+        return $this;
+    }
 
+    /**
+     * @param mixed $points
+     */
+    public function setTour($tour)
+    {
+        $this->tour = $tour;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTour()
+    {
+        return $this->tour;
+    }
 
     public function __toString()
     {
-        return $this->name;
+        return $this->comment;
     }
 }
 

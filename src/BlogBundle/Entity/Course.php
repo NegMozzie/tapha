@@ -3,8 +3,10 @@
 
 namespace BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use BlogBundle\Model\Event;
 use BlogBundle\Entity\GrandPrix;
+use BlogBundle\Entity\Comment;
 use Doctrine\ORM\Mapping as ORM;
 
 /** 
@@ -28,7 +30,7 @@ class Course extends Event
     protected $parent;
     
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment")
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Classement")
      * @ORM\JoinTable(name="course_classement_relation",
      *      joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="classement_id", referencedColumnName="id")})
@@ -45,7 +47,11 @@ class Course extends Event
      */
     protected $comments;
 
-
+    public function __construct()
+    {
+        parent::__construct();
+        $this->comments = new ArrayCollection();
+    }
     /**
      * @return mixed
      */
@@ -62,6 +68,61 @@ class Course extends Event
         $this->parent = $parent;
 
         return $this;
+    }
+
+    
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function addComment(Comment $comment)
+    {
+        if(!$this->comments->contains($comment))
+        {
+            $this->comments->add($comment);
+        }
+    }
+
+    public function removeComment(Comment $comment)
+    {
+        if($this->comments->contains($comment))
+        {
+            $this->comments->removeElement($comment);
+        }
     }
 
     /**

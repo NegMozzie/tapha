@@ -3,7 +3,7 @@
 namespace BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
+use BlogBundle\Entity\Season;
 
 /**
  * GrandPrixRepository
@@ -17,13 +17,21 @@ class GrandPrixRepository extends EntityRepository
     {
         
         $eventClass = $this->_entityName;
-        $query = "SELECT tax FROM $eventClass tax
-                  WHERE tax.name = :slug
-                  ";
+        $status = Season::STATUS_PRESENT;
+
+        $query = "SELECT gp FROM $eventClass gp ";
+
+        $query.=" INNER JOIN gp.parent champ";
+        $query.=" INNER JOIN champ.parent s
+                  WHERE gp.name = :slug
+                  AND s.status=:status"
+                  ;
+    
 
         $results = $this->getEntityManager()
             ->createQuery($query)
-            ->setParameter("slug", $slug);
+            ->setParameter("slug", $slug)
+            ->setParameter("status", $status);
 
         return $results->getOneOrNullResult();
     }

@@ -70,7 +70,7 @@ class Pilot extends BaseUser
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="Classement", mappedBy="team", cascade={"persist", "remove", "merge"})
+     * @ORM\OneToMany(targetEntity="Classement", mappedBy="pilot", cascade={"persist", "remove", "merge"})
      */
     protected $classements;
    

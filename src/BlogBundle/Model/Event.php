@@ -32,10 +32,6 @@ class Event
      */
     protected $endsAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Comment", mappedBy="event")
-     */
-    protected $comments;
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
@@ -48,8 +44,6 @@ class Event
      */
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
-        $this->classements = new ArrayCollection();
     }
     
     /**

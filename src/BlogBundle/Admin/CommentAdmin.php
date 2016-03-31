@@ -5,6 +5,7 @@ namespace BlogBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use BlogBundle\Entity\Taxonomy;
+use BlogBundle\Entity\Comment;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -18,9 +19,15 @@ class CommentAdmin extends Admin
         $formMapper
             ->add('comment')
             ->add('author')
-            ->add('article')
-            ->add('parent')
+            ->add('tour')
        ;
+    }
+
+    public function prePersist($comment)
+    {
+        $comment->setCreatedAt(new \DateTime());
+        $comment->setModifiedAt(new \DateTime());
+        $comment->setStatus( Comment::STATUS_ACTIVE );
     }
     
 

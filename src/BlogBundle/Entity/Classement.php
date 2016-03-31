@@ -51,12 +51,12 @@ class Classement
     protected $time;
 
      /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot"))
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot", inversedBy="classements")
      * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $pilot;
     /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team"))
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team", inversedBy="classements")
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $team;

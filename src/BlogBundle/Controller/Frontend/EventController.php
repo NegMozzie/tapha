@@ -70,7 +70,7 @@ class EventController extends Controller
         $paginator = $this->get('_blog.paginator');
         $response = $paginator->paginate(
             $this->get('app_repository_championship')->findByTaxonomy($categorySlug,$taxonomyType),
-            'BlogBundle:Frontend/Blog:pclassement',
+            'BlogBundle:Frontend/Blog:classement',
             'BlogBundle:Frontend/Global:pagination',
             array("criteria" => $criteria),
             30,
@@ -85,18 +85,37 @@ class EventController extends Controller
 
 
     /**
-     * @Route("/category/events/{eventName}", name="ed_frontend_blog_by_eventname")
-     * @Route("/category/events/{eventName}", name="frontend_blog_by_eventname")
+     * @Route("/category/grandprix/{eventName}", name="ed_blog_gp")
+     * @Route("/category/grandprix/{eventName}/", name="frontend_blog_gp")
      */
-    public function singleeventAction($eventName)
+    public function singleGrandprixAction($eventName)
     {
         $event = $this->get('app_repository_grandprix')->findByName($eventName);
 
         if(!($event))
         {
-            throw new NotFoundHttpException("event not found.");
+            throw new NotFoundHttpException("GP not found.");
         }
-        return $this->render("BlogBundle:Frontend/Blog:singleEvent.html.twig",
+        return $this->render("BlogBundle:Frontend/Blog:grandprix.html.twig",
+            array(
+                'event' => $event,
+                'type' => 'grandprix'
+                ));
+    }
+
+    /**
+     * @Route("/category/course/{parent}/{eventName}.transform({slug})", name="ed_blog_course")
+     * @Route("/category/course/{parent}/{eventName}.transform({slug})", name="frontend_blog_course")
+     */
+    public function singleCourseAction($eventName, $parent, $slug)
+    {
+        $event = $this->get('app_repository_course')->findByName($eventName, $slug);
+
+        if(!($event))
+        {
+            throw new NotFoundHttpException("Course not found.");
+        }
+        return $this->render("BlogBundle:Frontend/Blog:course.html.twig",
             array(
                 'event' => $event,
                 'type' => 'grandprix'

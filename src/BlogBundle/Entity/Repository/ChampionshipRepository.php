@@ -17,23 +17,20 @@ class ChampionshipRepository extends EntityRepository
     {
         $championshipClass = $this->_entityName;
         $query = "SELECT a FROM $championshipClass a";
-
-        if ($type == Taxonomy::TYPE_TAG)
-        {
-            $query.=" INNER JOIN a.tags tr";
-        }else
-        {
-            $query.=" INNER JOIN a.category tr";
-        }
-
+        $type2 = Season::STATUS_PRESENT;
+        
+        $query.=" INNER JOIN a.category tr";
+        $query.=" INNER JOIN a.parent s";
         $query.=" INNER JOIN tr.term t
                   WHERE tr.type=:type AND t.slug=:taxonomySlug
+                  AND s.status = :type2
                   ORDER BY a.name DESC"
         ;
 
         $query = $this->getEntityManager()
             ->createQuery($query)
             ->setParameter("type",$type)
+            ->setParameter("type2",$type2)
             ->setParameter('taxonomySlug',$taxonomySlug);
 
         if($limit)

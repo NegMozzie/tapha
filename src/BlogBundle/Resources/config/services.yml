@@ -137,6 +137,16 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [BlogBundle]]
+    app.admin.comment:
+        class: BlogBundle\Admin\CommentAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DU SITE", label: "Comment" }
+        arguments:
+            - ~
+            - BlogBundle\Entity\Comment
+            - ~
+        calls:
+            - [ setTranslationDomain, [BlogBundle]]
     app.admin.term:
         class: BlogBundle\Admin\TermAdmin
         tags:
@@ -150,7 +160,7 @@ services:
     app.admin.articlemeta:
         class: BlogBundle\Admin\ArticleMetaAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "GESTION DU SITE", label: "Article Meta" }
+            - { name: sonata.admin, manager_type: orm, group: "GESTION DU SITE", label: "Comment Meta" }
         arguments:
             - ~
             - BlogBundle\Entity\ArticleMeta

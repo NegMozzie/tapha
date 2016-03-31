@@ -75,6 +75,26 @@ class GrandPrix extends Event
     }
 
     /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -186,6 +206,41 @@ class GrandPrix extends Event
         return count($this->children) > 0;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function addComment(Comment $comment)
+    {
+        if(!$this->comments->contains($comment))
+        {
+            $comment->setArticle($this);
+            $this->comments->add($comment);
+        }
+    }
+
+    public function removeComment(Comment $comment)
+    {
+        if($this->comments->contains($comment))
+        {
+            $comment->setArticle(null);
+            $this->comments->removeElement($comment);
+        }
+    }
 
     /**
      * (Add this method into your class)

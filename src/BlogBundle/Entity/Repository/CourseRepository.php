@@ -2,6 +2,7 @@
 namespace BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use BlogBundle\Entity\Season;
 
 /**
  * EventRepository
@@ -12,42 +13,25 @@ use Doctrine\ORM\EntityRepository;
 
 class CourseRepository extends EntityRepository
 {
-
-	
-	public function findByName($slug)
+	public function findByName($slug, $id)
     {
         
         $eventClass = $this->_entityName;
-        $query = "SELECT tax FROM $eventClass tax
-                  WHERE tax.name = :slug
-                  ";
+        $status = Season::STATUS_PRESENT;
+
+        $query = "SELECT c FROM $eventClass c ";
+
+        $query.="
+                  WHERE c.name = :slug
+                  AND c.id=:id"
+                  ;
+    
 
         $results = $this->getEntityManager()
             ->createQuery($query)
-            ->setParameter("slug", $slug);
+            ->setParameter("slug", $slug)
+            ->setParameter("id", $id);
 
         return $results->getOneOrNullResult();
-    }
-
-    public function findWeekEvents()
-    {
-        $eventClass = $this->_entityName;
-        $date = date('Y-m-d'); // you can put any date you want
-        $nbDay = date('N', strtotime($date));
-        $monday = new \DateTime($date);
-        $sunday = new \DateTime($date);
-        $monday->modify('-'.($nbDay-1).' days');
-        $sunday->modify('+'.(8-$nbDay).' days');
-        $query = "SELECT a FROM $eventClass a
-                  WHERE (a.startsAt >= :monday OR a.endsAt >= :monday)
-                  AND a.startsAt <= :sunday
-                  ";
-
-        $query = $this->getEntityManager()
-            ->createQuery($query)
-            ->setParameter('monday', $monday)
-            ->setParameter('sunday', $sunday);
-
-        return $query->useQueryCache(true)->setQueryCacheLifetime(60)->getResult();
     }
 }

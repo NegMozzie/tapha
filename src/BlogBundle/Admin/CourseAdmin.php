@@ -32,6 +32,10 @@ class CourseAdmin extends Admin
                 'multiple' => true,
                 'required' => false
                 ))
+            ->add('comments', 'sonata_type_model', array(
+                'multiple' => true,
+                'required' => false
+                ))
        ;
     }
 

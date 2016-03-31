@@ -59,7 +59,14 @@ class Championship extends Event
      */
     protected $category;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment")
+     * @ORM\JoinTable(name="champ_comment_relation",
+     *      joinColumns={@ORM\JoinColumn(name="champ_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")})
+     *
+     */
+    protected $comments;
 
     /**
      * Class constructor
@@ -68,7 +75,28 @@ class Championship extends Event
     {
     	parent::__construct();
         $this->teams = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->children = new ArrayCollection();
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
 
@@ -195,6 +223,42 @@ class Championship extends Event
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function addComment(Comment $comment)
+    {
+        if(!$this->comments->contains($comment))
+        {
+            $comment->setArticle($this);
+            $this->comments->add($comment);
+        }
+    }
+
+    public function removeComment(Comment $comment)
+    {
+        if($this->comments->contains($comment))
+        {
+            $comment->setArticle(null);
+            $this->comments->removeElement($comment);
+        }
     }
 
     /**
