@@ -33,23 +33,20 @@ class ClassementAdmin extends Admin
     {
         $nam = "Classement".'_';
         if ($classement->getTeam())
-            $nam = $nam.'_'.$classement->getTeam()->getName();
+            $nam = $nam.'_'.$classement->getTeam();
         else if ($classement->getPilot())
-            $nam = $nam.'_'.$classement->getPilot()->getName();
+            $nam = $nam.'_'.$classement->getPilot();
         $classement->setName($nam);
     }
 
     public function preUpdate($classement)
-    {
-        $nam = "Classement".'_'.$classement->getEvent()->getName();;
-        if ($classement->getName() == $nam) {
-            if ($classement->getTeam())
-                $nam = $nam.'_'.$classement->getTeam()->getName();
-            else if ($classement->getPilot())
-                $nam = $nam.'_'.$classement->getPilot()->getName();
-            $classement->setName($nam);
-
-        } 
+    { 
+        $nam = "Classement".'_';
+        if ($classement->getTeam())
+            $nam = $nam.'_'.$classement->getTeam();
+        else if ($classement->getPilot())
+            $nam = $nam.'_'.$classement->getPilot();
+        $classement->setName($nam);
     }
     
 
