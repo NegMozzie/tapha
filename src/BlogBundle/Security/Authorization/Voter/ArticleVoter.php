@@ -55,11 +55,11 @@ class ArticleVoter implements VoterInterface
     {
         $class = get_class($object);
 
-        if (!$this->supportsClass($class))
+       /* if (!$this->supportsClass($class))
         {
             return self::ACCESS_ABSTAIN;
         }
-
+        */
         $user = $token->getUser();
 
         if($user === 'anon.')

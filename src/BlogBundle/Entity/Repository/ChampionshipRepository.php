@@ -25,7 +25,7 @@ class ChampionshipRepository extends EntityRepository
         $query.=" INNER JOIN tr.term t
                   WHERE tr.type=:type AND t.slug=:taxonomySlug
                   AND s.status = :type2
-                  ORDER BY a.name DESC"
+                  ORDER BY a.startsAt DESC"
         ;
 
         $query = $this->getEntityManager()

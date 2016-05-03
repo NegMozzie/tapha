@@ -73,7 +73,7 @@ class EventController extends Controller
             'BlogBundle:Frontend/Blog:classement',
             'BlogBundle:Frontend/Global:pagination',
             array("criteria" => $criteria),
-            30,
+            100,
             null,
             $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
             array(),
