@@ -6,12 +6,6 @@
 # to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
 DirectoryIndex app.php
 
-SetEnv SHORT_OPEN_TAGS 0
-SetEnv REGISTER_GLOBALS 0
-SetEnv MAGIC_QUOTES 0
-SetEnv SESSION_AUTOSTART 0
-SetEnv ZEND_OPTIMIZER 1
-SetEnv PHP_VER 5_TEST
 
 # By default, Apache does not evaluate symbolic links if you did not enable this
 # feature in your server configuration. Uncomment the following line if you
