@@ -1,18 +1,9 @@
 {% extends 'BlogBundle:Frontend/Layout:main.html.twig' %}
 
 {% block content %}
-	<div class=" margin--t">
+	<div class=" margin--t container-fluid">
 		<div class="row">
-		{% block sidebar %}
-			<div class="col-md-3" style="margin-top:5px;">
-	            <div  class="semi-transparent-round">
-	                <h1 style=" text-align:center;color:black;"> AGENDA </h1>
-	            </div> 
-	            <div class="semi-transparent-round" style="margin-top:5px;">
-                	{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
-	            </div>
-			</div>
-		{% endblock sidebar %}
+		
 			<div class="col-md-9">
 				{% block main %}
                     {% block carousel %}
@@ -26,6 +17,16 @@
                     {% endblock container %}
 				{% endblock main %}
 			</div>
+		{% block sidebar %}
+			<div class="col-md-3" style="margin-top:5px;">
+	            <div  class="semi-transparent-round">
+	                <h1 style=" text-align:center;color:black;"> AGENDA </h1>
+	            </div> 
+	            <div class="semi-transparent-round" style="margin-top:5px;">
+                	{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
+	            </div>
+			</div>
+		{% endblock sidebar %}
 		</div>
 	</div>
 {% endblock content %}

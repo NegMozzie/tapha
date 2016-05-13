@@ -13,7 +13,7 @@
             <img class="img-div" src="{% path article.excerptPhoto, 'excerpt' %}" alt="">
           </div>
 
-          <div class="text--30 text--bold black margin--tx4 margin--halfb lh32">{{ article.title|capitalize }}</div>
+          <div class="text--30 text--bold black margin--tx4 margin--halfb lh32"><h1>{{ article.title|capitalize }}</h1></div>
 
           <p class="text--mini app-grey">By <a href="{{ path('ed_frontend_blog_by_author', {'username': article.author.username}) }}">{{ article.author.blogDisplayName }}</a> on {{ article.publishedAt|blogDate}}
             {% if (article.categories|length) %}

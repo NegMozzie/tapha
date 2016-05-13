@@ -1,11 +1,11 @@
-<div class="col-md-12" style="padding-top : 5px;">
+<div class="row" style="padding-top : 5px;">
     {% for item in pagination %}
     {% set commentsCnt = commentsCount(item) %}
-    <div class="item">
+    <div class="col-md-3">
         <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
-            <div class="thumb">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}</div>
+            <div class="">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}</div>
         
-
+			
            <h1 style=" text-align:center;color:black;"> {{item.title|capitalize }}</h1>
         </a>
 

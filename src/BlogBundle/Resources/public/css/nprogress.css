@@ -920,11 +920,6 @@ margin-bottom: 5px;
 /* Navigation Bar */
 
 
-#iefix {
-position:relative;
-float: right !important;
-}
- 
 #menu {
     list-style:none;
     width:940px;
@@ -1265,4 +1260,18 @@ float: right !important;
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/******** Changes *****/
+
+/*#iefix {
+position:relative;
+float: right !important;
+} became  */
+ 
+#iefix {
+position: relative;
+width: 50%;
+margin: 0 auto;}
+
+ 
 

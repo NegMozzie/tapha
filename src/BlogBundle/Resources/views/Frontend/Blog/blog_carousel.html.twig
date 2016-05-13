@@ -21,21 +21,6 @@
                 <div class="text--30 text--bold black margin--halfb lh32">
                   <h1 style=" text-align:center;color:Black;"> {{post.title|capitalize  }}</h1>
                 </div>
-                <p class="col-md-12" style="color:white; background-color:black;">
-                  Par {{ post.author }} le {{ post.publishedAt|date("d/m/y")}} 
-                  {% if (post.categories|length) %}
-                    en
-                    {%  for category in post.categories %}
-                      {{ loop.index0 ? ', ' }}{{ category.term.title }}
-                    {% endfor %}
-                  {% endif %}
-                  | {{  commentsCnt }} comment{{  (commentsCnt > 1) ? 's' }}
-                </p>
-                <div class="col-md-10" style="margin:auto;">
-                  <p style="padding:auto;color: black;">
-                    {{ post.content }}
-                  </p>
-                </div>
               </div>
             </a>
         </div>
