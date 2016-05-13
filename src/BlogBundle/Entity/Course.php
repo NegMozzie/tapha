@@ -135,4 +135,38 @@ class Course extends Event
         return $this->name.'('.$this->parent.')';
     }
 
+    public function getDay($month)
+    {
+        $stringmonth= "";
+        $month = date('w', $month);
+
+
+        switch($month)
+        {
+            case "1" :
+                $stringmonth = "Lundi";
+                break;
+            case "2" :
+                $stringmonth = "Mardi";
+                break;
+            case "3" :
+                $stringmonth = "Mercredi";
+                break;
+            case "4" :
+                $stringmonth = "Jeudi";
+                break;
+            case "5" :
+                $stringmonth = "Vendredi";
+                break;
+            case "6" :
+                $stringmonth = "Samedi";
+                break;
+            case "7" :
+                $stringmonth = "Dimanche";
+                break;
+        }
+
+        return $stringmonth;
+    }
+
 }

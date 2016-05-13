@@ -14,13 +14,13 @@
   </div>
   {% for child in event.getChildren() %}
       <a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId() }) }}" style="min-width: 100%; min-height: 100%;">
+
         <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
-          <div  class="col-md-4" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
-            {{ child.getStartsAt|date("d/m") }}
-          </div>
-          <div class="col-md-8" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
+            {{ child.getStartsAt|  date("d") }}
+            {{ child.getDay(child.getStartsAt) }}
+        </div>
+        <div class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
             {{ child.getName()}}
-          </div>
         </div>
       </a>
   {% endfor %}

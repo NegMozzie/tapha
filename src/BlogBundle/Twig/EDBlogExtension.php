@@ -132,10 +132,12 @@ class EDBlogExtension extends \Twig_Extension
         return $date->format("$formatDate $formatTime");
     }
 
+    
+
     //Functions
     public function getMonth($month)
     {
-        $stringmonth="";
+        $stringmonth= $month;
 
         switch($month)
         {

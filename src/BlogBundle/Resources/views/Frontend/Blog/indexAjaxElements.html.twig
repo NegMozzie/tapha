@@ -3,10 +3,17 @@
     {% set commentsCnt = commentsCount(item) %}
     <div class="col-md-3">
         <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
-            <div class="">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}</div>
-        
-			
-           <h1 style=" text-align:center;color:black;"> {{item.title|capitalize }}</h1>
+            <div class="">
+                {% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
+                <h1 style=" text-align:center;color:black;  word-wrap: break-word; !important">     {{item.title|capitalize }}
+                </h1>
+                <h1>
+                    Publié Par &nbsp; 
+                    <a href="{{ path('ed_frontend_blog_by_author', {'username': item.author.username}) }}">
+                        {{ item.author.username }}
+                    </a> le {{ item.publishedAt | date("m/d/Y")}}
+                </h1>
+            </div>
         </a>
 
     </div>

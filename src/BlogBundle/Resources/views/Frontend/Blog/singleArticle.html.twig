@@ -15,7 +15,7 @@
 
           <div class="text--30 text--bold black margin--tx4 margin--halfb lh32"><h1>{{ article.title|capitalize }}</h1></div>
 
-          <p class="text--mini app-grey">By <a href="{{ path('ed_frontend_blog_by_author', {'username': article.author.username}) }}">{{ article.author.blogDisplayName }}</a> on {{ article.publishedAt|blogDate}}
+          <p class="text--mini app-grey">Par <a href="{{ path('ed_frontend_blog_by_author', {'username': article.author.username}) }}">{{ article.author.blogDisplayName }}</a> le {{ article.publishedAt|blogDate}}
             {% if (article.categories|length) %}
             in {%  for category in article.categories %}
                  {{ loop.index0 ? ', ' }}<a href="{{ path('ed_frontend_blog_by_category', {'categorySlug': category.term.slug}) }}" >{{ category.term.title }}</a>
