@@ -137,8 +137,6 @@ class Course extends Event
 
     public function getDay($month)
     {
-        $stringmonth= "";
-        $month = date('w', $month);
 
 
         switch($month)
@@ -164,6 +162,22 @@ class Course extends Event
             case "7" :
                 $stringmonth = "Dimanche";
                 break;
+            case 'Monday': 
+                $stringmonth = 'Lundi'; 
+                break;
+            case 'Tuesday': $stringmonth = 'Mardi';
+                break;
+            case 'Wednesday': $stringmonth = 'Mercredi';
+                break;
+            case 'Thursday': $stringmonth = 'Jeudi';
+                break;
+            case 'Friday': $stringmonth = 'Vendredi';
+                break;
+            case 'Saturday': $stringmonth = 'Samedi';
+                break;
+            case 'Sunday': $stringmonth = 'Dimanche';
+                break;
+        
         }
 
         return $stringmonth;
