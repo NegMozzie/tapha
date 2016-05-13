@@ -128,23 +128,6 @@ class Comment
         return $this;
     }
 
-    
-    /**
-     * @return mixed
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-    /**
-     * @param mixed $article
-     */
-    public function setEvent(Event $event)
-    {
-        $this->article = $event;
-        return $this;
-    }
-
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

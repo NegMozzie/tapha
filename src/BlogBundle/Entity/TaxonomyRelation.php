@@ -77,7 +77,7 @@ class TaxonomyRelation
     /**
      * @param mixed $taxonomy
      */
-    public function setTaxonomy(BlogTaxonomy $taxonomy)
+    public function setTaxonomy(Taxonomy $taxonomy)
     {
         $this->taxonomy = $taxonomy;
         return $this;
