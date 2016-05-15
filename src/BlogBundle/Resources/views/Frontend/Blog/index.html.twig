@@ -19,9 +19,6 @@
 			</div>
 		{% block sidebar %}
 			<div class="col-md-3" style="margin-top:5px;">
-	            <div  class="semi-transparent-round">
-	                <h1 style=" text-align:center;color:black;"> AGENDA </h1>
-	            </div> 
 	            <div class="semi-transparent-round" style="margin-top:5px;">
                 	{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
 	            </div>
@@ -35,8 +32,13 @@
 	
 	<footer class="footer">
       <div class="container col-md-12" style="padding:0 0 0 0;">
-      	<div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
-		<div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
+        {{ render(controller('BlogBundle:Frontend/Navbar:footer')) }}
+      	
+		<div class="col-md-6  text--mini app-grey" style="float:right">
+        	<a class="black" href="{{ path('ed_frontend_contact') }}">
+			Nous contacter
+			</a>
+		</div>
       </div>
-    </footer>
+    </footer style="margin-bottom: 50px;">
 {% endblock foot %}

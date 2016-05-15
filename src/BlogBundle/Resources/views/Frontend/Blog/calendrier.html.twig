@@ -75,13 +75,7 @@
 {% endblock main %}
 
 {% block foot %}
-	
-	<footer class="footer">
-      <div class="container col-md-12" style="padding:0 0 0 0;">
-      	<div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
-		<div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
-      </div>
-    </footer>
+	{{ parent()}}
 {% endblock foot %}
 
 

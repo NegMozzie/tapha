@@ -8,13 +8,22 @@
 
 namespace BlogBundle\Controller\Frontend;
 
+use BlogBundle\Util\IDEncrypt;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use BlogBundle\Event\CommentEvent;
+use BlogBundle\Events\EDBlogEvents;
 use BlogBundle\Handler\Pagination;
+use BlogBundle\Entity\Comment;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use BlogBundle\Entity\Article;
 use BlogBundle\Entity\Taxonomy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class BlogController extends Controller
 {
@@ -233,6 +242,53 @@ class BlogController extends Controller
 
         return $response;
     }
+
+    /**
+     * @Route("/contact", name="ed_frontend_contact")
+     * @Route("/contact", name="frontend_blog_contact")
+     */
+    public function contactAction(Request $request)
+    {
+        $object = $this->get('comment_generator')->getObject();
+        $class = get_class($object);
+        $message = " site crée";
+
+        $form = $this->createForm('edcomment', $object);
+
+        if($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+
+            if($form->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $object->setCreatedAt(new \DateTime())
+                    ->setModifiedAt(new \DateTime())
+                ;
+                
+                $object->setStatus( Comment::STATUS_PENDING );
+                
+
+                $em->persist($object);
+                $em->flush();
+
+               // $dispatcher = $this->get("event_dispatcher");
+                //$dispatcher->dispatch(EDBlogEvents::ED_BLOG_COMMENT_CREATED, new CommentEvent($object));
+
+                $resetObject = new $class;
+                $message = "Votre message a été pris en compte";
+
+                $form = $this->createForm('edcomment', $resetObject);
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+
+        return $this->render("BlogBundle:Frontend/Blog:contact.html.twig", array(
+            'form' => $form->createView(),
+            'message' => $message
+                ));
+    }
+
 }
 
 

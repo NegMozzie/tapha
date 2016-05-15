@@ -24,4 +24,18 @@ class NavbarController extends Controller
               'archive' => $archiveYearsMonths
           ));
     }
+
+    public function footerAction()
+    {
+          $categorySlug = "formule-1";
+          $taxonomy = $this->get('app_repository_taxonomy')->findBySlug($categorySlug);
+          $taxonomyType = Taxonomy::TYPE_CATEGORY;
+          if(!($taxonomy && $taxonomy->getType()==$taxonomyType))
+          {
+              throw new NotFoundHttpException("Category not found.");
+          }
+          return $this->render('BlogBundle:Frontend/Blog:footer.html.twig', array(
+            'teams' => $this->get('app_repository_team')->findByTaxonomy($categorySlug,$taxonomyType),
+          ));
+    }
 }
