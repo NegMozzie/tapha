@@ -8,12 +8,9 @@
     {% block container %}
 
     	<div class="col-md-12" style="padding-top : 5px;">
-			<div id="col1" class="col c1 c-first" style="position:relative">
-
-				<div class="nwTable col-md-6">
-					
-					<h1>
-						<p>Ecuries 
+			<div class="nwTable col-md-6">					
+				<h1>
+					<p>Ecuries 
 						{% if (criteria is defined) %}
 						    {% if (criteria.type == 'category') %}
 						        {%  set categories = categoriesFromFirstLevel(criteria.value)  %}
@@ -26,42 +23,36 @@
 						        {{ criteria.type }}: {{ criteria.value.year }} {{ getMonth(criteria.value.month)}}
 						  	{% endif  %}
 						{% endif %}
-						</p>
+					</p>
 
-					</h1>
-				</div>
-				<div class="nwTable col-md-6">
-
-					{% media criteria.value.excerptPhoto, 'excerpt' with {'class': 'nwLogo', 'style':'height:140px;width:190px;'} %}
-				</div>
+				</h1>
+			</div>
+			<div class="nwTable col-md-6">
+				{% media criteria.value.excerptPhoto, 'excerpt' with {'class': 'nwLogo', 'style':'height:140px;width:190px;'} %}
 			</div>
 		</div>
 
-		<div class="col-md-12" style="padding-top : 5px;">
-			<div id="col1" class="col c1 c-first" style="position:relative">
-				<article id="main-content" style="position: relative">
-					<div class="nwTable">
-						<table border="0" cellpadding="1" cellspacing="0" width="100%">  
-								
-								<tbody> 
-									{% for item in pagination %}
-										<div class="item">
-											<a class="black" href="">
-												<div class="thumb">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
-												</div>
-												<h6 style=" text-align:center;color:black;"> {{item|capitalize }}</h6>
-												{% for pilot in item.getPilots %}
-													<h6 style=" text-align:center;color:black;"> {{pilot|capitalize }}</h6>
-												{% endfor %}
-											</a>
-										</div>
-									{% endfor %}
-								</tbody>
-							</table> 
-						</div>
-					</article><!-- main-content -->
+		{% for item in pagination %}
+			{% if (loop.index0 % 4) == 0 %}
+				<div class="col-md-12" style="padding-top : 5px;">
+			{% endif %}
+			<div class="col-md-3">
+				<div class="thumb">
+					{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
 				</div>
-		</div>
+				<h6 style=" text-align:center;color:black;"> {{item|capitalize }}</h6>
+				{% for pilot in item.getPilots %}
+					<h6 style=" text-align:center;color:black;">
+						<a class="black" href="{{ path('ed_frontend_blog_by_pilotname', { 'fullName': pilot.getFullName }) }}">
+							{{pilot|capitalize }}
+						</a>
+					</h6>
+				{% endfor %}
+			</div>
+			
+			{% if loop.index % 4  == 0 or loop.revindex == 1%}
+				</div>
+			{% endif %}
+		{% endfor %}
     {% endblock container %}
 {% endblock main %}
-
