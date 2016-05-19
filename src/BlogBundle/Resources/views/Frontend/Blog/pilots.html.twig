@@ -8,12 +8,9 @@
     {% block container %}
 
     	<div class="col-md-12" style="padding-top : 5px;">
-			<div id="col1" class="col c1 c-first" style="position:relative">
-
-				<div class="nwTable col-md-6">
-					
-					<h1>
-						<p>Pilotes 
+			<div class="nwTable col-md-6">					
+				<h1>
+					<p>Pilotes 
 						{% if (criteria is defined) %}
 						    {% if (criteria.type == 'category') %}
 						        {%  set categories = categoriesFromFirstLevel(criteria.value)  %}
@@ -26,39 +23,35 @@
 						        {{ criteria.type }}: {{ criteria.value.year }} {{ getMonth(criteria.value.month)}}
 						  	{% endif  %}
 						{% endif %}
-						</p>
+					</p>
 
-					</h1>
-				</div>
-				<div class="nwTable col-md-6">
-
-					{% media criteria.value.excerptPhoto, 'excerpt' with {'class': 'nwLogo', 'style':'height:140px;width:190px;'} %}
-				</div>
+				</h1>
+			</div>
+			<div class="nwTable col-md-6">
+				{% media criteria.value.excerptPhoto, 'excerpt' with {'class': 'nwLogo', 'style':'height:140px;width:190px;'} %}
 			</div>
 		</div>
 
-		<div class="col-md-12" style="padding-top : 5px;">
-			<div id="col1" class="col c1 c-first" style="position:relative">
-				<article id="main-content" style="position: relative">
-					<div class="nwTable">
-						<table border="0" cellpadding="1" cellspacing="0" width="100%">  
-								
-								<tbody> 
-									{% for item in pagination %}
-										<div class="item">
-											<a class="black" href="{{ path('ed_frontend_blog_by_pilotname', { 'fullName': item.getFullName }) }}">
-												<div class="thumb">{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
-												</div>
-												<h6 style=" text-align:center;color:black;"> {{item|capitalize }}</h6>
-												<h6 style=" text-align:center;color:black;"> {{item.getTeam|capitalize }}</h6>
-											</a>
-										</div>
-									{% endfor %}
-								</tbody>
-							</table> 
+		{% for item in pagination %}
+			{% if (loop.index0 % 4) == 0 %}
+				<div class="col-md-12" style="padding-top : 5px;">
+			{% endif %}
+				<div class="col-md-3">
+					<a class="black" href="{{ path('ed_frontend_blog_by_pilotname', { 'fullName': item.getFullName }) }}">
+						<div class="thumb">
+							{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
 						</div>
-					</article><!-- main-content -->
+						<h6 style=" text-align:center;color:black;"> 
+							{{item|capitalize }}
+						</h6>
+						<h6 style=" text-align:center;color:black;">
+							{{item.getTeam|capitalize }}
+						</h6>
+					</a>
 				</div>
-		</div>
+			{% if loop.index % 4  == 0 or loop.revindex == 1%}
+				</div>
+			{% endif %}
+		{% endfor %}
     {% endblock container %}
 {% endblock main %}
