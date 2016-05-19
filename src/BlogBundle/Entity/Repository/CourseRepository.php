@@ -34,4 +34,21 @@ class CourseRepository extends EntityRepository
 
         return $results->getOneOrNullResult();
     }
+
+    public function findByArticle($id)
+    {
+        
+        $eventClass = $this->_entityName;
+        $status = Season::STATUS_PRESENT;
+
+        $query = "SELECT c FROM $eventClass c ";
+        $query.="WHERE c.article=:id";
+
+
+        $results = $this->getEntityManager()
+            ->createQuery($query)
+            ->setParameter("id", $id);
+
+        return $results->getOneOrNullResult();
+    }
 }

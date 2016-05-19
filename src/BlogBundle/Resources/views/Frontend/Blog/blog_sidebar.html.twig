@@ -2,29 +2,33 @@
 {% for event in events %}
   <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;">
     <a href="{{ path('ed_blog_gp', { 'eventName': event.getName }) }}" style="min-width: 100%; min-height: 100%;">
-      <div  class="col-md-4" style="text-align:center;">
-        {{ event.getStartsAt|date("d/m") }}
-      </div>
-      <div id="mz_sidebar_event_main" class="col-md-8">
-        <div style="text-align:center;min-height:50% !important; max-height:50% !important;background-color:Black;">
+        {% media event.countryPhoto, 'excerpt' with {'class': ' mz_sidebar_event_main col-md-4 nwLogo', 'style':'height:20px; float : left;'} %}
+
+      <p>
         {{ event.getName()}}
-        </div>
-      </div>
+      </p>
     </a>
   </div>
   {% set btime = 0 %}
 
   {% for child in event.getChildren() %}
-      <a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId() }) }}" style="min-width: 100%; min-height: 100%;">
+      {% set type =  'course' %}
+      {% if child.getArticle() %}
+        {% set type =  'essai' %}
+
+      {% endif %}
+      <a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId(), 'type' : type }) }}" style="min-width: 100%; min-height: 100%;">
       {% if (child.getStartsAt|  date("d"))  != btime %}
         {% set btime = (child.getStartsAt|  date("d")) %}
         <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
-            {{ child.getDay(child.getStartsAt| date("l", "Europe/Paris"))  }}    
-            {{ child.getStartsAt|  date("d") }} 
+            {{ child.getStartsAt|  blogDate }} 
         </div>
       {% endif %}
         <div class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
-            {{ child.getName()}}
+            <div class="col-md-4">
+               {{ child.getStartsAt|  date('h:i:s') }}
+            </div>
+            <p>{{ child.getName()}}</p>
         </div>
       </a>
   {% endfor %}

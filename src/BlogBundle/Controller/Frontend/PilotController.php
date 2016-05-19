@@ -41,7 +41,7 @@ class PilotController extends Controller
             'BlogBundle:Frontend/Blog:pilots',
             'BlogBundle:Frontend/Global:pagination',
             array("criteria" => $criteria),
-            Pagination::SMALL,
+            50,
             null,
             $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
             array(),
@@ -53,12 +53,15 @@ class PilotController extends Controller
 
 
     /**
-     * @Route("/blog/pilots/{pilotName}", name="ed_frontend_blog_by_pilotname")
-     * @Route("/blog/pilots/{pilotName}", name="frontend_blog_by_pilotname")
+     * @Route("/blog/pilots/{fullName}", name="ed_frontend_blog_by_pilotname")
+     * @Route("/blog/pilots/{fullName}", name="frontend_blog_by_pilotname")
      */
-    public function singlePilotAction($pilotName)
+    public function singlePilotAction($fullName)
     {
-        $pilot = $this->get('app_repository_pilot')->findByName($pilotName);
+        $Names = explode(" ", $fullName);
+        $firstName = $Names[0] ;
+        $lastName = $Names[1];
+        $pilot = $this->get('app_repository_pilot')->findByName($firstName, $lastName);
 
         if(!($pilot))
         {
@@ -66,7 +69,7 @@ class PilotController extends Controller
         }
         return $this->render("BlogBundle:Frontend/Blog:singlePilot.html.twig",
             array(
-                'pilot' => $pilot
+                'pilot' => $pilot[0]
                 ));
     }
 

@@ -67,6 +67,7 @@ class BlogController extends Controller
         $newComment = new $commentClass();
         $newComment
             ->setArticle($article);
+        $event = $this->get('app_repository_course')->findByArticle($article->getId());
 
         $form = $this->createForm('edcomment', $newComment);
         $comments =  $this->get("app_repository_comment")->findByArticle($article, $this->get("blog_settings")->getCommentsDisplayOrder());
@@ -77,7 +78,8 @@ class BlogController extends Controller
                 'article' => $article,
                 'form' => $form->createView(),
                 'comments' => $comments,
-                'commentsCnt' => $commentsCount
+                'commentsCnt' => $commentsCount,
+                'event' => $event
                 ));
     }
 

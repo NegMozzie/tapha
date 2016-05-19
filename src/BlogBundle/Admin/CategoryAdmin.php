@@ -25,6 +25,10 @@ class CategoryAdmin extends Admin
             ->add('term', 'sonata_type_model', array(
                 'required' => true
             ))
+            ->add('excerptPhoto', 'sonata_type_model', array(
+            'class' => 'Application\Sonata\MediaBundle\Entity\Media',
+            'property' => 'name'
+            ))
             ->add('description', 'text')
             ->add('parent', 'sonata_type_model',  array(
                 'required' => false

@@ -23,6 +23,12 @@ class Course extends Event
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="BlogBundle\Entity\Article")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", nullable=true)
+     */
+    protected $article;
+
+    /**
      * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\GrandPrix", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
@@ -70,6 +76,22 @@ class Course extends Event
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * @param mixed $article
+     */
+    public function setArticle(Article $article)
+    {
+        $this->article = $article;
+        return $this;
+    }
     
     /**
      * @param mixed $id

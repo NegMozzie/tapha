@@ -50,6 +50,7 @@ class EDBlogExtension extends \Twig_Extension
             new \Twig_SimpleFilter('blogDateTime', array($this, 'blogDateTime')),
             new \Twig_SimpleFilter('displayLinks', array($this, 'displayLinks')),
             new \Twig_SimpleFilter('blogRole', array($this, 'blogRole')),
+            new \Twig_SimpleFilter('getMonth', array($this, 'getMonth')),
         );
     }
 
@@ -114,7 +115,7 @@ class EDBlogExtension extends \Twig_Extension
             $french_days = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche');
             $english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Décember');
             $french_months = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
-        return str_replace($english_months, $french_months, str_replace($english_days, $french_days, $date->format($format)));
+        return str_replace($english_months, $french_months, str_replace($english_days, $french_days, $date->format('l j  F Y ')));
 
             return $date->format($format);
         }

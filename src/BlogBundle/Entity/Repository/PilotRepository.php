@@ -46,4 +46,28 @@ class PilotRepository extends EntityRepository
 
         return $pilots;
     }
+
+    public function findByName($firstName, $lastName)
+    {
+        $pilotClass = $this->_entityName;
+        $query = "SELECT a FROM $pilotClass a";
+
+
+        $query.=" WHERE a.lastName=:lastName AND a.firstName=:firstName
+                  ORDER BY a.firstName DESC"
+        ;
+
+        $query = $this->getEntityManager()
+            ->createQuery($query)
+            ->setParameter("firstName",$firstName)
+            ->setParameter('lastName',$lastName);
+
+       
+    
+        
+
+        $pilot = $query->useQueryCache(true)->setQueryCacheLifetime(60)->getResult();
+
+        return $pilot;
+    }
 }

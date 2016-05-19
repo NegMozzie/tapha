@@ -28,6 +28,9 @@ class CourseAdmin extends Admin
             ->add('startsAt')
             ->add('endsAt')
             ->add('parent')
+            ->add('article', 'sonata_type_model', array(
+                'required' => false
+                ))
             ->add('classement', 'sonata_type_model', array(
                 'multiple' => true,
                 'required' => false

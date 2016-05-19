@@ -41,7 +41,7 @@ class TeamController extends Controller
             'BlogBundle:Frontend/Blog:teams',
             'BlogBundle:Frontend/Global:pagination',
             array("criteria" => $criteria),
-            Pagination::SMALL,
+            50,
             null,
             $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
             array(),

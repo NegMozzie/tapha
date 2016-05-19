@@ -6,14 +6,15 @@
     {% block carousel %}
     {% endblock carousel %}
     {% block container %}
-      {% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
       <div class="col-md-9" style="margin-top:5px;">
           <div class="col-md-12" style="width:100%; height: 400px; padding: 0 0 0 0;  margin : 0 0 0 0;">
             
             <img class="img-div" src="{% path article.excerptPhoto, 'excerpt' %}" alt="">
           </div>
 
-          <div class="text--30 text--bold black margin--tx4 margin--halfb lh32"><h1>{{ article.title|capitalize }}</h1></div>
+          <div class="text--30 text--bold black margin--tx4 margin--halfb lh32">
+            <h1>{{ article.title|capitalize }}</h1>
+          </div>
 
           <p class="text--mini app-grey">Par <a href="{{ path('ed_frontend_blog_by_author', {'username': article.author.username}) }}">{{ article.author.blogDisplayName }}</a> le {{ article.publishedAt|blogDate}}
             {% if (article.categories|length) %}
@@ -35,9 +36,92 @@
           {% endif  %}
 
           <p>{{ article.content|raw }}</p>
-          {% include 'BlogBundle:Comment:list.html.twig' %}
 
-        </div>
+          {% if event %}
+
+            {% if (event.article.tags|length) %}
+              <p class="text--mini app-grey"><i class="fa fa-tags"></i>
+              {% for tag in event.article.tags %}
+                <a href="{{ path('ed_frontend_blog_by_tag', {'tagSlug': tag.term.slug}) }}">{{ tag.term.title }}</a>{% if not loop.last %}, {% endif %}
+              {% endfor %}
+              </p>
+            {% endif  %}
+
+            <p>{{ event.article.content|raw }}</p>
+            <div class="nwTable nwClub">
+              <img alt="" class="nwLogo" src="{% path event.excerptPhoto, 'crop' %}">
+              <h1><span>{{event}}</span></h1>
+              <div class=" col-md-12" style="margin-top: 15px;">
+                <div class="nwTable col-md-10">
+                  <h1>
+                    <p>
+                      Classement par Pilote 
+                    </p>
+                  </h1>
+                </div>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Prenom</th>
+                      <th>Meilleur Temps</th>
+                      <th>Rang</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for rank in event.getClassement() %}
+                      <tr>
+                        {% set team = rank.getPilot() %}
+                        {% if  team  %}
+                          <td>{{ team.firstName }}</td>
+                          <td>{{ team.lastName }}</td>
+                          <td>{{ rank.time |date("d/m")}}</td>
+                          <td>{{ rank.getRank() }}</td>
+                        {% endif %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <div class="nwTable col-md-10">
+                  <h1>
+                    <p>
+                      Classement par Equipe 
+                    </p>
+                  </h1>
+                </div>
+                <table class="table table-bordered" >
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Pilot1</th>
+                      <th>Pilot2</th>
+                      <th>Rang</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      {% for rank in event.getClassement() %}
+                        {% set team = rank.getTeam() %}
+                        {% if  team  %}
+                          <td>{{ team }}</td>
+                          {% set test = 0 %}
+                          {% for pilot in  team.getPilots()  %}
+                            <td>{{ pilot }}</td>
+                            {% set test = loop.index0%}
+                          {% endfor %}
+                          {% if not test%}
+                            <td></td>
+                          {% endif %}
+                          <td>{{ rank.getRank() }}</td>
+                        {% endif %}
+                      {% endfor %}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>  
+            </div>
+          {% endif %}
+      </div>
     {% endblock container %}
     <div class="col-md-3" style="padding: 0 0 0 0; margin-top: 5px;" >
         <div class="col-md-12" style="padding: 0 0 0 0; margin: 0 0 0 0;">
@@ -46,15 +130,6 @@
         <div class="col-md-12 semi-transparent-round" style="padding: 0 0 0 0; margin: 0 0 0 0; height: auto; width:100%;">  
           {{ render(controller('BlogBundle:Frontend/Blog:byAuthorBar', {'user': article.author})) }}
         </div>  
-      </div>
+    </div>
 {% endblock main %}
 
-{% block foot %}
-  
-  <footer class="footer">
-      <div class="container col-md-12" style="padding:0 0 0 0;">
-        <div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
-    <div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
-      </div>
-    </footer>
-{% endblock foot %}

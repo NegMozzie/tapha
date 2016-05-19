@@ -1,21 +1,30 @@
-{% extends 'BlogBundle:Frontend/Layout:main.html.twig' %}
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+{% block sidebar %}
+  {{ parent()}}
+{% endblock sidebar %}
+{% block main %}
+    {% block carousel %}
+    {% endblock carousel %}
+    {% block container %}
+      {% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
+      <div class="col-md-9" style="margin-top:5px;">
+          <div class="col-md-12" style="width:100%; height: 400px; padding: 0 0 0 0;  margin : 0 0 0 0;">
+            <img class="img-div" src="{% path pilot.countryPhoto, 'excerpt' %}" alt="">
+            <div class="nwTable col-md-6">
+              <h1>
+                <p>
+                  {{pilot.getTeam|capitalize }}
+                </p>
+              </h1>
+            </div>
+          </div>
 
-{% block content %}
-  <div class=" margin--t">
-    <div class="row">
-      <div class="col-md-3" style="padding: 0 0 0 0;">
-        <div id="mz_sidebar" class="semi-transparent-round" style="background-color:White">
-          <div id="mz_sidebar_title" class="semi-transparent-round">
-            <a href="{{ path('ed_blog_frontend_events')}}">AGENDA</a>
-          </div> 
-          <div style="margin-top:5px;">
-            {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
-
-          </div>  
         </div>
-      </div>
-      <div class="col-md-6">
+    {% endblock container %}
+    <div class="col-md-3" style="margin-top:5px;">
+      <div class="semi-transparent-round" style="margin-top:5px;">
+        {% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
       </div>
     </div>
-  </div>
-{% endblock content %}
+{% endblock main %}
+

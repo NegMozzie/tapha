@@ -40,6 +40,13 @@ class Taxonomy
     protected $type;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="excerpt_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $excerptPhoto;
+
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $description;
@@ -302,6 +309,24 @@ class Taxonomy
     public function setTagged($tagged)
     {
         $this->tagged = $tagged;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExcerptPhoto()
+    {
+        return $this->excerptPhoto;
+    }
+
+    /**
+     * @param mixed $excerptPhoto
+     */
+    public function setExcerptPhoto($excerptPhoto)
+    {
+        $this->excerptPhoto = $excerptPhoto;
+
         return $this;
     }
 

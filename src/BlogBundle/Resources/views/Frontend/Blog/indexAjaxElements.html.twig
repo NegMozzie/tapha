@@ -8,10 +8,7 @@
                 <h1 style=" text-align:center;color:black;  word-wrap: break-word; !important">     {{item.title|capitalize }}
                 </h1>
                 <h1>
-                    Publié Par &nbsp; 
-                    <a href="{{ path('ed_frontend_blog_by_author', {'username': item.author.username}) }}">
-                        {{ item.author.username }}
-                    </a> le {{ item.publishedAt | date("m/d/Y")}}
+                    Publié le {{ item.publishedAt | date("m/d/Y")}}
                 </h1>
             </div>
         </a>

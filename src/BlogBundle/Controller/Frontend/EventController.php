@@ -104,10 +104,10 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/category/course/{parent}/{eventName}.transform({slug})", name="ed_blog_course")
-     * @Route("/category/course/{parent}/{eventName}.transform({slug})", name="frontend_blog_course")
+     * @Route("/category/{type}/{parent}/{eventName}.transform({slug})", name="ed_blog_course")
+     * @Route("/category/{type}/{parent}/{eventName}.transform({slug})", name="frontend_blog_course")
      */
-    public function singleCourseAction($eventName, $parent, $slug)
+    public function singleCourseAction($eventName, $parent, $slug, $type)
     {
         $event = $this->get('app_repository_course')->findByName($eventName, $slug);
 
@@ -115,10 +115,16 @@ class EventController extends Controller
         {
             throw new NotFoundHttpException("Course not found.");
         }
-        return $this->render("BlogBundle:Frontend/Blog:course.html.twig",
+
+        if ($type == "essai")
+            $template = "BlogBundle:Frontend/Blog:essai.html.twig";
+        else
+            $template = "BlogBundle:Frontend/Blog:course.html.twig";
+
+        return $this->render($template,
             array(
                 'event' => $event,
-                'type' => 'grandprix'
+                'type' => '$type',
                 ));
     }
 
