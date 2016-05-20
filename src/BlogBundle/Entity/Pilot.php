@@ -64,7 +64,7 @@ class Pilot extends BaseUser
 
     /**
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
-     * @ORM\JoinColumn(name="excerpt_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="country_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $countryPhoto;
 
