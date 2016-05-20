@@ -34,19 +34,22 @@
 
 		{% for item in pagination %}
 			{% if (loop.index0 % 4) == 0 %}
-				<div class="col-md-12" style="padding-top : 5px;">
+				<div class="col-md-12" style="padding-top : 5px; padding-left:0;">
 			{% endif %}
 				<div class="col-md-3">
 					<a class="black" href="{{ path('ed_frontend_blog_by_pilotname', { 'fullName': item.getFullName }) }}">
-						<div class="thumb">
+						<div class="col-md-7">
 							{% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
 						</div>
-						<h6 style=" text-align:center;color:black;"> 
-							{{item|capitalize }}
-						</h6>
-						<h6 style=" text-align:center;color:black;">
-							{{item.getTeam|capitalize }}
-						</h6>
+						<div class="col-md-4" style="margin-left:1%;; height:100%; background-color:white;">
+            				{% media item.countryPhoto, 'excerpt' with {'class': ' mz_sidebar_event_main col-md-6 nwLogo', 'style':'height:20px;'} %}
+							<h6 style=" text-align:center;color:black;"> 
+								{{item|capitalize }}
+							</h6>
+							<h6 style=" text-align:center;color:black;">
+								{{item.getTeam|capitalize }}
+							</h6>
+						</div>
 					</a>
 				</div>
 			{% if loop.index % 4  == 0 or loop.revindex == 1%}
