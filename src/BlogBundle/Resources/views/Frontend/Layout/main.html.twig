@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block body %}
-  {{ parent() }}
 
   <div class="wrap wrap--app {% block wrapclass %}{% endblock wrapclass %}">
     {% block header %}
@@ -20,15 +19,18 @@
       {% include 'BlogBundle:Frontend/Layout:header.html.twig' %}
     {% endblock header %}
 
-    {% block content %}{% endblock %}
+    {% block content %}
+
+    {% endblock %}
     <div id="push" class="hidden-xs"></div>
   </div>
 
   {% block footer %}
-    {{ parent() }}
-    {% block foot %}
-      {% include('BlogBundle:Frontend/Layout:_footer.html.twig') %}
-    {% endblock foot %}
+    <div class="footer text--mini app-grey">
+      {% block foot %}
+        {% include('BlogBundle:Frontend/Layout:_footer.html.twig') %}
+      {% endblock foot %}
+     </div>
   {% endblock footer %}
 
 {% endblock %} {# endblock body #}
