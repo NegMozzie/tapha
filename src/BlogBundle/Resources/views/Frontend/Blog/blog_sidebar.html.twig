@@ -12,18 +12,16 @@
   {% set btime = 0 %}
 
   {% for child in event.getChildren() %}
-      {% set type =  'course' %}
-      {% if child.getArticle() %}
-        {% set type =  'essai' %}
+      {% set type =  child.getType() %}
 
-      {% endif %}
-      <a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId(), 'type' : type }) }}" style="min-width: 100%; min-height: 100%;">
+      
       {% if (child.getStartsAt|  date("d"))  != btime %}
         {% set btime = (child.getStartsAt|  date("d")) %}
         <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
             {{ child.getStartsAt|  blogDate }} 
         </div>
       {% endif %}
+      <a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId(), 'type' : type }) }}" style="min-width: 100%; min-height: 100%;">
         <div class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
             <div class="col-md-4">
                {{ child.getStartsAt|  date('h:i') }}

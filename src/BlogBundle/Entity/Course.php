@@ -15,6 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Course extends Event
 {
+    const TYPE_COURSE = "course";
+    const TYPE_ESSAI = "essai";
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -58,6 +61,22 @@ class Course extends Event
         parent::__construct();
         $this->comments = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+
+    public function getType()
+    {
+        $type = strtolower($this->name);
+        $pos = strpos($type, Course::TYPE_ESSAI);
+        if ($pos !== false) {
+            return Course::TYPE_COURSE;
+        } else {
+            return Course::TYPE_ESSAI;
+        }
+    }
+
     /**
      * @return mixed
      */
