@@ -71,9 +71,9 @@ class Course extends Event
         $type = strtolower($this->name);
         $pos = strpos($type, Course::TYPE_ESSAI);
         if ($pos !== false) {
-            return Course::TYPE_COURSE;
-        } else {
             return Course::TYPE_ESSAI;
+        } else {
+            return Course::TYPE_COURSE;
         }
     }
 
