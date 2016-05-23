@@ -177,41 +177,4 @@ class Event
         return $this->name;
     }
 
-
-    /**
-     * @param BClassement $classements
-     */
-    public function addClassement(Classement $classement) {
- 
-        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->classement->contains($classement)) {
-            $this->classement->add($classement);
-        }
-    }
- 
-    /**
-     * @return ArrayCollection $classements
-     */
-    public function getClassement() {
-        return $this->classement;
-    }
-
-    /**
-     * @param mixed $categories
-     */
-    public function setClassement($classements)
-    {
-        $this->classement = $classements;
-
-        return $this;
-    }
-
-    public function removeClassement(Classement $classement)
-    {
-        if($this->classement->contains($classement))
-        {
-            $this->classement->removeElement($classement);
-        }
-    }
-
 }

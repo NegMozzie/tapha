@@ -36,12 +36,6 @@ class Team
     protected $pilots;
     
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Classement", mappedBy="team", cascade={"persist", "remove", "merge"})
-     */
-    protected $classements;
-
-    /**
      * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Championship",mappedBy="teams")
      * @ORM\JoinTable(name="team_event_relation",
      *      joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE")},
@@ -68,7 +62,6 @@ class Team
     public function __construct()
     {
         $this->pilots = new ArrayCollection();
-        $this->classements = new ArrayCollection();
         $this->categories = new ArrayCollection();
     }
     /**
@@ -194,38 +187,4 @@ class Team
     {
         return $this->getName() ?: 'n/a';
     }
-    /**
-     * @param BClassement $classements
-     */
-    public function addClassement(Classement $classement) {
-        $classement->setTeam($this);
- 
-        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->classement->contains($classement)) {
-            $this->classement->add($classement);
-        }
-    }
- 
-    /**
-     * @return ArrayCollection $classements
-     */
-    public function getClassement() {
-        return $this->classement;
-    }
-    /**
-     * @param mixed $categories
-     */
-    public function setClassement($classements)
-    {
-        $this->classement = $classement;
-        return $this;
-    }
-    public function removeClassement(Classement $classement)
-    {
-        if($this->classements->contains($classement))
-        {
-            $this->classements->removeElement($classement);
-        }
-    }
-
 }

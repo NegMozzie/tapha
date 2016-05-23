@@ -33,10 +33,6 @@ class GrandPrixAdmin extends Admin
             ->add('startsAt')
             ->add('endsAt')
             ->add('parent')
-            ->add('classement', 'sonata_type_model', array(
-                'multiple' => true,
-                'required' => false
-                ))
        ;
     }
     // Fields to be shown on filter forms
@@ -44,6 +40,7 @@ class GrandPrixAdmin extends Admin
     {
        $datagridMapper
             ->add('name')
+            ->add('parent')
             ->add('startsAt')
             ->add('endsAt')
        ;
@@ -54,6 +51,7 @@ class GrandPrixAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('parent')
        ;
     }
 
@@ -62,6 +60,7 @@ class GrandPrixAdmin extends Admin
     {
         $showMapper
            ->add('name')
+            ->add('parent')
        ;
     }
 }

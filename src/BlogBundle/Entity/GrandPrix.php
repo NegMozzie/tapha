@@ -37,16 +37,6 @@ class GrandPrix extends Event
      */
     protected $children;
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Classement")
-     * @ORM\JoinTable(name="grandprix_classement_relation",
-     *      joinColumns={@ORM\JoinColumn(name="grandprix_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="classement_id", referencedColumnName="id")})
-     *
-     */
-    protected $classement;
-
     /**
      * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment")
      * @ORM\JoinTable(name="grandprix_comment_relation",
@@ -224,24 +214,6 @@ class GrandPrix extends Event
         return $this;
     }
 
-    public function addComment(Comment $comment)
-    {
-        if(!$this->comments->contains($comment))
-        {
-            $comment->setArticle($this);
-            $this->comments->add($comment);
-        }
-    }
-
-    public function removeComment(Comment $comment)
-    {
-        if($this->comments->contains($comment))
-        {
-            $comment->setArticle(null);
-            $this->comments->removeElement($comment);
-        }
-    }
-
     /**
      * (Add this method into your class)
      *
@@ -249,7 +221,7 @@ class GrandPrix extends Event
      */
     public function __toString()
     {
-        return $this->name.'('.$this->parent.')';
+        return $this->name.' '.$this->parent;
     }
 
     public function getDay($month)

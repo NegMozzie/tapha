@@ -29,10 +29,12 @@ class ChampionshipAdmin extends Admin
             ->add('endsAt')
             ->add('parent')
             ->add('category')
-            ->add('classement', 'sonata_type_model', array(
-                'multiple' => true,
-                'required' => false
-                ))
+            ->add('classements', 'sonata_type_collection', array(
+            ), array(
+                'edit' => 'inline',
+                'inline' => 'table',
+                'sortable' => 'position',
+            ))
 
        ;
     }

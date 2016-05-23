@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use BlogBundle\Model\Event;
 use BlogBundle\Entity\GrandPrix;
 use BlogBundle\Entity\Season;
+use BlogBundle\Entity\Classement;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,13 +37,9 @@ class Championship extends Event
     protected $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Classement")
-     * @ORM\JoinTable(name="championship_classement_relation",
-     *      joinColumns={@ORM\JoinColumn(name="championship_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="classement_id", referencedColumnName="id")})
-     *
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Classement", mappedBy="champ", cascade={"persist", "remove"})
      */
-    protected $classement;
+    protected $classements;
 
     /**
      * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Team", inversedBy="events")
@@ -77,6 +74,7 @@ class Championship extends Event
         $this->teams = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->classements = new ArrayCollection();
     }
 
     /**
@@ -182,6 +180,76 @@ class Championship extends Event
     {
         return $this->teams;
     }
+
+    /**
+     * @return mixed
+     */
+
+    /**
+     * @return mixed
+     */
+    public function getClassements()
+    {
+        return $this->classements;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setClassements($classements)
+    {
+        $this->classements = $classements;
+
+        return $this;
+    }
+
+    public function addClassement(Classement $classement)
+    {
+        if(!$this->classements->contains($classement))
+        {
+            $classement->setChamp($this);
+            $this->classements->add($classement);
+        }
+    }
+
+    public function removeClassement(Classement $classement)
+    {
+        if($this->classements->contains($classement))
+        {
+            $classement->setChamp(null);
+            $this->classements->removeElement($classement);
+        }
+    }
+
+    public function getPilots()
+    {
+        $pilots = array();
+        $teams = $this->category->getTeams();
+        foreach ($teams as $team) {
+            foreach ($team->getPilots() as $pilot) {
+
+                $fullname = $pilot->getFullName();
+                $class = $this->getPilotClass($fullname);
+                if ($class)
+                $pilots [$class->getRank()] = $class;
+            }
+        }
+        ksort($pilots);
+        return $pilots;
+    }
+
+    public function getPilotClass($fullname)
+    {
+        $c = null;
+        foreach ($this->classements as $c) {
+            if ($c->getPilot()->getFullName() == $fullname) {
+                return $c;
+            }
+        }
+        return $c;
+    }
+
+
     /**
      * @param mixed $teams
      */
@@ -268,6 +336,6 @@ class Championship extends Event
      */
     public function __toString()
     {
-        return $this->name.'('.$this->parent.')';
+        return $this->name.' '.$this->parent;
     }
 }

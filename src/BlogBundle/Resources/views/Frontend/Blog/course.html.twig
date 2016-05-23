@@ -7,115 +7,50 @@
     {% block carousel %}
     {% endblock carousel %}
     {% block container %}
-      {% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
-      <div id="col1" class="col c1 c-first">
-      
+      <div class="col-md-12">
         <article id="main-content">
-          <div class="nwTable nwClub">
-              <img alt="" class="nwLogo" src="{% path event.excerptPhoto, 'crop' %}">
-              <h1><span>{{event}}</span></h1>
-              <br class="clear">
-                <div class="container col-md-12" style="margin-top: 15px;">
-                  <ul class="nav nav-tabs col-md-12" >
-                    <li class="active " style="width: 25% !important;padding: 0 0 0 0; margin: 0 0 0 0;"><a data-toggle="tab" href="#home"><h3>Commentaires</h3></a></li>
-                    <li style="width: 25% !important;padding: 0 0 0 0; margin: 0 0 0 0;"><a data-toggle="tab" href="#menu1"><h3> C. Ecuries</h3></a></li>
-                    <li style="width: 25% !important;padding: 0 0 0 0; margin: 0 0 0 0;"><a data-toggle="tab" href="#menu2"><h3> C. Pilotes</h3></a></li>
-                  </ul>
-
-                  <div class="tab-content col-md-12">
-                    <div id="home" class="tab-pane fade in active ">
-                      {% for comment in event.getComments %}
-                        <div class="col-md-12">
-                          <div class="col-md-2">
-                            Tour:{{ comment.tour}}
-                          </div>
-                          <div class="col-md-10">
-                            {{ comment.comment}}
-                          </div>
-                        </div>
-                      {% endfor %}
-                    </div>
-                    <div id="menu1" class="tab-pane fade">
-
-                      <table class="table table-bordered" >
-                        <thead>
-                          <tr>
-                            <th>Nom</th>
-                            <th>Pilot1</th>
-                            <th>Pilot2</th>
-                            <th>Rang</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            {% for rank in event.getClassement() %}
-                              {% set team = rank.getTeam() %}
-                              {% if  team  %}
-                                <td>{{ team }}</td>
-                                {% set test = 0 %}
-                                {% for pilot in  team.getPilots()  %}
-                                  <td>{{ pilot }}</td>
-                                  {% set test = loop.index0%}
-                                {% endfor %}
-                                {% if not test%}
-                                  <td></td>
-                                {% endif %}
-                                <td>{{ rank.getRank() }}</td>
-                              {% endif %}
-                            {% endfor %}
-                          </tr>
-                        </tbody>
-                      </table>
-                    
-                    </div>
-                    <div id="menu2" class="tab-pane fade">
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Temps</th>
-                            <th>Rang</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            {% for rank in event.getClassement() %}
-                              <tr>
-                              {% set team = rank.getPilot() %}
-                              {% if  team  %}
-                                <td>{{ team.firstName }}</td>
-                                <td>{{ team.lastName }}</td>
-                                <td>{{ rank.time |date("d/m")}}</td>
-                                <td>{{ rank.getRank() }}</td>
-                        
-                              {% endif %}
-                          </tr>
-                              
-                            {% endfor %}
-                        </tbody>
-                      </table>
-                    </div>
+          <div class="nwTable col-md-12">
+            <h1>
+              <p>
+                {{event}}
+              </p>
+            </h1>
+            {% media event.excerptPhoto, 'excerpt' with {'class': 'nwLogo', 'style':'height:140px;width:190px;'} %}
+          </div>
+          <div class=" col-md-12" style="margin-top: 15px;">
+            <h1>
+              <p>
+                Commentaires en direct
+              </p>
+            </h1>
+            {% for comment in event.getComments %}
+              <div id="{{ comment.id|encrypt }}" class="col-sm-3 margin--t">
+                  <div class="text--bold c-grey">
+                      {% if comment.author %}
+                          {{ comment.author.commenterDisplayName }}
+                      {% else %}
+                          {{ comment.name }}
+                      {% endif %}
                   </div>
-                </div>
+                  <div class="text--milli app-grey margin--b">{{ comment.createdAt|blogDate }} at {{ comment.createdAt|blogTime }}</div>
+              </div>
+              <div class="col-sm-9 margin--t">
+                  {% if comment.status == constant('STATUS_PENDING', comment)  %}
+                      {% if (app.user and comment.author == app.user) or (not app.user and isMyComment(comment)) %}
+                          <div class="d--b margin--b"><span class="label label-info"> Your comment is awaiting moderation.</span></div>
+                      {% endif %}
+                  {% endif %}
+                  {{ comment.comment |displayLinks|raw }}
+              </div>
+              <div class="col-sm-12 text--20 text--bold margin--t"><hr class="margin--nobottom">
+              </div>
+            {% endfor %}
           </div>
         </article>
-      </div>
-      
+      </div>    
     {% endblock container %}
-    <div class="col-md-3" style="padding: 0 0 0 0; margin-top: 5px;" >
-      
-    </div>
 {% endblock main %}
 
-{% block foot %}
-  
-  <footer class="footer">
-      <div class="container col-md-12" style="padding:0 0 0 0;">
-        <div class="col-md-6 text--mini app-grey">Equipes de Formule 1 © {{ "now"|date("Y") }}</div>
-    <div class="col-md-6  text--mini app-grey" style="float:right">Contacts: ©</div>
-      </div>
-    </footer>
-{% endblock foot %}
 
 
 

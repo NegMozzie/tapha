@@ -31,7 +31,7 @@ class CourseAdmin extends Admin
             ->add('article', 'sonata_type_model', array(
                 'required' => false
                 ))
-            ->add('classement', 'sonata_type_model', array(
+            ->add('classements', 'sonata_type_model', array(
                 'multiple' => true,
                 'required' => false
                 ))
@@ -47,6 +47,7 @@ class CourseAdmin extends Admin
     {
        $datagridMapper
             ->add('name')
+            ->add('parent')
             ->add('startsAt')
             ->add('endsAt')
        ;
@@ -57,6 +58,7 @@ class CourseAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('parent')
        ;
     }
 
@@ -65,6 +67,7 @@ class CourseAdmin extends Admin
     {
         $showMapper
            ->add('name')
+            ->add('parent')
        ;
     }
 }

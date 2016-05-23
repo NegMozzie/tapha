@@ -67,12 +67,6 @@ class Pilot extends BaseUser
      * @ORM\JoinColumn(name="country_photo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $countryPhoto;
-
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="Classement", mappedBy="pilot", cascade={"persist", "remove", "merge"})
-     */
-    protected $classements;
    
 
     public function __construct()
@@ -187,26 +181,5 @@ class Pilot extends BaseUser
             $this->classement->add($classement);
         }
     }
- 
-    /**
-     * @return ArrayCollection $classements
-     */
-    public function getClassement() {
-        return $this->classement;
-    }
-    /**
-     * @param mixed $categories
-     */
-    public function setClassement($classements)
-    {
-        $this->classement = $classement;
-        return $this;
-    }
-    public function removeClassement(Classement $classement)
-    {
-        if($this->classements->contains($classement))
-        {
-            $this->classements->removeElement($classement);
-        }
-    }
+
 }

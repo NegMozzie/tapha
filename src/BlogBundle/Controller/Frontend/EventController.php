@@ -40,7 +40,7 @@ class EventController extends Controller
             'BlogBundle:Frontend/Blog:calendrier',
             'BlogBundle:Frontend/Global:pagination',
             array("criteria" => $criteria),
-            1,
+            100,
             null,
             $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
             array(),

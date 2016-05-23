@@ -54,6 +54,7 @@ class SeasonAdmin extends Admin
        $datagridMapper
             ->add('startYear')
             ->add('endYear')
+            ->add('status')
        ;
     }
 
@@ -64,6 +65,7 @@ class SeasonAdmin extends Admin
             ->addIdentifier('name')
             ->add('startYear')
             ->add('endYear')
+            ->add('status')
        ;
     }
 
@@ -73,6 +75,7 @@ class SeasonAdmin extends Admin
         $showMapper
             ->add('startYear')
             ->add('endYear')
+            ->add('status')
        ;
     }
 }

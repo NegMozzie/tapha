@@ -8,12 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Eko\FeedBundle\Item\Writer\RoutedItem;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use BlogBundle\Entity\Pilot;
+use BlogBundle\Entity\Championship;
+use BlogBundle\Entity\Course;
 
 /**
  * Article
  *
  * @ORM\Table(name="classement")
  * @ORM\Entity(repositoryClass="BlogBundle\Entity\Repository\ClassementRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Classement
 {
@@ -25,7 +29,7 @@ class Classement
     protected $id;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(type="string")
      * 
      */
     protected $name;
@@ -45,22 +49,35 @@ class Classement
      */
     protected $rank;
 
+     /**
+     * Articles in the taxonomy
+     *
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     */
+    protected $tours;
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $time;
 
      /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot", inversedBy="classements")
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot")
      * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $pilot;
-    /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Team", inversedBy="classements")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
-     */
-    protected $team;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Championship", inversedBy="classements")
+     * @ORM\JoinColumn(name="champ_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    protected $champ;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Course", inversedBy="classements")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    protected $course;
 
 
     /**
@@ -101,6 +118,23 @@ class Classement
     }
 
     /**
+     * @return mixed
+     */
+    public function getTours()
+    {
+        return $this->tours;
+    }
+
+    /**
+     * @param mixed $points
+     */
+    public function setTours($points)
+    {
+        $this->tours = $points;
+        return $this;
+    }
+
+    /**
      * @param mixed $points
      */
     public function setRank($rank)
@@ -137,28 +171,24 @@ class Classement
         return $this->name;
     }
 
+    /**
+    * @ORM\PreUpdate
+    * @ORM\PrePersist
+    */
+    public function updateEntity()
+    {
+        $nam = "Classement ";
+        $nam = $nam.$this->getPilot().' ';
+        if ($this->getCourse())
+            $nam = $nam.$this->getCourse();
+        else
+            $nam = $nam.$this->getChamp();
+        $this->name = $nam;
+    }
+
     public function setName($name)
     {
         $this->name = $name;
-    }
-
-    
-     /**
-     * @return mixed
-     */
-    public function getTeam()
-    {
-        return $this->team;
-    }
-
-    /**
-     * @param mixed $parent
-     */
-    public function setTeam(Team $team=null)
-    {
-        $this->team = $team;
-
-        return $this;
     }
 
     /**
@@ -179,9 +209,45 @@ class Classement
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getChamp()
+    {
+        return $this->champ;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setChamp(Championship $pilot=null)
+    {
+        $this->champ = $pilot;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setCourse(Course $pilot=null)
+    {
+        $this->course = $pilot;
+
+        return $this;
+    }
+
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName()."";
     }
 
 }

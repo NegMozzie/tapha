@@ -14,15 +14,21 @@ class ClassementAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('team')
-            ->add('pilot')
+            ->add('pilot', 'sonata_type_model', array(
+                   'required' => 'true'
+            ))
             ->add('points')
+            ->add('tours')
             ->add('rank')
+            ->add('champ')
+            ->add('course')
             ->add('time', 'time', array(
+                   'required' => 'false',
                    'with_seconds' => 'true',
                    'placeholder' => array(
                         'hour' => 'Hour', 'minute' => 'Minute', 'second' => 'Second',
-                    )
+                    ),
+                    'data' => new \DateTime("now")
             ))
        ;
     }
@@ -31,21 +37,23 @@ class ClassementAdmin extends Admin
 
     public function prePersist($classement)
     {
-        $nam = "Classement".'_';
-        if ($classement->getTeam())
-            $nam = $nam.'_'.$classement->getTeam();
-        else if ($classement->getPilot())
-            $nam = $nam.'_'.$classement->getPilot();
+        $nam = "Classement ";
+        $nam = $nam.$classement->getPilot().' ';
+        if ($classement->getCourse)
+            $nam = $nam.$classement->getCourse();
+        else
+            $nam = $nam.$classement->getChamp();
         $classement->setName($nam);
     }
 
     public function preUpdate($classement)
     { 
-        $nam = "Classement".'_';
-        if ($classement->getTeam())
-            $nam = $nam.'_'.$classement->getTeam();
-        else if ($classement->getPilot())
-            $nam = $nam.'_'.$classement->getPilot();
+        $nam = "Classement ";
+        $nam = $nam.$classement->getPilot().' ';
+        if ($classement->getCourse)
+            $nam = $nam.$classement->getCourse();
+        else
+            $nam = $nam.$classement->getChamp();
         $classement->setName($nam);
     }
     
@@ -54,7 +62,6 @@ class ClassementAdmin extends Admin
     {
        $datagridMapper
             ->add('name')
-            ->add('team')
             ->add('pilot')
        ;
     }
@@ -64,7 +71,6 @@ class ClassementAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('team')
             ->add('pilot')
        ;
     }

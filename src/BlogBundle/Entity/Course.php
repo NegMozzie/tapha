@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use BlogBundle\Model\Event;
 use BlogBundle\Entity\GrandPrix;
 use BlogBundle\Entity\Comment;
+use BlogBundle\Entity\Classement;
 use Doctrine\ORM\Mapping as ORM;
 
 /** 
@@ -39,13 +40,9 @@ class Course extends Event
     protected $parent;
     
     /**
-     * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Classement")
-     * @ORM\JoinTable(name="course_classement_relation",
-     *      joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="classement_id", referencedColumnName="id")})
-     *
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Classement", mappedBy="course", cascade={"persist", "remove"})
      */
-    protected $classement;
+    protected $classements;
 
     /**
      * @ORM\ManyToMany(targetEntity="BlogBundle\Entity\Comment")
@@ -60,6 +57,71 @@ class Course extends Event
     {
         parent::__construct();
         $this->comments = new ArrayCollection();
+        $this->classements = new ArrayCollection();
+    }
+
+    public function getPilots()
+    {
+        $pilots = array();
+        $teams = $this->parent->getParent()->getCategory()->getTeams();
+        foreach ($teams as $team) {
+            foreach ($team->getPilots() as $pilot) {
+
+                $fullname = $pilot->getFullName();
+                $class = $this->getPilotClass($fullname);
+                if ($class)
+                $pilots [$class->getRank()] = $class;
+            }
+        }
+        ksort($pilots);
+        return $pilots;
+    }
+
+    public function getPilotClass($fullname)
+    {
+        $c = null;
+        foreach ($this->classements as $c) {
+            if ($c->getPilot()->getFullName() == $fullname) {
+                return $c;
+            }
+        }
+        return $c;
+    }
+
+    public function addClassement(Classement $classement)
+    {
+        if(!$this->classements->contains($classement))
+        {
+            $classement->setChamp($this);
+            $this->classements->add($classement);
+        }
+    }
+
+    public function removeClassement(Classement $classement)
+    {
+        if($this->classemnets->contains($classement))
+        {
+            $classement->setChamp(null);
+            $this->classements->removeElement($classement);
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClassements()
+    {
+        return $this->classements;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setClassements($comments)
+    {
+        $this->classements = $comments;
+
+        return $this;
     }
 
     /**
@@ -173,7 +235,7 @@ class Course extends Event
      */
     public function __toString()
     {
-        return $this->name.'('.$this->parent.')';
+        return $this->name.' '.$this->parent;
     }
 
     public function getDay($month)

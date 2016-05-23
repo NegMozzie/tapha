@@ -6,23 +6,26 @@
     {% block carousel %}
     {% endblock carousel %}
     {% block container %}
-		{% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
 		<div class="col-md-12" style="padding-top : 5px;">
-			{% for item in pagination %}
-				<div id="col1" class="col c1 c-first" style="position:relative">
-					<article id="main-content" style="position: relative">
-							<!--ZONES-->
-						<div class="nwTable">
-							<img src="{% path item.excerptPhoto, 'crop' %}" class="nwLogo" alt="">
-							<h1>Calendrier {{ item.category.term }}
-								<span> 
-									{{ item }}
-								</span>
-							</h1> 
+			<div "syle="position:relative">
+				<article id="main-content" style="position: relative">
+					<div class="nwTable">
+						<h1>Calendrier
+							{% for item in pagination %}	
+								{{ item }}
+							{% endfor %}
+						</h1>
+						{% if pagination|length == 0 %}
+							<h1>	
+								Pas d'evenement à afficher
+							</h1>
+						{% elseif  pagination|length == 1 %}
+							{% set item = pagination[0] %}
+							{% media item.excerptPhoto, 'excerpt' with {'class': 'nwLogo', 'style':'height:140px;width:190px;'} %} 
 							
 							<table border="0" cellpadding="1" cellspacing="0" width="100%"> 
 								<colgroup> 
-									<col width="18%"> 
+									<col width="10%"> 
 									<col width="28%"> 
 									<col width="19%"> 
 									<col width="20%"> 
@@ -53,23 +56,23 @@
 												</strong>
 											</td>
 											<td>
-												<img class="vm" alt="AUSTRALIE" src="{% path gp.countryPhoto, 'small' %}">
+												{% media gp.countryPhoto, 'excerpt' with {'class': ' mz_sidebar_event_main col-md-6 nwLogo', 'style':'height:20px;'} %}
 											</td>
 											<td>
 												<a href="">{{ gp.getTown }}</a>
 											</td>
 											<td>
-												<a href="">résultats</a>
+												<a href="{{ path('ed_blog_gp', { 'eventName': gp.getName }) }}">résultats</a>
 											</td>
 										</tr>
 									{% endfor %}
 								</tbody>
-							</table> 
-						</div>
-					</article><!-- main-content -->
-				</div>
-			{% endfor %}
-			{{ knp_pagination_render(pagination) }}
+							</table>
+						{% endif %}
+
+					</div>
+				</article><!-- main-content -->
+			</div>
 		</div>
     {% endblock container %}
 {% endblock main %}
