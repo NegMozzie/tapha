@@ -83,6 +83,40 @@ class EventController extends Controller
         return $response;
     }
 
+
+     /**
+     * @Route("/category/{categorySlug}/resultats", name="ed_blog_resultats")
+     * @Route("/category/{categorySlug}/resultats/", name="ed_blog_frontend_resultats")
+     */
+    public function resultatAction($categorySlug)
+    {
+        $taxonomyType = Taxonomy::TYPE_CATEGORY;
+        $taxonomy = $this->get('app_repository_taxonomy')->findBySlug($categorySlug);
+
+        if(!($taxonomy && $taxonomy->getType()==$taxonomyType))
+        {
+            throw new NotFoundHttpException("Category not found.");
+        }
+
+        $criteria['type'] = $taxonomyType;
+        $criteria['value'] = $taxonomy;
+
+        $paginator = $this->get('_blog.paginator');
+        $response = $paginator->paginate(
+            $this->get('app_repository_championship')->findByTaxonomy($categorySlug,$taxonomyType),
+            'BlogBundle:Frontend/Blog:resultat',
+            'BlogBundle:Frontend/Global:pagination',
+            array("criteria" => $criteria),
+            100,
+            null,
+            $paginationTemplate = 'BlogBundle:Frontend/Global:pagination.html.twig',
+            array(),
+            null
+        );
+
+        return $response;
+    }
+
     /**
      * @Route("/category/{categorySlug}/classement/{eventName}", name="ed_blog_classement")
      * @Route("/category/{categorySlug}/classement/{eventName}/", name="ed_blog_frontend_classement")

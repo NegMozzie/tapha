@@ -15,7 +15,7 @@
                         {% if "formule 1" in children.term.title|lower %}
                             <li><a href="{{ path('ed_blog_pilots', {'categorySlug': children.term.slug}) }}">Pilotes</a></li>
                             <li><a href="{{ path('ed_blog_teams', {'categorySlug': children.term.slug}) }}">Equipes</a></li>
-                            <li><a href="">Resultats</a></li>
+                            <li><a href="{{ path('ed_blog_resultats', {'categorySlug': children.term.slug}) }}">Resultats</a></li>
                         {% endif %}
 
                          <li><a href="{{ path('ed_blog_classements', {'categorySlug': children.term.slug}) }}">Classement</a></li>

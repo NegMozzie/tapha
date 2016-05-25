@@ -158,6 +158,17 @@ class GrandPrix extends Event
         return(null);
     }
 
+    public function getQualif()
+    {
+        foreach ($this->getChildren() as $child) {
+            if (strstr(strtolower($child->getName()), "qualif"))
+                return $child;
+            # code...
+        }
+        return(null);
+    }
+
+
     /**
      * {@inheritdoc}
      */

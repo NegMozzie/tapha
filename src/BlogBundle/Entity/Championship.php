@@ -121,7 +121,16 @@ class Championship extends Event
      */
     public function getChildren()
     {
-        return $this->children;
+        $array = $this->children->getIterator();
+        $array->uasort(function($a, $b)
+        {
+            if ($a->getStartsAt() == $b->getStartsAt())
+            {
+                return 0;
+            }
+            return ($a->getStartsAt() < $b->getStartsAt()) ? -1 : 1;
+        });
+        return $array;
     }
 
     /**

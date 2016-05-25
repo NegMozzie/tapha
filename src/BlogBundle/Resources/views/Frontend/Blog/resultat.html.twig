@@ -1,0 +1,79 @@
+{% extends 'BlogBundle:Frontend/Blog:index.html.twig' %}
+{% block sidebar %}
+	{{ parent()}}
+{% endblock sidebar %}
+{% block main %}
+    {% block carousel %}
+    {% endblock carousel %}
+    {% block container %}
+		<div class="col-md-12" style="padding-top : 5px;">
+			<article id="main-content" style="position: relative;">
+				<div class="nwTable">
+					<h1>Resultat  
+						 {% if pagination | length == 1 %}
+						 		{{ pagination[0] }}
+						 {% endif %}
+					</h1>
+					{% if  pagination|length < 1 %}
+						<h1>Cette Catégorie n'a pa d'evenement</h1>
+					{% elseif  pagination|length > 1 %}
+						{% for item in pagination %}
+							<a href="{{ path('ed_blog_classement', {'categorySlug': item.getCategory().term.slug, 'eventName': item.getName}) }}">
+						 		{% media item.excerptPhoto, 'excerpt' with { 'class':'nwLogo', 'style':'height:140px;width:190px;' } %}
+						 	</a>
+					 	{% endfor %}
+					{% else %}
+							{%set item=pagination[0]%}
+						 	{% media item.excerptPhoto, 'excerpt' with { 'class':'nwLogo', 'style':'height:140px;width:190px;'} %}
+							<table class="table table-bordered">
+				              <thead>
+				              	<tr>
+									<th>Date</th>
+									<th>Grand prix</th>
+									<th>Vainqueur</th>
+									<th>Pole Position</th>
+								</tr>
+				              </thead>
+				              <tbody>
+				                {% for gp in item.getChildren %}
+				                  <tr>
+				                  	<td>
+				                  		{{ gp.getStartsAt | date('d/m/y \à h:s:i')}}
+				                  	</td>
+				                  	<td>
+				                  		{{ gp.getName }}
+				                  	</td>
+				                  	<td>
+				                  		{% set course = gp.getCourse %}
+				                  		{% if course %}
+				                  			{% set ranks = course.getPilots %}
+					                  		{% if ranks and ranks[1] is defined %}
+					                  			{% set rank = ranks[1] %}
+					                  			{% if rank %}
+				                  				{{ rank.getPilot }}
+				                  				{% endif %}
+				                  			{% endif %}
+				                  		{% endif %}
+				                  	</td>
+				                  	<td>
+				                  		{% set course = gp.getQualif %}
+				                  		{% if course %}
+				                  			{% set ranks = course.getPilots %}
+					                  		{% if ranks and ranks[1] is defined %}
+					                  			{% set rank = ranks[1] %}
+					                  			{% if rank %}
+				                  				{{ rank.getPilot }}
+				                  				{% endif %}
+				                  			{% endif %}
+				                  		{% endif %}
+				                  	</td
+				                  </tr>
+				                {% endfor %}
+				              </tbody>
+				            </table>
+					{% endif %}
+				</div>
+			</article><!-- main-content -->
+		</div>
+    {% endblock container %}
+{% endblock main %}
