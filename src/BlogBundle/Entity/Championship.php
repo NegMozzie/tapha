@@ -221,21 +221,56 @@ class Championship extends Event
         }
     }
 
+
+    public function getTeamsClass()
+    {
+        $pc = array();
+        $teams = $this->category->getTeams();
+        foreach ($teams as $team)
+        {
+            $temp = new Classement();
+            $temp->setPoints(0);
+            $temp->setRank(0);
+            foreach ($team->getPilots() as $pilot)
+            {
+                $fullname = $pilot->getFullName();
+                $class = $this->getPilotClass($fullname);
+                if ($class)
+                {
+                    $temp->setPoints($class->getPoints() + $temp->getPoints());
+                    $temp->setPilot($pilot);
+                }
+            }
+            $pc[] = $temp;
+        }
+        uasort($pc, function($a, $b)
+        {
+            if ($a->getPoints() == $b->getPoints())
+            {
+                return 0;
+            }
+            return ($a->getPoints() < $b->getPoints()) ? -1 : 1;
+        });
+        return $pc;
+    }
+
     public function getPilots()
     {
-        $pilots = array();
+        $tc = array();
         $teams = $this->category->getTeams();
-        foreach ($teams as $team) {
-            foreach ($team->getPilots() as $pilot) {
+        foreach ($teams as $team)
+        {
+            foreach ($team->getPilots() as $pilot)
+            {
 
                 $fullname = $pilot->getFullName();
                 $class = $this->getPilotClass($fullname);
                 if ($class)
-                $pilots [$class->getRank()] = $class;
+                    $tc [$class->getRank()] = $class;
             }
         }
-        ksort($pilots);
-        return $pilots;
+        ksort($tc);
+        return $tc;
     }
 
     public function getPilotClass($fullname)

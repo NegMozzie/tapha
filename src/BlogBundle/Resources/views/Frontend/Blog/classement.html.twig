@@ -101,6 +101,38 @@
 									</tbody>	
 								</table>
 					 		{% endif %}
+					 		<h1>Classement Equipes 
+								 {% if pagination | length == 1 %}
+								 		{{ pagination[0] }}
+								 {% endif %}
+							</h1>
+							<table class="table table-bordered">
+				              <thead>
+				                <tr>
+				                  <th>Rang</th>
+				                  <th>Equipe</th>
+				                  <th>Pilote 1</th>
+				                  <th>Pilote 2</th>
+				                  <th>Points</th>
+				                </tr>
+				              </thead>
+				              <tbody>
+				                {% for rank in item.getTeamsClass %}
+				                  <tr>
+				                    {% set pilot = rank.getPilot() %}
+				                    {% if  pilot %}
+				                    	{% set team = pilot.getTeam %}
+				                      	<td>{{ loop.index }}</td>
+				                      	<td>{{ team }}</td>
+				                		{% for pilote in team.getPilots %}
+				                      		<td>{{ pilote }}</td>
+				                      	{% endfor %}
+				                      <td>{{ rank.getPoints() }}</td>
+				                    {% endif %}
+				                  </tr>
+				                {% endfor %}
+				              </tbody>
+				            </table>
 					{% endif %}
 				</div>
 			</article><!-- main-content -->
