@@ -80,9 +80,9 @@ class Course extends Event
     public function getPilotClass($fullname)
     {
         $c = null;
-        foreach ($this->classements as $c) {
-            if ($c->getPilot()->getFullName() == $fullname) {
-                return $c;
+        foreach ($this->classements as $cl) {
+            if ($cl->getPilot()->getFullName() == $fullname) {
+                return $cl;
             }
         }
         return $c;

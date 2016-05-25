@@ -38,7 +38,7 @@ class Classement
     /**
      * Articles in the taxonomy
      *
-     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @ORM\Column(type="bigint", nullable=true, options={"default" = 0})
      */
     protected $points;
 
@@ -169,7 +169,7 @@ class Classement
     /**
      * @param mixed $time
      */
-    public function setTime(\DateTime $time)
+    public function setTime(\DateTime $time = null)
     {
         $this->time = $time;
 
@@ -184,7 +184,7 @@ class Classement
     /**
      * @param mixed $time
      */
-    public function setTime1(\DateTime $time)
+    public function setTime1(\DateTime $time = null)
     {
         $this->time1 = $time;
 
@@ -199,7 +199,7 @@ class Classement
     /**
      * @param mixed $time
      */
-    public function setTime2(\DateTime $time)
+    public function setTime2(\DateTime $time = null)
     {
         $this->time2 = $time;
 

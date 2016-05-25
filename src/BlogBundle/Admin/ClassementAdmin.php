@@ -23,24 +23,25 @@ class ClassementAdmin extends Admin
             ->add('champ')
             ->add('course')
             ->add('time', 'time', array(
-                   'required' => 'false',
-                   'with_seconds' => 'true',
+                   'required' => false,
+                   'with_seconds' => true,
+                   'with_seconds' => true,
                    'placeholder' => array(
-                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
+                        'hour' => 0, 'minute' => 0, 'second' => 0,
                     ),
                 ))
             ->add('time1', 'time', array(
-                   'required' => 'false',
+                   'required' => false,
                    'with_seconds' => 'true',
                    'placeholder' => array(
-                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
+                        'hour' => 0, 'minute' => 0, 'second' => 0,
                     ),
                 ))
             ->add('time2', 'time', array(
-                   'required' => 'false',
+                   'required' => false,
                    'with_seconds' => 'true',
                    'placeholder' => array(
-                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
+                        'hour' => 0, 'minute' => 0, 'second' => 0,
                     ),
                 ))
        ;

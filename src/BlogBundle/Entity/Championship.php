@@ -249,7 +249,7 @@ class Championship extends Event
             {
                 return 0;
             }
-            return ($a->getPoints() < $b->getPoints()) ? -1 : 1;
+            return ($a->getPoints() < $b->getPoints()) ? 1 : -1;
         });
         return $pc;
     }
@@ -276,9 +276,9 @@ class Championship extends Event
     public function getPilotClass($fullname)
     {
         $c = null;
-        foreach ($this->classements as $c) {
-            if ($c->getPilot()->getFullName() == $fullname) {
-                return $c;
+        foreach ($this->classements as $cl) {
+            if ($cl->getPilot()->getFullName() == $fullname) {
+                return $cl;
             }
         }
         return $c;
