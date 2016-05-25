@@ -67,7 +67,13 @@ class BlogController extends Controller
         $newComment = new $commentClass();
         $newComment
             ->setArticle($article);
-        $event = $this->get('app_repository_course')->findByArticle($article->getId());
+        if (($event = $this->get('app_repository_course')->findByArticle($article->getId())))
+            return  $this->redirect($this->generateUrl("ed_blog_course", array(
+                'eventName' => $event->getName(), 
+                'parent' => $event->getParent()->getName(), 
+                'slug' => $event->getId(), 
+                'type' => $event->getType()
+                ), true));
 
         $form = $this->createForm('edcomment', $newComment);
         $comments =  $this->get("app_repository_comment")->findByArticle($article, $this->get("blog_settings")->getCommentsDisplayOrder());

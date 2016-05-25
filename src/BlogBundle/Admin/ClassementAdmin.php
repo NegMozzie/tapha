@@ -26,10 +26,23 @@ class ClassementAdmin extends Admin
                    'required' => 'false',
                    'with_seconds' => 'true',
                    'placeholder' => array(
-                        'hour' => 'Hour', 'minute' => 'Minute', 'second' => 'Second',
+                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
                     ),
-                    'data' => new \DateTime("now")
-            ))
+                ))
+            ->add('time1', 'time', array(
+                   'required' => 'false',
+                   'with_seconds' => 'true',
+                   'placeholder' => array(
+                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
+                    ),
+                ))
+            ->add('time2', 'time', array(
+                   'required' => 'false',
+                   'with_seconds' => 'true',
+                   'placeholder' => array(
+                        'hour' => 'Heure', 'minute' => 'Minute', 'second' => 'Second',
+                    ),
+                ))
        ;
     }
 

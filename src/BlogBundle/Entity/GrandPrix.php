@@ -58,6 +58,7 @@ class GrandPrix extends Event
     /**
      * Class constructor
      */
+
     public function __construct()
     {
     	parent::__construct();
@@ -147,6 +148,16 @@ class GrandPrix extends Event
         return $this->children;
     }
 
+    public function getCourse()
+    {
+        foreach ($this->getChildren() as $child) {
+            if (strstr(strtolower($child->getName()), "course"))
+                return $child;
+            # code...
+        }
+        return(null);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -157,6 +168,18 @@ class GrandPrix extends Event
         foreach ($children as $category) {
             $this->addChild($category);
         }
+    }
+
+    public function getPilotClass($fullName)
+    {
+        $c = null;
+        if ($course = $this->getCourse()) {
+            foreach ($course->getClassements() as $c) {
+                if ($c->getPilot()->getFullName() == $fullname)
+                    return $c;
+            }
+        }
+        return $c;
     }
 
     /**

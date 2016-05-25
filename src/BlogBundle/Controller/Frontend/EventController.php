@@ -83,6 +83,33 @@ class EventController extends Controller
         return $response;
     }
 
+    /**
+     * @Route("/category/{categorySlug}/classement/{eventName}", name="ed_blog_classement")
+     * @Route("/category/{categorySlug}/classement/{eventName}/", name="ed_blog_frontend_classement")
+     */
+    public function classAction($categorySlug, $eventName)
+    {
+        $taxonomyType = Taxonomy::TYPE_CATEGORY;
+        $taxonomy = $this->get('app_repository_taxonomy')->findBySlug($categorySlug);
+
+        if(!($taxonomy && $taxonomy->getType()==$taxonomyType))
+        {
+            throw new NotFoundHttpException("Category not found.");
+        }
+
+        $criteria['type'] = $taxonomyType;
+        $criteria['value'] = $taxonomy;
+
+        $event = $this->get('app_repository_championship')->findByTaxonomy($categorySlug,$taxonomyType);
+        foreach ($event as $child) {
+            if ($child->getName() == $eventName)
+                $event = $child;
+        }
+        return $this->render("BlogBundle:Frontend/Blog:class.html.twig", array(
+                'event' => $event
+                ));
+    }
+
 
     /**
      * @Route("/category/grandprix/{eventName}", name="ed_blog_gp")
@@ -96,10 +123,17 @@ class EventController extends Controller
         {
             throw new NotFoundHttpException("GP not found.");
         }
+        $course = null; 
+        foreach ($event->getChildren() as $child) {
+            if (strstr(strtolower($child->getName()), "course"))
+                $course = $child;
+            # code...
+        }
         return $this->render("BlogBundle:Frontend/Blog:grandprix.html.twig",
             array(
                 'event' => $event,
-                'type' => 'grandprix'
+                'type' => 'grandprix',
+                'course' => $course
                 ));
     }
 
@@ -116,15 +150,25 @@ class EventController extends Controller
             throw new NotFoundHttpException("Course not found.");
         }
 
-        if ($type == "essai")
+        $eventName = strtolower($eventName);
+        $course = null;
+        if (strstr($eventName, "essai"))
             $template = "BlogBundle:Frontend/Blog:essai.html.twig";
-        else
+        else if (strstr($eventName, "course")) {
+            $template = "BlogBundle:Frontend/Blog:grandprix.html.twig";
+            $course = $event;
+            $event = $event->getParent();
+        }
+        else if (strstr($eventName, "qualification"))
             $template = "BlogBundle:Frontend/Blog:course.html.twig";
-
+        else {
+            throw new NotFoundHttpException("Evenement inconnu");
+        }
         return $this->render($template,
             array(
                 'event' => $event,
                 'type' => '$type',
+                'course' => $course
                 ));
     }
 

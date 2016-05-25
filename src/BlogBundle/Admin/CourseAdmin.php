@@ -31,9 +31,11 @@ class CourseAdmin extends Admin
             ->add('article', 'sonata_type_model', array(
                 'required' => false
                 ))
-            ->add('classements', 'sonata_type_model', array(
-                'multiple' => true,
-                'required' => false
+            ->add('classements', 'sonata_type_collection', array(
+                    ), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position',
                 ))
             ->add('comments', 'sonata_type_model', array(
                 'multiple' => true,

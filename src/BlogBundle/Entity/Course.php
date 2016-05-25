@@ -70,7 +70,7 @@ class Course extends Event
                 $fullname = $pilot->getFullName();
                 $class = $this->getPilotClass($fullname);
                 if ($class)
-                $pilots [$class->getRank()] = $class;
+                    $pilots [$class->getRank()] = $class;
             }
         }
         ksort($pilots);
@@ -92,7 +92,7 @@ class Course extends Event
     {
         if(!$this->classements->contains($classement))
         {
-            $classement->setChamp($this);
+            $classement->setCourse($this);
             $this->classements->add($classement);
         }
     }
@@ -101,7 +101,7 @@ class Course extends Event
     {
         if($this->classemnets->contains($classement))
         {
-            $classement->setChamp(null);
+            $classement->setCourse(null);
             $this->classements->removeElement($classement);
         }
     }

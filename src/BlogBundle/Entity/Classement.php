@@ -61,6 +61,16 @@ class Classement
      */
     protected $time;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $time1;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $time2;
+
      /**
      * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Pilot")
      * @ORM\JoinColumn(name="pilot_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
@@ -162,6 +172,36 @@ class Classement
     public function setTime(\DateTime $time)
     {
         $this->time = $time;
+
+        return $this;
+    }
+
+    public function getTime1()
+    {
+        return $this->time1;
+    }
+
+    /**
+     * @param mixed $time
+     */
+    public function setTime1(\DateTime $time)
+    {
+        $this->time1 = $time;
+
+        return $this;
+    }
+
+    public function getTime2()
+    {
+        return $this->time2;
+    }
+
+    /**
+     * @param mixed $time
+     */
+    public function setTime2(\DateTime $time)
+    {
+        $this->time2 = $time;
 
         return $this;
     }
