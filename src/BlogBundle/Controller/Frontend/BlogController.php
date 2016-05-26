@@ -287,7 +287,10 @@ class BlogController extends Controller
                 $message = "Votre message a été pris en compte";
 
                 $form = $this->createForm('edcomment', $resetObject);
-                return $this->redirect($this->generateUrl('homepage'));
+                return new JsonResponse( array(
+                    "success" => false,
+                    "redirect" => $this->generateUrl('homepage')
+                ));
             }
         }
 

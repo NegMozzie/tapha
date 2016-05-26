@@ -1,18 +1,24 @@
 <div class="row" style="padding-top : 5px;">
     {% for item in pagination %}
-    {% set commentsCnt = commentsCount(item) %}
-    <div class="col-md-3">
-        <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
-            <div class="">
-                {% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
-                <h1 style=" text-align:center;color:black;  word-wrap: break-word; !important">     {{item.title|capitalize }}
-                </h1>
-                <h1>
-                    Publié le {{ item.publishedAt | date("m/d/Y")}}
-                </h1>
-            </div>
-        </a>
+        {% if (loop.index0 % 4) == 0 %}
+             <div class="col-md-12" style="padding-top : 5px;">
+        {% endif %}
+            {% set commentsCnt = commentsCount(item) %}
+            <div class="col-md-3">
+                <a class="black" href="{{ path('ed_frontend_blog_single_article', { 'slug': item.slug }) }}">
+                    <div class="">
+                        {% media item.excerptPhoto, 'excerpt' with {'class': 'centered img--auto d--b', 'style':'height:140px;width:190px;'} %}
+                        <h1 style=" text-align:center;color:black;  word-wrap: break-word; !important">     {{item.title|capitalize }}
+                        </h1>
+                        <h1>
+                            Publié le {{ item.publishedAt | date("m/d/Y")}}
+                        </h1>
+                    </div>
+                </a>
 
-    </div>
+            </div>
+        {% if loop.index % 4  == 0 or loop.revindex == 1%}
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
