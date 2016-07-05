@@ -1,34 +1,50 @@
 {% if (events|length) %}
 {% for event in events %}
-  <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;">
-    <a href="{{ path('ed_blog_gp', { 'eventName': event.getName }) }}" style="min-width: 100%; min-height: 100%;">
-        {% media event.countryPhoto, 'excerpt' with {'class': ' mz_sidebar_event_main col-md-4 nwLogo', 'style':'height:20px;'} %}
+	<table class="table-striped" style="font-size:1.1em;">
+		<tr>
+			<th colspan="3" style="background:#FFF; border:0 !important;">
+				<a href="{{ path('ed_blog_gp', { 'eventName': event.getName }) }}" style="min-width: 100%; min-height: 100%;">
+					{% media event.countryPhoto, 'excerpt' with {'class': ' mz_sidebar_event_main col-md-4 nwLogo'} %}
 
-      <p>
-        {{ event.getName()}}
-      </p>
-    </a>
-  </div>
-  {% set btime = 0 %}
+					<h1 style="font-family:'Black Ops One'; font-size:2em; color:#0a4541 !important;">
+						{{ event.getName()}}
+					</h1>
+				</a>
 
-  {% for child in event.getChildren() %}
-      {% set type =  child.getType() %}
+			</th>
+		
+		</tr>
+		<tr>
+			
+			<td style="background: #0b4242;"><h3 style="color:#FFF !important;">DATE</h3></td>
+			<td style="background: #0b4242;"><h3 style="color:#FFF !important;">HEURE</h3></td>
+			<td style="background: #0b4242;"><h3 style="color:#FFF !important;">PRESTATIONS</h3></td>
+			
+		</tr>
+		
+		{% set btime = 0 %}
 
-      
-      {% if (child.getStartsAt|  date("d"))  != btime %}
-        {% set btime = (child.getStartsAt|  date("d")) %}
-        <div  class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
-            {{ child.getStartsAt|  blogDate }} 
-        </div>
-      {% endif %}
-      <a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId(), 'type' : type }) }}" style="min-width: 100%; min-height: 100%;">
-        <div class="col-md-12" style="padding: 0 0 0 0 !important; margin: 0 0 0 0 !important;background-color:Grey;text-align:center;background-color:Grey">
-            <div class="col-md-4">
-               {{ child.getStartsAt|  date('h:i') }}
-            </div>
-            <p>{{ child.getName()}}</p>
-        </div>
-      </a>
-  {% endfor %}
+  		{% for child in event.getChildren() %}
+	   		<tr>
+	      		{% set type =  child.getType() %}
+	      		{% if (child.getStartsAt|  date("d"))  != btime %}
+	        		{% set btime = (child.getStartsAt|  date("d")) %}
+			        <td  style="color:#FFF;">{{ child.getStartsAt|  blogDate }} </td>
+			    {% else %}
+			        <td  style="color:#FFF;"> </td>
+			    {% endif %}
+			    <td style="color:#FFF;">{{ child.getStartsAt|  date('h:i') }}</td>
+		        <td>
+		        	<a href="{{ path('ed_blog_course', { 'eventName': child.getName(), 'parent': event.getName(), 'slug': child.getId(), 'type' : type }) }}" style="min-width: 100%; color:#FFF !important;">{{ child.getName()}} </a>
+		        </td> 
+	        </tr>
+        {% endfor %}
+    </table>
 {% endfor %}
 {% endif %}
+
+
+        
+        
+        
+        

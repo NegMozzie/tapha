@@ -7,19 +7,18 @@
 			<div class="col-md-9">
 				{% block main %}
                     {% block carousel %}
-						<div class="carousel slide col-md-12" style="padding: 0 0 0 0 !important; margin: 5px auto 15px auto !important;" data-ride="carousel">
+						<div class="carousel slide" data-ride="carousel">
         	                {{ render(controller('BlogBundle:Frontend/Carousel:index')) }}
 		                </div>
                     {% endblock carousel %}
                     {% block container %}
-						{% include "BlogBundle:Frontend/Blog:blogBreadcrumb.html.twig" %}
 						{% include "BlogBundle:Frontend/Blog:indexAjax.html.twig" %}
                     {% endblock container %}
 				{% endblock main %}
 			</div>
 		{% block sidebar %}
-			<div class="col-md-3" style="margin-top:5px;">
-	            <div class="semi-transparent-round" style="margin-top:5px;">
+			<div class="col-md-3">
+	            <div>
                 	{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
 	            </div>
 			</div>

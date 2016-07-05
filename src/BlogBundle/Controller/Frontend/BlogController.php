@@ -202,17 +202,18 @@ class BlogController extends Controller
         return $response;
     }
 
-    /**
-     * @Route("/blog/author/{username}", name="ed_frontend_blog_by_authorbar")
-     * @Route("/blog/author/{username}", name="frontend_blog_by_authorbar")
-     * @ParamConverter("user", class="BlogBundle\Entity\User", converter="abstract_converter")
-     */
-    public function byAuthorbarAction($user)
+    
+    public function byAuthorbarAction($user = null)
     {
-        $criteria['type'] = "author";
-        $criteria['value'] = $user;
+        if ($user)
+        {
+            $criteria['type'] = "author";
+            $criteria['value'] = $user;
 
-        $paginator = $this->get('app_repository_article')->getActiveArticlesByAuthor($user);
+            $paginator = $this->get('app_repository_article')->getActiveArticlesByAuthor($user);
+        }
+        else
+            $paginator = $this->get('app_repository_article')->getActiveArticles();
         return $this->render("BlogBundle:Frontend/Blog:Articlebar.html.twig", array(
                 'pagination' => $paginator,
                 ));
@@ -287,10 +288,7 @@ class BlogController extends Controller
                 $message = "Votre message a été pris en compte";
 
                 $form = $this->createForm('edcomment', $resetObject);
-                return new JsonResponse( array(
-                    "success" => false,
-                    "redirect" => $this->generateUrl('homepage')
-                ));
+                return $this->redirect($this->generateUrl('homepage'));
             }
         }
 
