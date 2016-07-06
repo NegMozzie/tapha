@@ -4,7 +4,7 @@
 	<div class=" margin--t container-fluid">
 		<div class="row">
 		
-			<div class="col-md-9">
+			<div class="col-xs-12 col-sm-8">
 				{% block main %}
                     {% block carousel %}
 						<div class="carousel slide" data-ride="carousel">
@@ -17,7 +17,7 @@
 				{% endblock main %}
 			</div>
 		{% block sidebar %}
-			<div class="col-md-3">
+			<div class="col-xs-12 col-sm-4">
 	            <div>
                 	{% render(controller('BlogBundle:Frontend/Sidebar:blogList')) %}
 	            </div>
@@ -30,10 +30,10 @@
 {% block foot %}
 	
 	<footer class="footer">
-      <div class="container col-md-12" style="padding:0 0 0 0;">
+      <div class="container col-xs-12">
         {{ render(controller('BlogBundle:Frontend/Navbar:footer')) }}
       	
-		<div class="col-md-6  text--mini app-grey" style="float:right">
+		<div class="col-xs-6  text--mini app-grey" style="float:right">
         	<a class="black" href="{{ path('ed_frontend_contact') }}">
 			Nous contacter
 			</a>

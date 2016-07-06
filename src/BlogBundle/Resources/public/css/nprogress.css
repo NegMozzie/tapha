@@ -775,30 +775,30 @@ body { background: #333; }
 }
 /* Main Nav Bar DIV CSS Start */
 #exe_nav_main {
-float: right;
-margin:0 auto;
-width:960px;
-height:35px;
-font: normal 14px/1.25em helvetica,arial,verdana,sans-serif;
+	float: right;
+	margin:0 auto;
+	width:960px;
+	height:35px;
+	font: normal 14px/1.25em helvetica,arial,verdana,sans-serif;
 }
 #exe_nav_main a {
-text-decoration:none;
-color: #047da5;
-font-size: 13px;
-text-transform: uppercase;
-line-height: 25px;
-color: #36a9ed;
-font-weight: 700;
+	text-decoration:none;
+	color: #047da5;
+	font-size: 13px;
+	text-transform: uppercase;
+	line-height: 25px;
+	color: #36a9ed;
+	font-weight: 700;
 }
 /* Main Nav Bar DIV CSS End */
 /* Main Nav Bar CSS Start */
 #exe_nav {
-position:absolute;
-width:960px;
-padding:0px;
-margin:0px;
-background-color: Grey;
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5d5d5', endColorstr='#9ebbc5',GradientType=0 ); /* IE6-9 */
+	width:960px;
+	padding:0px;
+	margin:0px;
+	background-color: Grey;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5d5d5', endColorstr='#9ebbc5',GradientType=0 ); /* IE6-9 */
+	bottom: 0 !important;
 }
 li.exe_nav_main_li:first-child {
 margin-left:0px;
@@ -837,17 +837,16 @@ display:block;
 /* Main Nav Bar DropDown DIV CSS Start */
 .exe_nav_sub {
 	z-index:1000;
-
-display:none;
-position:absolute;
-top:34px;
-left:0px;
-width:960px;
-background: #ededed;
--moz-box-shadow: 0 10px 20px -12px #000;
--webkit-box-shadow: 0 10px 20px -12px #000;
-box-shadow: 0 10px 20px -12px #000;
-border-top: 2px #0f7ea6 solid;
+	position: fixed;
+	top: inherit;
+	display:none;
+	float: right !important;
+	width:960px;
+	background: #ededed;
+	-moz-box-shadow: 0 10px 20px -12px #000;
+	-webkit-box-shadow: 0 10px 20px -12px #000;
+	box-shadow: 0 10px 20px -12px #000;
+	border-top: 2px #0f7ea6 solid;
 }
 .exe_nav_sub ul li a {
 color: #047da5 !important;
@@ -1268,6 +1267,10 @@ margin-bottom: 5px;
 position:relative;
 float: right !important;
 } became  */
+
+#drop, #drop a{
+	height:63px;
+}
  
 #iefix {
 position: relative;
@@ -1285,7 +1288,10 @@ margin: 0 auto;}
 } 
 
 .navbar {
-	padding: 2em 0;
+	padding-top: 2em;
+	padding-bottom:  1px;
+	font-family:'Black Ops One';
+	font-size: 1.3em;
 }
 
 .navbar .navbar-nav {
