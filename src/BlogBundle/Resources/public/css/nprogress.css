@@ -1294,7 +1294,6 @@ margin: 0 auto;}
 } 
 
 .navbar {
-	position: fixed !important;
 	width: 100%;
 	z-index: 10000000;
 	padding-top: 2em;

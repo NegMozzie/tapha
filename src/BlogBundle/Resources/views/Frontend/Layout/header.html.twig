@@ -1,5 +1,30 @@
-
-<nav class="navbar navbar-default" style="top:0;">
+<section id="top">
+    <div class="trunk">
+      <div id="social-count" class="fr">
+        <ul>
+          {% if app.user and app.user.hasRole('ROLE_USER') %}
+            <li class="a" data-link='{{  url('sonata_admin_dashboard') }}'>
+              <a class="white" href="{{  url('sonata_admin_dashboard') }}">
+              Panel Admin</a>
+            </li>
+            <li class="a" data-link='{{ path('fos_user_security_logout') }}'>
+              <a class="white" href="{{ path('fos_user_security_logout') }}">
+              deconecter</a>
+            </li>
+          {% else %}
+            <li class="a" data-link='{{ path('fos_user_security_login') }}'>
+              <a class="white" href="{{ path('fos_user_security_login') }}">
+              Se connecter</a>
+            </li>
+          {% endif %}
+          <li class="a" data-link='{"url":"aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1Nwb3J0cy5mci8/ZnJlZj10cw==", "target": "_blank"}'>Facebook</li>
+          <li class="a" data-link='{"url":"aHR0cHM6Ly90d2l0dGVyLmNvbS9zcG9ydHNfZnI=", "target": "_blank"}'>Twitter</li>
+        </ul>           
+      </div>
+      
+    </div><!-- #top .trunk -->
+</section>
+<nav class="navbar navbar-default">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header navbar-header col-xs-12 col-sm-12">
 
@@ -10,34 +35,11 @@
         <span class="icon-bar"></span>
       </button>
       <a href="{{ path('ed_blog_homepage')}}" class="navbar-brand col-xs-4" >
-        <img  style "height:inherit !important;" src="{{ asset('bundles/blog/img/logo.jpg') }}" alt="logo" >
+        <img src="{{ asset('bundles/blog/img/logo.jpg') }}" alt="logo" >
       </a>
-      <div class="trunk">
-        <div id="social-count" class="fr col-xs-5" style:"text-align:left;">
-          <ul>
-            {% if app.user and app.user.hasRole('ROLE_USER') %}
-              <li class="col-xs-12 col-md-4" data-link='{{  url('sonata_admin_dashboard') }}'>
-                <a  href="{{  url('sonata_admin_dashboard') }}">
-                Panel Admin</a>
-              </li>
-              <li class="col-xs-12 col-md-3" data-link='{{ path('fos_user_security_logout') }}'>
-                <a class="white" href="{{ path('fos_user_security_logout') }}">
-                deconecter</a>
-              </li>
-            {% else %}
-              <li class="col-xs-12 col-md-3" data-link='{{ path('fos_user_security_login') }}'>
-                <a  href="{{ path('fos_user_security_login') }}">
-                Connexion</a>
-              </li>
-            {% endif %}
-            <li class="col-xs-12 col-md-3" data-link='{"url":"aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1Nwb3J0cy5mci8/ZnJlZj10cw==", "target": "_blank"}'>Facebook</li>
-            <li class="col-xs-12 col-md-3" data-link='{"url":"aHR0cHM6Ly90d2l0dGVyLmNvbS9zcG9ydHNfZnI=", "target": "_blank"}'>Twitter</li>
-          </ul>           
-        </div>
-      </div><!-- #top .trunk -->
     </div>
-    <div class="col-xs-8 col-md-push-4 collapse navbar-collapse js-navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="exe_nav nav navbar-nav navbar-right">
+    <div class="col-xs-8 col-md-push-4 collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
       	<li><a href="{{ path('ed_blog_homepage')}}">ACCUEIL</a></li>
       	 {%block navbar%}
             {{ render(controller('BlogBundle:Frontend/Navbar:categoryList')) }}
